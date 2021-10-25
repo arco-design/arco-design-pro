@@ -1,0 +1,33 @@
+.container {
+  padding: 20px;
+
+  :global(.arco-list-content) {
+    overflow-x: hidden;
+  }
+
+  :global(.arco-card-meta-title) {
+    font-size: 14px;
+  }
+}
+
+.statistic-list {
+  display: flex;
+
+  &__item {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.right-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+
+  &__item {
+    &:last-child {
+      flex: 1;
+    }
+  }
+}

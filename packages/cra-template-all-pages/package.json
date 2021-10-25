@@ -1,0 +1,20 @@
+{
+  "name": "@arco-design/cra-template-arco-design-pro-all-pages",
+  "version": "1.0.0",
+  "description": "Template Of Arco Design Pro",
+  "keywords": [
+    "arco",
+    "arco-design",
+    "arco-design-pro",
+    "cra-template"
+  ],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ]
+}

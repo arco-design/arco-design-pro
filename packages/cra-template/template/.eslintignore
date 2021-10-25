@@ -1,0 +1,3 @@
+*.json
+*.js
+node_modules/

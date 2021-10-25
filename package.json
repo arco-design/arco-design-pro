@@ -1,0 +1,12 @@
+{
+  "name": "arco-design-pro",
+  "version": "1.0.0",
+  "description": "Arco Design Pro",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
