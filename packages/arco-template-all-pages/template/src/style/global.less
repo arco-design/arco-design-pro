@@ -8,3 +8,12 @@ body {
   // font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, PingFang SC, Roboto, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, Myriad Pro, Hiragino Sans GB, Lucida Grande, sans-serif;
   background-color: var(--color-bg-1);
 }
+
+/*
+  fix: China map reverse bug
+*/ 
+[data-class="map-reverse-bug-box"] {
+  .bizcharts {
+    transform: rotateX(180deg);
+  }
+}
