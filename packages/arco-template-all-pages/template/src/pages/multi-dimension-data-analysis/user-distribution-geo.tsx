@@ -75,7 +75,7 @@ export default () => {
         //   keepMapRatio(mapData, c, "rerender")
         // }}
       >
-       <Coord reflect="y" />
+        <Coord reflect="y" />
         <Geom
           type="polygon"
           position="x*y"
