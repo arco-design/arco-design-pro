@@ -1,6 +1,6 @@
 // 用户地域分布
 import React, { useEffect, useState } from 'react';
-import { Chart, Geom, Tooltip } from 'bizcharts';
+import { Chart, Coord, Geom, Tooltip } from 'bizcharts';
 import { Card, Typography } from '@arco-design/web-react';
 import DataSet from '@antv/data-set';
 
@@ -75,6 +75,7 @@ export default () => {
         //   keepMapRatio(mapData, c, "rerender")
         // }}
       >
+       <Coord reflect="y" />
         <Geom
           type="polygon"
           position="x*y"
