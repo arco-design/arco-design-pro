@@ -14,7 +14,8 @@ import styles from './style/index.module.less';
 function UserInfo() {
   const locale = useLocale();
   const userInfo = useSelector((state: ReducerState) => state.global.userInfo);
-  if (!userInfo) return null;
+  // cancel the default verification of user information
+  // if (!userInfo) return null;
   const tabList = [
     {
       key: 'overview',
