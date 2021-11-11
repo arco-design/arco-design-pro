@@ -1,0 +1,30 @@
+.container {
+  padding: 20px;
+}
+
+.wrapper {
+  display: flex;
+  background-color: var(--color-bg-2);
+
+  .sidebar {
+    width: 200px;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px 24px;
+  }
+}
+
+.info {
+  &-form {
+    width: 375px;
+  }
+
+  &-avatar {
+    :global(.arco-avatar-trigger-icon-button) {
+      color: rgb(var(--arcoblue-6));
+    }
+  }
+}

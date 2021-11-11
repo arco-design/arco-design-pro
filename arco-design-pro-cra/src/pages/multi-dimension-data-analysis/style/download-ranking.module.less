@@ -1,0 +1,23 @@
+.list {
+  &-item {
+    &-prefix {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+      text-align: center;
+      vertical-align: middle;
+      color: rgb(var(--gray-6));
+      background-color: rgb(var(--gray-2));
+      font-size: 12px;
+      font-weight: 500;
+
+      &&--active {
+        color: rgb(var(--arcoblue-6));
+        background-color: rgb(var(--arcoblue-1));
+      }
+    }
+  }
+}

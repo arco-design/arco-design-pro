@@ -1,0 +1,50 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+
+  .headerAvatar {
+    background-color: rgb(var(--arcoblue-1));
+
+    svg {
+      vertical-align: top;
+    }
+  }
+}
+
+.tabContent {
+  padding: 0 20px;
+}
+
+.cardContainer {
+  background: rgb(var(--gray-1));
+}
+
+.linkContainer {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-2);
+  border: 1px solid rgb(var(--gray-2));
+  width: 200px;
+  font-size: 12px;
+
+  &-icon {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    transition: all 0.1s;
+
+    &:hover {
+      background-color: rgb(var(--gray-2));
+    }
+  }
+}
