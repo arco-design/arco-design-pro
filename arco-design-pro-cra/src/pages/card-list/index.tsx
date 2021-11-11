@@ -22,6 +22,7 @@ import useRequest from './useRequest';
 import BlockService from './block-service';
 import BlockDocs from './block-docs';
 import styles from './style/index.module.less';
+import './mock';
 
 export default () => {
   const t = useLocale(locale);

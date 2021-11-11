@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import useLocale from './locale/useLocale';
 import Info from './info';
 import styles from './style/index.module.less';
+import './mock';
 
 function UserInfo() {
   const t = useLocale();

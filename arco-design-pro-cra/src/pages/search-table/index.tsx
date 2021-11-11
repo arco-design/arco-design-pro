@@ -13,6 +13,7 @@ import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
+import './mock';
 
 function SearchTable() {
   const t = useLocale(locale);

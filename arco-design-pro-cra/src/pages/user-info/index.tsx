@@ -9,10 +9,12 @@ import Other from './other';
 import LatestNotification from './latest-notification';
 import Overview from './overview';
 import styles from './style/index.module.less';
+import './mock';
 
 function UserInfo() {
   const t = useLocale();
   const userInfo = useSelector((state: any) => state.userInfo);
+  console.log(userInfo);
   if (!userInfo) return null;
   const tabList = [
     {

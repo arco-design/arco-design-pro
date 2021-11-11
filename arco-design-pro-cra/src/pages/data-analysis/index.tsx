@@ -6,6 +6,7 @@ import PublicOpinion from './public-opinion';
 import ReportStuckRate from './report-stuck-rate';
 import DetailTable from './detail-table';
 import styles from './style/index.module.less';
+import './mock';
 
 function DataAnalysis() {
   const t = useLocale(locale);

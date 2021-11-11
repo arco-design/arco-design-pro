@@ -10,6 +10,7 @@ import UserDistributionGeo from './user-distribution-geo';
 import UserDistributionType from './user-distribution-type';
 import useLocale from './locale/useLocale';
 import styles from './style/index.module.less';
+import './mock';
 
 function DataAnalysis() {
   const t = useLocale();
