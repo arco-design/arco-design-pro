@@ -1,0 +1,122 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  height: 204px;
+  background-color: rgb(var(--arcoblue-6));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+
+  :global(.arco-avatar-trigger-icon-button) {
+    color: rgb(var(--arcoblue-6));
+
+    :global(.arco-icon) {
+      vertical-align: -1px;
+    }
+  }
+
+  .username {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .user-msg {
+    &-text {
+      display: inline-block;
+      margin-left: 6px;
+    }
+  }
+
+  .user-edit-btn {
+    color: #fff;
+    border-color: #fff;
+    background: transparent;
+
+    :hover,
+    :active {
+      color: #fff;
+      border-color: #fff;
+      background: transparent;
+    }
+  }
+}
+
+.content {
+  margin-top: 12px;
+  display: flex;
+
+  &-left {
+    flex: 1;
+    margin-right: 12px;
+    overflow: hidden;
+  }
+
+  &-right {
+    width: 332px;
+  }
+
+  &-left {
+    background-color: var(--color-bg-2);
+  }
+
+  .tab-pane-wrapper {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.latest-project {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &-title {
+    margin-top: 0 !important;
+    margin-bottom: 18px !important;
+  }
+
+  &-list {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-item {
+    padding-right: 16px;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+.latest-activity {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.visits {
+  &-item {
+    width: 160px;
+  }
+
+  &-unit {
+    font-size: 12px;
+    padding-left: 8px;
+  }
+
+  &-label {
+    font-size: 12px;
+    padding-right: 8px;
+  }
+}
+
+.other-wrapper {
+  background-color: var(--color-bg-2);
+}
