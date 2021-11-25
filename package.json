@@ -1,12 +1,18 @@
 {
   "name": "arco-design-pro",
+  "private": true,
   "version": "1.0.0",
+  "workspaces": [
+    "packages"
+  ],
   "description": "Arco Design Pro",
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "dependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gen:cra": "node scripts/cra"
+  },
+  "devDependencies": {
+    "fs-extra": "^10.0.0"
   }
 }
