@@ -1,18 +1,19 @@
 {
   "name": "arco-design-pro",
-  "private": true,
-  "version": "1.0.0",
-  "workspaces": [
-    "packages"
-  ],
+  "version": "2.0.0-alpha.0",
   "description": "Arco Design Pro",
   "keywords": [],
-  "author": "",
+  "author": "ArcoDesign Team",
   "license": "MIT",
   "scripts": {
     "gen:cra": "node scripts/cra"
   },
   "devDependencies": {
     "fs-extra": "^10.0.0"
-  }
+  },
+  "files": [
+    "scripts",
+    "arco-design-pro-cra",
+    "arco-design-pro-next"
+  ]
 }

@@ -9,18 +9,9 @@ const maps = {
     dest: "src/pages",
     filter: (src) => {
       const ignores = [
-        path.resolve(
-          __dirname,
-          "../packages/arco-design-pro-next/src/pages/index.tsx"
-        ),
-        path.resolve(
-          __dirname,
-          "../packages/arco-design-pro-next/src/pages/_app.tsx"
-        ),
-        path.resolve(
-          __dirname,
-          "../packages/arco-design-pro-next/src/pages/layout.tsx"
-        ),
+        path.resolve(__dirname, "../arco-design-pro-next/src/pages/index.tsx"),
+        path.resolve(__dirname, "../arco-design-pro-next/src/pages/_app.tsx"),
+        path.resolve(__dirname, "../arco-design-pro-next/src/pages/layout.tsx"),
       ];
       return ignores.indexOf(src) === -1;
     },
@@ -42,29 +33,28 @@ const maps = {
 };
 
 fs.copySync(
-  path.resolve(__dirname, "../packages/arco-design-pro-cra"),
   path.resolve(__dirname, "../arco-design-pro-cra"),
+  path.resolve(__dirname, "../examples/arco-design-pro-cra"),
   {
-    filter: (src) => {
-      const ignores = [
-        path.resolve(__dirname, "../packages/arco-design-pro-cra/yarn.lock"),
-      ];
-      return ignores.indexOf(src) === -1 && src.indexOf("node_modules") === -1;
-    },
+    filter: (src) => src.indexOf("node_modules") === -1,
   }
 );
 
 Object.keys(maps).forEach((src) => {
   if (typeof maps[src] === "string") {
     fs.copySync(
-      path.resolve(__dirname, "../packages/arco-design-pro-next", src),
-      path.resolve(__dirname, "../arco-design-pro-cra", maps[src])
+      path.resolve(__dirname, "../arco-design-pro-next", src),
+      path.resolve(__dirname, "../examples/arco-design-pro-cra", maps[src])
     );
   }
   if (typeof maps[src] === "object") {
     fs.copySync(
-      path.resolve(__dirname, "../packages/arco-design-pro-next", src),
-      path.resolve(__dirname, "../arco-design-pro-cra", maps[src].dest),
+      path.resolve(__dirname, "../arco-design-pro-next", src),
+      path.resolve(
+        __dirname,
+        "../examples/arco-design-pro-cra",
+        maps[src].dest
+      ),
       { filter: maps[src].filter }
     );
   }

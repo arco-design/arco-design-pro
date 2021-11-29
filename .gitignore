@@ -58,6 +58,4 @@ examples/.gitignore
 # typescript cache
 .rpt2_cache/
 
-arco-design-pro-cra/
-arco-design-pro-next/
-arco-design-pro-vite/
+examples/
