@@ -15,9 +15,9 @@ import {
 } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
 import qs from 'query-string';
+import NProgress from 'nprogress';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
-import LoadingBar from './components/LoadingBar';
 import { routes, defaultRoute } from './routes';
 import { isArray } from './utils/is';
 import useLocale from './utils/useLocale';
@@ -31,6 +31,27 @@ const SubMenu = Menu.SubMenu;
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
+
+function getIconFromKey(key) {
+  switch (key) {
+    case 'dashboard':
+      return <IconDashboard />;
+    case 'list':
+      return <IconList />;
+    case 'form':
+      return <IconSettings />;
+    case 'profile':
+      return <IconFile />;
+    case 'visualization':
+      return <IconApps />;
+    case 'result':
+      return <IconCheckCircle />;
+    case 'exception':
+      return <IconExclamationCircle />;
+    case 'user':
+      return <IconUser />;
+  }
+}
 
 function getFlattenRoutes() {
   const res = [];
@@ -54,7 +75,7 @@ function renderRoutes(locale) {
     return _routes.map((route) => {
       const titleDom = (
         <>
-          {route.icon} {locale[route.name] || route.name}
+          {getIconFromKey(route.key)} {locale[route.name] || route.name}
         </>
       );
       if (
@@ -104,7 +125,6 @@ function PageLayout() {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
-  const loadingBarRef = useRef(null);
 
   const navbarHeight = 60;
   const menuWidth = collapsed ? 48 : settings.menuWidth;
@@ -119,11 +139,11 @@ function PageLayout() {
     const currentRoute = flattenRoutes.find((r) => r.key === key);
     const component = currentRoute.component;
     const preload = component.preload();
-    loadingBarRef.current.loading();
+    NProgress.start();
     preload.then(() => {
       setSelectedKeys([key]);
       history.push(currentRoute.path ? currentRoute.path : `/${key}`);
-      loadingBarRef.current.success();
+      NProgress.done();
     });
   }
 
@@ -137,7 +157,6 @@ function PageLayout() {
 
   return (
     <Layout className={styles.layout}>
-      <LoadingBar ref={loadingBarRef} />
       {showNavbar && (
         <div className={styles.layoutNavbar}>
           <Navbar />

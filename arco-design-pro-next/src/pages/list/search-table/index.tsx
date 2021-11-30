@@ -63,7 +63,7 @@ function SearchTable() {
         ),
       },
     ],
-    [locale]
+    [t]
   );
 
   const [data, setData] = useState([]);

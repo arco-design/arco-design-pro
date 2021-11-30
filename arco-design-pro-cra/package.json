@@ -15,7 +15,7 @@
   "dependencies": {
     "@antv/data-set": "^0.11.8",
     "@arco-design/color": "^0.4.0",
-    "@arco-design/web-react": "^2.16.2",
+    "@arco-design/web-react": "^2.25.1",
     "@loadable/component": "^5.13.2",
     "@turf/turf": "^6.5.0",
     "axios": "^0.24.0",
@@ -24,6 +24,7 @@
     "copy-to-clipboard": "^3.3.1",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "query-string": "^6.13.8",
     "react": "^17.0.2",
     "react-color": "^2.18.1",

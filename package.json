@@ -1,19 +1,26 @@
 {
   "name": "arco-design-pro",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.4",
   "description": "Arco Design Pro",
   "keywords": [],
   "author": "ArcoDesign Team",
   "license": "MIT",
   "scripts": {
-    "gen:cra": "node scripts/cra"
-  },
-  "devDependencies": {
-    "fs-extra": "^10.0.0"
+    "prepublishOnly": "node scripts/prepublish",
+    "postpublish": "node scripts/postpublish",
+    "gen:cra": "node scripts/cra",
+    "gen:next": "node scripts/next"
   },
   "files": [
     "scripts",
     "arco-design-pro-cra",
-    "arco-design-pro-next"
-  ]
+    "arco-design-pro-next",
+    "!/**/node_modules",
+    "!/**/.next",
+    "!/**/.eslintcache",
+    "!/**/.stylelintcache"
+  ],
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  }
 }

@@ -29,7 +29,6 @@ const maps = {
   ".stylelintrc": ".stylelintrc",
   ".stylelintignore": ".stylelintignore",
   ".prettierrc": ".prettierrc",
-  ".gitignore": ".gitignore",
 };
 
 fs.copySync(
@@ -38,6 +37,15 @@ fs.copySync(
   {
     filter: (src) => src.indexOf("node_modules") === -1,
   }
+);
+
+const gitignorePath = path.resolve(
+  __dirname,
+  "../arco-design-pro-next/gitignore"
+);
+const gitignorePath2 = path.resolve(
+  __dirname,
+  "../arco-design-pro-next/.gitignore"
 );
 
 Object.keys(maps).forEach((src) => {
@@ -56,6 +64,17 @@ Object.keys(maps).forEach((src) => {
         maps[src].dest
       ),
       { filter: maps[src].filter }
+    );
+  }
+  if (fs.existsSync(gitignorePath)) {
+    fs.copySync(
+      gitignorePath,
+      path.resolve(__dirname, "../examples/arco-design-pro-cra/.gitignore")
+    );
+  } else if (fs.existsSync(gitignorePath2)) {
+    fs.copySync(
+      gitignorePath2,
+      path.resolve(__dirname, "../examples/arco-design-pro-cra/.gitignore")
     );
   }
 });

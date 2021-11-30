@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Alert,
-  Card,
-  Link,
-  Typography,
-  Tag,
-  Image,
-} from '@arco-design/web-react';
+import { Alert, Card, Link, Typography, Tag } from '@arco-design/web-react';
 import { IconDoubleRight } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
 import useLocale from './locale/useLocale';

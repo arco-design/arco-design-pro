@@ -18,7 +18,6 @@ import Link from 'next/link';
 import qs from 'query-string';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
-import LoadingBar from '../components/LoadingBar';
 import { routes, defaultRoute } from '@/routes';
 import { isArray } from '@/utils/is';
 import useLocale from '@/utils/useLocale';
@@ -117,7 +116,6 @@ function PageLayout({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
-  const loadingBarRef = useRef(null);
 
   const navbarHeight = 60;
   const menuWidth = collapsed ? 48 : settings?.menuWidth;
@@ -140,7 +138,6 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   return (
     <Layout className={styles.layout}>
-      <LoadingBar ref={loadingBarRef} />
       {showNavbar && (
         <div className={styles.layoutNavbar}>
           <Navbar />

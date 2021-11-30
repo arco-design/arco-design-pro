@@ -1,6 +1,6 @@
 import '../style/global.less';
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -8,6 +8,7 @@ import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
 import axios from 'axios';
+import NProgress from 'nprogress';
 import rootReducer from '../store';
 import Setting from '../components/Settings';
 import { GlobalContext } from '../context';
@@ -29,6 +30,7 @@ function getLang() {
 }
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   const lang = getLang();
 
   function getArcoLocale() {
@@ -58,6 +60,26 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       window.location.href = '/login';
     }
   }, []);
+
+  useEffect(() => {
+    const handleStart = () => {
+      NProgress.set(0.4);
+      NProgress.start();
+    };
+    const handleStop = () => {
+      NProgress.done();
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
 
   const contextValue = {
     lang,

@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 
-export function keepMapRatio(mapData, c, type) {
+export function keepMapRatio(mapData, c) {
   if (mapData && turf) {
     // 获取数据外接矩形，计算宽高比
     const bbox = turf.bbox(mapData);
