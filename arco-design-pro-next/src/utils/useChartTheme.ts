@@ -1,9 +1,9 @@
-import { registerTheme, getTheme } from 'bizcharts';
+import { G2 } from 'bizcharts';
 import { useSelector } from 'react-redux';
 
-const defaultDarkTheme = getTheme('dark');
+const defaultDarkTheme = G2.getTheme('dark');
 
-registerTheme('darkTheme', {
+G2.registerTheme('darkTheme', {
   ...defaultDarkTheme,
   background: 'transparent',
 });

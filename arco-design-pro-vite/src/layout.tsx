@@ -1,4 +1,5 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
 import { Layout, Menu } from '@arco-design/web-react';
 import {
   IconDashboard,
@@ -13,17 +14,17 @@ import {
   IconMenuUnfold,
 } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import qs from 'query-string';
-import Navbar from '../components/NavBar';
-import Footer from '../components/Footer';
-import { routes, defaultRoute } from '@/routes';
-import { isArray } from '@/utils/is';
-import useLocale from '@/utils/useLocale';
-import { GlobalState } from '@/store';
-import getUrlParams from '@/utils/getUrlParams';
-import styles from '@/style/layout.module.less';
+import NProgress from 'nprogress';
+import Navbar from './components/NavBar';
+import Footer from './components/Footer';
+import { routes, defaultRoute } from './routes';
+import { isArray } from './utils/is';
+import useLocale from './utils/useLocale';
+import getUrlParams from './utils/getUrlParams';
+import lazyload from './utils/lazyload';
+import { GlobalState } from './store';
+import styles from './style/layout.module.less';
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -52,6 +53,22 @@ function getIconFromKey(key) {
   }
 }
 
+function getFlattenRoutes() {
+  const res = [];
+  function travel(_routes) {
+    _routes.forEach((route) => {
+      if (route.key && !route.children) {
+        route.component = lazyload(() => import(`./pages/${route.key}`));
+        res.push(route);
+      } else if (isArray(route.children) && route.children.length) {
+        travel(route.children);
+      }
+    });
+  }
+  travel(routes);
+  return res;
+}
+
 function renderRoutes(locale) {
   const nodes = [];
   function travel(_routes, level) {
@@ -62,24 +79,16 @@ function renderRoutes(locale) {
         </>
       );
       if (
-        route.key &&
+        route.component &&
         (!isArray(route.children) ||
           (isArray(route.children) && !route.children.length))
       ) {
         if (level > 1) {
-          return (
-            <MenuItem key={route.key}>
-              <Link href={`/${route.key}`}>
-                <a>{titleDom}</a>
-              </Link>
-            </MenuItem>
-          );
+          return <MenuItem key={route.key}>{titleDom}</MenuItem>;
         }
         nodes.push(
           <MenuItem key={route.key}>
-            <Link href={`/${route.key}`}>
-              <a>{titleDom}</a>
-            </Link>
+            <Link to={`/${route.key}`}>{titleDom}</Link>
           </MenuItem>
         );
       }
@@ -103,10 +112,10 @@ function renderRoutes(locale) {
   return nodes;
 }
 
-function PageLayout({ children }: { children: ReactNode }) {
+function PageLayout() {
   const urlParams = getUrlParams();
-  const router = useRouter();
-  const pathname = router.pathname;
+  const history = useHistory();
+  const pathname = history.location.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
   const defaultSelectedKeys = [currentComponent || defaultRoute];
 
@@ -118,14 +127,24 @@ function PageLayout({ children }: { children: ReactNode }) {
     useState<string[]>(defaultSelectedKeys);
 
   const navbarHeight = 60;
-  const menuWidth = collapsed ? 48 : settings?.menuWidth;
+  const menuWidth = collapsed ? 48 : settings.menuWidth;
 
-  const showNavbar = settings?.navbar && urlParams.navbar !== false;
-  const showMenu = settings?.menu && urlParams.menu !== false;
-  const showFooter = settings?.footer && urlParams.footer !== false;
+  const showNavbar = settings.navbar && urlParams.navbar !== false;
+  const showMenu = settings.menu && urlParams.menu !== false;
+  const showFooter = settings.footer && urlParams.footer !== false;
+
+  const flattenRoutes = useMemo(() => getFlattenRoutes() || [], []);
 
   function onClickMenuItem(key) {
-    setSelectedKeys([key]);
+    const currentRoute = flattenRoutes.find((r) => r.key === key);
+    const component = currentRoute.component;
+    const preload = component.preload();
+    NProgress.start();
+    preload.then(() => {
+      setSelectedKeys([key]);
+      history.push(currentRoute.path ? currentRoute.path : `/${key}`);
+      NProgress.done();
+    });
   }
 
   function toggleCollapse() {
@@ -171,7 +190,20 @@ function PageLayout({ children }: { children: ReactNode }) {
           </Sider>
         )}
         <Layout className={styles.layoutContent} style={paddingStyle}>
-          <Content>{children}</Content>
+          <Content>
+            <Switch>
+              {flattenRoutes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    path={`/${route.key}`}
+                    component={route.component}
+                  />
+                );
+              })}
+              <Redirect push to={`/${defaultRoute}`} />
+            </Switch>
+          </Content>
           {showFooter && <Footer />}
         </Layout>
       </Layout>
