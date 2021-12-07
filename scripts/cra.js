@@ -1,6 +1,9 @@
 const path = require("path");
 const fs = require("fs-extra");
 
+const templatePath = path.resolve(__dirname, "../arco-design-pro-cra");
+const projectPath = process.argv[2] || path.resolve(__dirname, "../examples/arco-design-pro-cra");
+
 const maps = {
   "src/components": "src/components",
   "src/locale": "src/locale",
@@ -32,10 +35,10 @@ const maps = {
 };
 
 fs.copySync(
-  path.resolve(__dirname, "../arco-design-pro-cra"),
-  path.resolve(__dirname, "../examples/arco-design-pro-cra"),
+  templatePath,
+  projectPath,
   {
-    filter: (src) => src.indexOf("node_modules") === -1,
+    filter: (src) => !src.startsWith(path.resolve(templatePath, "node_modules")),
   }
 );
 
@@ -52,29 +55,25 @@ Object.keys(maps).forEach((src) => {
   if (typeof maps[src] === "string") {
     fs.copySync(
       path.resolve(__dirname, "../arco-design-pro-next", src),
-      path.resolve(__dirname, "../examples/arco-design-pro-cra", maps[src])
+      path.resolve(projectPath, maps[src])
     );
   }
   if (typeof maps[src] === "object") {
     fs.copySync(
       path.resolve(__dirname, "../arco-design-pro-next", src),
-      path.resolve(
-        __dirname,
-        "../examples/arco-design-pro-cra",
-        maps[src].dest
-      ),
+      path.resolve(projectPath, maps[src].dest),
       { filter: maps[src].filter }
     );
   }
   if (fs.existsSync(gitignorePath)) {
     fs.copySync(
       gitignorePath,
-      path.resolve(__dirname, "../examples/arco-design-pro-cra/.gitignore")
+      path.resolve(projectPath, ".gitignore")
     );
   } else if (fs.existsSync(gitignorePath2)) {
     fs.copySync(
       gitignorePath2,
-      path.resolve(__dirname, "../examples/arco-design-pro-cra/.gitignore")
+      path.resolve(projectPath, ".gitignore")
     );
   }
 });

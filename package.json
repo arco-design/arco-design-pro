@@ -1,6 +1,6 @@
 {
   "name": "arco-design-pro",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.9",
   "description": "Arco Design Pro",
   "keywords": [],
   "author": "ArcoDesign Team",
@@ -17,6 +17,7 @@
     "arco-design-pro-cra",
     "arco-design-pro-next",
     "arco-design-pro-vite",
+    ".arco-cli",
     "!/**/node_modules",
     "!/**/.next",
     "!/**/.eslintcache",

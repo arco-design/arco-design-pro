@@ -1,11 +1,14 @@
 const path = require("path");
 const fs = require("fs-extra");
 
+const templatePath =  path.resolve(__dirname, "../arco-design-pro-next");
+const projectPath = process.argv[2] || path.resolve(__dirname, "../examples/arco-design-pro-next");
+
 fs.copySync(
-  path.resolve(__dirname, "../arco-design-pro-next"),
-  path.resolve(__dirname, "../examples/arco-design-pro-next"),
+  templatePath,
+  projectPath,
   {
     filter: (src) =>
-      src.indexOf("node_modules") === -1 && src.indexOf(".next") === -1,
+      !src.startsWith(path.resolve(templatePath, "node_modules")) && src.indexOf(".next") === -1,
   }
 );
