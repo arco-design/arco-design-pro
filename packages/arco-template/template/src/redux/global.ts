@@ -52,6 +52,13 @@ export default function (state = initialState, action) {
         settings,
       };
     }
+    case 'update-userInfo': {
+      const { userInfo } = action.payload;
+      return {
+        ...state,
+        userInfo,
+      };
+    }
     default:
       return state;
   }
