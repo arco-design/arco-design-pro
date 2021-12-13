@@ -58,6 +58,4 @@ examples/.gitignore
 # typescript cache
 .rpt2_cache/
 
-template/dist/*
-
-**/.aux/
+examples/
