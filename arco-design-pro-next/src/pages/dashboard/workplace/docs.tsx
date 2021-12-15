@@ -1,16 +1,24 @@
 import React from 'react';
 import { Link, Card } from '@arco-design/web-react';
 import useLocale from './locale/useLocale';
+import styles from './style/docs.module.less';
 
 function QuickOperation() {
   const t = useLocale();
 
   return (
-    <Card title={t['workplace.docs']} bordered={false}>
-      <Link style={{ display: 'block' }}>ArcoDesign Pro</Link>
-      <Link style={{ display: 'block' }}>ArcoDesign Themes</Link>
-      <Link style={{ display: 'block' }}>ArcoDesign Material</Link>
-      <Link style={{ display: 'block' }}>ArcoDesign Plugins</Link>
+    <Card
+      title={t['workplace.docs']}
+      extra={<Link>{t['workplace.seeMore']}</Link>}
+      bordered={false}
+      headerStyle={{ borderBottom: 0 }}
+    >
+      <div className={styles.docs}>
+        <Link className={styles.link}>Vue Pro</Link>
+        <Link className={styles.link}>DesignLab</Link>
+        <Link className={styles.link}>Materials</Link>
+        <Link className={styles.link}>Plugins</Link>
+      </div>
     </Card>
   );
 }
