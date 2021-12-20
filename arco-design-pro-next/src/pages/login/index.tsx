@@ -32,5 +32,6 @@ function Login() {
     </div>
   );
 }
+Login.displayName = 'LoginPage';
 
 export default Login;

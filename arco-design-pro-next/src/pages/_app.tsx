@@ -89,10 +89,16 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ConfigProvider locale={getArcoLocale()}>
       <Provider store={store}>
         <GlobalContext.Provider value={contextValue}>
-          <Layout>
+          {Component.displayName === 'LoginPage' ? (
             <Component {...pageProps} />
-          </Layout>
-          <Setting />
+          ) : (
+            <>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <Setting />
+            </>
+          )}
         </GlobalContext.Provider>
       </Provider>
     </ConfigProvider>

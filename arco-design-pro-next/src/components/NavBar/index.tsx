@@ -50,7 +50,7 @@ function Navbar() {
           <MessageBox />
         </li>
         <li>
-          <a>{t['navbar.docs']}</a>
+          <a href="#">{t['navbar.docs']}</a>
         </li>
         <li>
           <Select

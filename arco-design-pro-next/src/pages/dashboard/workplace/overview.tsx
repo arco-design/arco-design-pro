@@ -8,7 +8,7 @@ import {
   Link,
 } from '@arco-design/web-react';
 import { IconCaretUp } from '@arco-design/web-react/icon';
-import { Chart, LineAdvance, Axis } from 'bizcharts';
+import { Chart, Area, Axis, Line, Tooltip } from 'bizcharts';
 import axios from 'axios';
 import useLocale from './locale/useLocale';
 import styles from './style/overview.module.less';
@@ -24,17 +24,21 @@ type StatisticItemType = {
   title?: ReactNode;
   count?: ReactNode;
   loading?: boolean;
+  unit?: ReactNode;
 };
 
 function StatisticItem(props: StatisticItemType) {
-  const { icon, title, count, loading } = props;
+  const { icon, title, count, loading, unit } = props;
   return (
     <div className={styles.item}>
       <div className={styles.icon}>{icon}</div>
       <div>
         <Skeleton loading={loading} text={{ rows: 2, width: 60 }} animation>
           <div className={styles.title}>{title}</div>
-          <div className={styles.count}>{count}</div>
+          <div className={styles.count}>
+            {count}
+            <span className={styles.unit}>{unit}</span>
+          </div>
         </Skeleton>
       </div>
     </div>
@@ -47,6 +51,7 @@ type DataType = {
   increaseComments?: string;
   growthRate?: string;
   chartData?: { count?: number; date?: string }[];
+  down?: boolean;
 };
 
 function Overview() {
@@ -83,6 +88,7 @@ function Overview() {
             title={t['workplace.totalOnlyData']}
             count={data.allContents}
             loading={loading}
+            unit={t['workplace.pecs']}
           />
         </Col>
         <Divider type="vertical" className={styles.divider} />
@@ -92,6 +98,7 @@ function Overview() {
             title={t['workplace.contentInMarket']}
             count={data.liveContents}
             loading={loading}
+            unit={t['workplace.pecs']}
           />
         </Col>
         <Divider type="vertical" className={styles.divider} />
@@ -101,6 +108,7 @@ function Overview() {
             title={t['workplace.comments']}
             count={data.increaseComments}
             loading={loading}
+            unit={t['workplace.pecs']}
           />
         </Col>
         <Divider type="vertical" className={styles.divider} />
@@ -145,13 +153,54 @@ function Overview() {
             <Axis
               name="count"
               title
+              grid={{
+                line: {
+                  style: {
+                    lineDash: [4, 4],
+                  },
+                },
+              }}
               label={{
                 formatter(text) {
                   return `${Number(text) / 1000}k`;
                 },
               }}
             />
-            <LineAdvance shape="smooth" position="date*count" area />
+            <Axis
+              name="date"
+              grid={{ line: { style: { stroke: '#E5E8EF' } } }}
+            />
+
+            <Line
+              shape="smooth"
+              position="date*count"
+              size={3}
+              color="l (0) 0:#1EE7FF .57:#249AFF .85:#6F42FB"
+            />
+            <Area
+              position="date*count"
+              color="l (0) 0:rgba(17, 126, 255, 0.16) 1:rgba(17, 128, 255, 0)"
+            />
+            <Tooltip
+              showCrosshairs={true}
+              showMarkers={true}
+              marker={{
+                lineWidth: 3,
+                stroke: '#1EE7FF',
+                fill: '#ffffff',
+                symbol: 'circle',
+                r: 8,
+              }}
+              crosshairs={{
+                type: 'x',
+                line: {
+                  style: {
+                    lineWidth: 110,
+                    stroke: 'l (270) 0:#DBF0FF 1:rgba(193, 229, 255, 0)',
+                  },
+                },
+              }}
+            />
           </Chart>
         </Spin>
       </div>
