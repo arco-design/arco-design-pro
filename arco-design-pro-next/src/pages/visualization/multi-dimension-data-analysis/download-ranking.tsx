@@ -45,14 +45,14 @@ export default () => {
     },
   ];
   return (
-    <Card bordered={false}>
+    <Card>
       <Typography.Title
         style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
         heading={6}
       >
         {t['multiDAnalysis.card.title.downloadRanking']}
       </Typography.Title>
-      <List className={styles.list} bordered={false} split={false}>
+      <List className={styles.list} split={false}>
         {data.map((item, index) => {
           const isActive = index < 3;
           const classNames = [styles['list-item-prefix']];

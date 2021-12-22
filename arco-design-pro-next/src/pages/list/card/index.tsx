@@ -72,7 +72,7 @@ export default function ListCard() {
         <Breadcrumb.Item>{t['menu.list']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.list.card']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Card bordered={false}>
+      <Card>
         <Tabs
           activeTab={activeKey}
           type="rounded"

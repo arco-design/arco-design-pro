@@ -5,8 +5,8 @@ import axios from 'axios';
 import locale from './locale';
 import PublicOpinion from './public-opinion';
 import styles from './style/index.module.less';
-import MultiInterval from './charts/muti-interval';
-import PeriodLine from './charts/period-line';
+import MultiInterval from '@/components/Chart/muti-stack-interval';
+import PeriodLine from '@/components/Chart/period-legend-line';
 import './mock';
 
 const { Row, Col } = Grid;
@@ -71,7 +71,6 @@ function DataAnalysis() {
       </Breadcrumb>
       <Card
         title={t['dataAnalysis.title.publicOpinion']}
-        bordered={false}
         className={styles.wrapper}
       >
         <PublicOpinion />
@@ -80,7 +79,6 @@ function DataAnalysis() {
         <Col span={14}>
           <Card
             title={t['dataAnalysis.title.publishingRate']}
-            bordered={false}
             className={styles.wrapper}
           >
             <MultiInterval data={chartData} loading={loading} />
@@ -89,7 +87,6 @@ function DataAnalysis() {
         <Col span={10}>
           <Card
             title={t['dataAnalysis.title.authorsList']}
-            bordered={false}
             className={styles.wrapper}
           >
             <Table
@@ -104,7 +101,6 @@ function DataAnalysis() {
         <Col span={24}>
           <Card
             title={t['dataAnalysis.title.publishingTiming']}
-            bordered={false}
             className={styles.wrapper}
           >
             <PeriodLine data={chartData} loading={loading} />

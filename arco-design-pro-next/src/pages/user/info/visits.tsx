@@ -23,11 +23,7 @@ export default function LatestActivity() {
     <div>
       <Space size={12}>
         {visitsList.map((visits) => (
-          <Card
-            key={visits.name}
-            bordered={false}
-            className={styles['visits-item']}
-          >
+          <Card key={visits.name} className={styles['visits-item']}>
             <Statistic
               groupSeparator
               title={visits.name}

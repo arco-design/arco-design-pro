@@ -143,6 +143,7 @@ function CardBlock(props: CardBlockType) {
 
   return (
     <Card
+      bordered={true}
       className={className}
       title={
         <>

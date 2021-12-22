@@ -46,7 +46,6 @@ function MessageList(props: MessageListProps) {
 
   return (
     <List
-      bordered={false}
       footer={
         unReadData.length ? (
           <div style={{ textAlign: 'center' }}>

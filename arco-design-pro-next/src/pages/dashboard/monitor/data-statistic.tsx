@@ -7,7 +7,7 @@ import styles from './style/index.module.less';
 export default function DataStatistic() {
   const t = useLocale();
   return (
-    <Card bordered={false}>
+    <Card>
       <Tabs defaultActiveTab="liveMethod">
         <Tabs.TabPane
           key="liveMethod"

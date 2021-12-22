@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PublicOpinionCard, { PublicOpinionCardProps } from './card';
 import axios from 'axios';
-import { Grid } from '@arco-design/web-react';
+import { Grid, Spin } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from '../locale';
 
@@ -61,13 +61,18 @@ function PublicOpinion() {
   }, [t, data]);
 
   return (
-    <Row gutter={20}>
-      {formatData.map((item, index) => (
-        <Col span={6} key={index}>
-          <PublicOpinionCard {...item} loading={loading} />
-        </Col>
-      ))}
-    </Row>
+    <Spin loading={loading} style={{ width: '100%' }}>
+      <Row gutter={20}>
+        {formatData.map((item, index) => (
+          <Col span={6} key={index}>
+            <PublicOpinionCard
+              {...item}
+              compareTime={t['dataAnalysis.yesterday']}
+            />
+          </Col>
+        ))}
+      </Row>
+    </Spin>
   );
 }
 

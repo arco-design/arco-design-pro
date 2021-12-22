@@ -38,14 +38,14 @@ export default () => {
   ];
   const t = useLocale();
   return (
-    <Card bordered={false}>
+    <Card>
       <Typography.Title
         style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
         heading={6}
       >
         {t['multiDAnalysis.card.title.activeContributors']}
       </Typography.Title>
-      <List bordered={false} split={false} style={{ paddingBottom: 4 }}>
+      <List split={false} style={{ paddingBottom: 4 }}>
         {data.map((item, index) => (
           <List.Item style={{ padding: 0 }} key={`${index}`}>
             <List.Item.Meta

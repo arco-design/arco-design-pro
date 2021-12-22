@@ -84,7 +84,6 @@ function PopularContent() {
   return (
     <Card
       title={t['workplace.popularContents']}
-      bordered={false}
       extra={<Link>{t['workplace.seeMore']}</Link>}
       headerStyle={{ borderBottom: 0 }}
     >

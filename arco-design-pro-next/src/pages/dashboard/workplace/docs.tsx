@@ -16,7 +16,6 @@ function QuickOperation() {
     <Card
       title={t['workplace.docs']}
       extra={<Link>{t['workplace.seeMore']}</Link>}
-      bordered={false}
       headerStyle={{ borderBottom: 0 }}
     >
       <div className={styles.docs}>

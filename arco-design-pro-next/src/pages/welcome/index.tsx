@@ -21,11 +21,7 @@ export default function Welcome() {
       </div>
       <div className={styles.content}>
         <Alert type="success" content={t['welcome.invite']} />
-        <Card
-          style={{ marginTop: 20 }}
-          bordered={false}
-          title={t['welcome.usage']}
-        >
+        <Card style={{ marginTop: 20 }} title={t['welcome.usage']}>
           <Typography.Title heading={6} style={{ marginTop: 0 }}>
             1. {t['welcome.step.title.pickup']}
           </Typography.Title>

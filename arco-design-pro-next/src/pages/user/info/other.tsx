@@ -18,7 +18,7 @@ export default function OtherList() {
 
   return (
     <div className={styles['other-wrapper']}>
-      <List bordered={false}>
+      <List>
         {list.map((item) => (
           <List.Item key={item.id}>
             <Typography.Text>{item.content}</Typography.Text>
