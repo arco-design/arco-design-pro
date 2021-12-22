@@ -1,37 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
+  Tabs,
+  Breadcrumb,
   Card,
+  Input,
+  Spin,
   Typography,
   Grid,
-  Tabs,
-  Space,
-  Input,
-  Radio,
-  Spin,
-  Result,
-  Avatar,
-  Tag,
-  Statistic,
-  Divider,
-  Breadcrumb,
 } from '@arco-design/web-react';
-import { IconMenu, IconApps } from '@arco-design/web-react/icon';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
-import useRequest from './useRequest';
-import BlockService from './block-service';
-import BlockDocs from './block-docs';
 import styles from './style/index.module.less';
+import CardBlock from './card-block';
+import AddCard from './card-add';
+import { QualityInspection, BasicCard } from './interface';
 import './mock';
 
+const { Title } = Typography;
+const { Row, Col } = Grid;
 export default function ListCard() {
   const t = useLocale(locale);
-  const [recentLoading, resentData] = useRequest(
-    '/api/cardList/service/recent',
-    []
-  );
-  const [devLoading, devData] = useRequest('/api/cardList/service/dev', []);
-  const [docLoading, docData] = useRequest('/api/cardList/docs', []);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    quality: [],
+    service: [],
+    rules: [],
+  });
+
+  const [activeKey, setActiveKey] = useState('all');
+
+  const getData = () => {
+    setLoading(true);
+    axios
+      .get('/api/cardList')
+      .then((res) => {
+        setData(res.data);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  7;
+  const getCardList = (
+    list: Array<BasicCard & QualityInspection>,
+    type: keyof typeof data
+  ) => {
+    return (
+      <Spin loading={loading} style={{ width: '100%' }}>
+        <Row gutter={24} className={styles.cardContent}>
+          {type === 'quality' && (
+            <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6}>
+              <AddCard description={t['cardList.add.quality']} />
+            </Col>
+          )}
+          {list.map((item, index) => (
+            <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6} key={index}>
+              <CardBlock card={item} type={type} />
+            </Col>
+          ))}
+        </Row>
+      </Spin>
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -39,128 +72,37 @@ export default function ListCard() {
         <Breadcrumb.Item>{t['menu.list']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.list.card']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Grid.Row gutter={20} align="stretch">
-        <Grid.Col span={18}>
-          <Card bordered={false}>
-            <Grid.Row justify="space-between">
-              <Grid.Col span={14}>
-                <Tabs defaultActiveTab="1" type="rounded">
-                  <Tabs.TabPane key="1" title={t['cardList.tab.title.all']} />
-                  <Tabs.TabPane key="2" title={t['cardList.tab.title.test']} />
-                  <Tabs.TabPane
-                    key="3"
-                    title={t['cardList.tab.title.develop']}
-                  />
-                  <Tabs.TabPane
-                    key="4"
-                    title={t['cardList.tab.title.network']}
-                  />
-                  <Tabs.TabPane key="5" title={t['cardList.tab.title.other']} />
-                </Tabs>
-              </Grid.Col>
-              <Grid.Col span={10}>
-                <Space style={{ justifyContent: 'flex-end', width: '100%' }}>
-                  <Radio.Group defaultValue="grid" type="button">
-                    <Radio value="list">
-                      <IconMenu />
-                    </Radio>
-                    <Radio value="grid">
-                      <IconApps />
-                    </Radio>
-                  </Radio.Group>
-                  <Input.Search
-                    placeholder={t['cardList.searchInput.placeholder']}
-                    style={{ width: 240 }}
-                  />
-                </Space>
-              </Grid.Col>
-            </Grid.Row>
-            <Spin loading={recentLoading} style={{ width: '100%' }}>
-              <BlockService
-                title={t['cardList.block.title.resentUsed']}
-                data={resentData}
-                style={{ marginTop: 24 }}
-              />
-            </Spin>
-            <Spin loading={devLoading} style={{ width: '100%' }}>
-              <BlockService
-                title={t['cardList.block.title.developTools']}
-                data={devData}
-                style={{ marginTop: 24 }}
-              />
-            </Spin>
-            <Spin loading={docLoading} style={{ width: '100%' }}>
-              <BlockDocs
-                title={t['cardList.block.title.docs']}
-                data={docData}
-                style={{ marginTop: 24 }}
-              />
-            </Spin>
-          </Card>
-        </Grid.Col>
-        <Grid.Col span={6}>
-          <div className={styles['right-content']}>
-            <div
-              style={{ marginBottom: 20 }}
-              className={styles['right-content__item']}
-            >
-              <Card bordered={false}>
-                <Space>
-                  <Avatar>
-                    <img src="//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp" />
-                  </Avatar>
-                  <Card.Meta
-                    title={
-                      <div>
-                        <span>王力群</span>
-                        <Tag
-                          color="green"
-                          style={{ marginLeft: 8, verticalAlign: 'bottom' }}
-                        >
-                          已实名
-                        </Tag>
-                      </div>
-                    }
-                    description="wangliqun@arco.design"
-                  />
-                </Space>
-              </Card>
-              <Divider style={{ margin: 0 }} />
-              <Card bordered={false}>
-                <div className={styles['statistic-list']}>
-                  <Statistic
-                    className={styles['statistic-list__item']}
-                    title={t['cardList.statistic.enable']}
-                    value={3}
-                  />
-                  <Statistic
-                    className={styles['statistic-list__item']}
-                    title={t['cardList.statistic.disable']}
-                    value={1}
-                  />
-                  <Statistic
-                    className={styles['statistic-list__item']}
-                    title={t['cardList.statistic.applicationNum']}
-                    value={1}
-                  />
-                </div>
-              </Card>
+      <Card bordered={false}>
+        <Tabs
+          activeTab={activeKey}
+          type="rounded"
+          onChange={setActiveKey}
+          extra={
+            <Input.Search
+              style={{ width: '240px' }}
+              placeholder={t[`cardList.tab.${activeKey}.placeholder`]}
+            />
+          }
+        >
+          <Tabs.TabPane key="all" title={t['cardList.tab.title.all']} />
+          <Tabs.TabPane key="quality" title={t['cardList.tab.title.quality']} />
+          <Tabs.TabPane key="service" title={t['cardList.tab.title.service']} />
+          <Tabs.TabPane key="rules" title={t['cardList.tab.title.rules']} />
+        </Tabs>
+
+        {activeKey === 'all' ? (
+          Object.entries(data).map(([key, list]) => (
+            <div key={key}>
+              <Title heading={6}>{t[`cardList.tab.title.${key}`]}</Title>
+              {getCardList(list, key as keyof typeof data)}
             </div>
-            <Card bordered={false} className={styles['right-content__item']}>
-              <Typography.Title
-                style={{ marginTop: 0, marginBottom: 16 }}
-                heading={6}
-              >
-                {t['cardList.tab.title.announcement']}
-              </Typography.Title>
-              <Result
-                status="404"
-                subTitle={t['cardList.announcement.noData']}
-              />
-            </Card>
+          ))
+        ) : (
+          <div className={styles.singleContent}>
+            {getCardList(data[activeKey], activeKey as keyof typeof data)}
           </div>
-        </Grid.Col>
-      </Grid.Row>
+        )}
+      </Card>
     </div>
   );
 }

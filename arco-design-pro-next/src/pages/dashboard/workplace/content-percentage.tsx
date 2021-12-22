@@ -51,11 +51,24 @@ function PopularContent() {
           innerRadius={0.65}
           angleField="count"
           colorField="type"
+          color={['#21CCFF', '#313CA9', '#249EFF']}
+          interactions={[
+            {
+              type: 'element-single-selected',
+            },
+          ]}
+          tooltip={{ showMarkers: false }}
           label={{
             visible: true,
             type: 'spider',
             formatter: (v) =>
-              `${v.type}: ${(v.percent * 100).toFixed(0)}%\n${v.count}`,
+              `${v.type}: ${(v.percent * 100).toFixed(0)}%\n（${Number(
+                v.count
+              ).toLocaleString()}）`,
+            style: {
+              fill: '#86909C',
+              textAlign: 'center',
+            },
           }}
           legend={{
             position: 'bottom',
@@ -65,11 +78,15 @@ function PopularContent() {
               style: {
                 fontSize: '14px',
                 lineHeight: 2,
+                color: 'rgb(--var(color-text-1))',
               },
               formatter: () => '内容量',
             },
             content: {
-              style: { fontSize: '16px' },
+              style: {
+                fontSize: '16px',
+                color: 'rgb(--var(color-text-1))',
+              },
             },
           }}
         />
