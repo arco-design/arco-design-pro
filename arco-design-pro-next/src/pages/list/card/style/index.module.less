@@ -8,26 +8,154 @@
   :global(.arco-card-meta-title) {
     font-size: 14px;
   }
-}
 
-.statistic-list {
-  display: flex;
+  h6 {
+    font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+  }
 
-  &__item {
-    flex: 1;
-    text-align: center;
+  .cardContent {
+    min-height: 180px;
+    width: 100%;
+  }
+
+  .singleContent {
+    margin-top: 30px;
   }
 }
 
-.right-content {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: stretch;
+.cardBlock {
+  border-radius: 4px;
+  margin-bottom: 20px;
 
-  &__item {
-    &:last-child {
-      flex: 1;
+  :global(.arco-card-header) {
+    border-bottom: none;
+    height: auto;
+  }
+
+  .title {
+    display: flex;
+    line-height: 24px;
+    align-items: center;
+
+    .icon {
+      height: 24px;
+      width: 24px;
+      color: var(--color-white);
+      background: #626aea;
+      text-align: center;
+      line-height: 24px;
+      border-radius: 50%;
+      margin-right: 8px;
     }
+
+    .status {
+      margin-left: 12px;
+    }
+
+    .more {
+      color: var(--color-text-4);
+      font-size: 16px;
+      position: absolute;
+      right: 16px;
+      cursor: pointer;
+      opacity: 0;
+    }
+  }
+
+  .titleMore {
+    .more {
+      opacity: 1;
+    }
+  }
+
+  .time,
+  .content > :global(.arco-typography),
+  :global(.arco-descriptions-item-label),
+  :global(.arco-descriptions-item-value) {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--color-text-3);
+    padding: 0;
+    line-height: 20px;
+    margin-bottom: 4px;
+  }
+
+  :global(.arco-descriptions-item-value) {
+    color: var(--color-text-2);
+    padding-left: 6px;
+  }
+
+  :global(.arco-descriptions) {
+    margin-bottom: 10px;
+  }
+
+  .content {
+    margin-bottom: 10px;
+    min-height: 60px;
+  }
+  .extra {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.cardBlock:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+
+  .title {
+    .more {
+      opacity: 1;
+    }
+  }
+}
+
+.addCard {
+  text-align: center;
+  cursor: pointer;
+
+  .addIcon {
+    font-size: 22px;
+  }
+
+  .description {
+    margin-top: 16px;
+    color: var(--color-text-3);
+    font-weight: 400;
+  }
+
+  :global(.arco-card-body) {
+    padding-top: 64px;
+    padding-bottom: 66px;
+  }
+}
+
+.serviceCard {
+  :global(.arco-card-body) {
+    padding: 0px 16px 16px 48px;
+  }
+
+  .title {
+    margin-bottom: 8px;
+  }
+
+  .content {
+    margin-bottom: 10px;
+    height: 60px;
+  }
+}
+
+.rulesCard {
+  :global(.arco-card-body) {
+    padding: 0px 16px 16px 16px;
+  }
+
+  .title {
+    margin-bottom: 8px;
+  }
+
+  .content {
+    margin-bottom: 14px;
   }
 }
