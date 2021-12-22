@@ -1,45 +1,60 @@
-.list {
-  width: 100%;
+.card {
   display: flex;
-  justify-content: space-between;
-}
+  padding: 20px;
+  padding-top: 16px;
+  border-radius: 4px;
 
-.box {
-  height: 98px;
-  box-sizing: border-box;
-  padding-right: 16px;
-
-  &:last-child {
-    padding-right: 0;
+  &-line {
+    background: linear-gradient(180deg, #f2f9fe 0%, #e6f4fe 100%);
   }
 
-  &-inner {
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    padding: 16px;
+  &-interval {
+    background: linear-gradient(180deg, #f5fef2 0%, #e6feee 100%);
   }
 
-  &__icon {
-    width: 14.4px;
-    height: 12.96px;
-    line-height: 12.96px;
-    text-align: center;
-    font-size: 10px;
-    color: var(--color-white);
-    display: inline-block;
-    border-radius: 2px;
-    vertical-align: middle;
+  &-pie {
+    background: linear-gradient(180deg, #f7f7ff 0%, #ececff 100%);
   }
 
-  &--up {
-    .box__icon {
-      background-color: #175dff;
+  .statistic {
+    white-space: nowrap;
+  }
+
+  .chart {
+    flex: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 16px;
+  }
+
+  .title {
+    margin: 0;
+  }
+
+  :global(.arco-statistic-content) {
+    margin-top: 24px;
+    margin-bottom: 4px;
+
+    :global(.arco-statistic-value) {
+      font-size: 24px;
+      line-height: 28px;
     }
   }
 
-  &--down {
-    .box__icon {
-      background-color: #0fc6c2;
+  .compare-yesterday {
+    &-text {
+      font-size: 12px;
+      font-weight: 400;
     }
+  }
+
+  .diff {
+    margin-left: 8px;
+    line-height: 20px;
+    color: rgb(var(--red-6));
+  }
+
+  .diff-increment {
+    color: rgb(var(--green-6));
   }
 }

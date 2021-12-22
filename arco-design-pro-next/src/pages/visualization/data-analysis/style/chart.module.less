@@ -1,0 +1,39 @@
+.chart-wrapper {
+  :global(.bizcharts-tooltip) {
+    background: linear-gradient(
+      304.17deg,
+      rgba(253, 254, 255, 0.6) -6.04%,
+      rgba(244, 247, 252, 0.6) 85.2%
+    ) !important;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    padding: 8px !important;
+    width: 180px !important;
+  }
+}
+.customer-tooltip {
+  &-title {
+    margin-bottom: 4px;
+  }
+
+  &-item {
+    height: 32px;
+    line-height: 32px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 6px 0px 20px rgba(34, 87, 188, 0.1);
+    border-radius: 4px;
+
+    :global(.arco-badge-status-dot) {
+      width: 10px;
+      height: 10px;
+      margin-right: 8px;
+    }
+  }
+
+  &-item:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

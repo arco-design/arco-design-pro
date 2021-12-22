@@ -1,46 +1,80 @@
 import Mock from 'mockjs';
 import qs from 'query-string';
 
-if (process.env.NODE_ENV === 'development') {
-  Mock.mock(new RegExp('/api/reportStuckRate'), () => {
-    const getLineData = (name) => {
-      return new Array(12).fill(0).map((_item, index) => ({
-        x: `${index * 2}时`,
-        y: Mock.Random.natural(0, 100),
-        name,
-      }));
-    };
-    return [...getLineData('A类型'), ...getLineData('B类型')];
-  });
+const mockLine = (name) => {
+  const result = new Array(12).fill(0).map(() => ({
+    y: Mock.Random.natural(20, 100),
+  }));
+  return result
+    .sort((a, b) => a.y - b.y)
+    .map((item, index) => ({
+      ...item,
+      x: index,
+      name,
+    }));
+};
 
-  Mock.mock(new RegExp('/api/feedbackList'), (params) => {
-    const { page = 1, pageSize = 10 } = qs.parseUrl(params.url)
-      .query as unknown as {
-      page: number;
-      pageSize: number;
-      roomNumber: string;
-      startTime: string;
-      endTime: string;
-    };
-    const total = 55;
-    const start = (page - 1) * pageSize;
-    const end = Math.min(start + +pageSize, total);
-    const res = Mock.mock({
-      [`list|${end - start}`]: [
-        {
-          'id|16': /[A-Z][a-z][-][0-9]/,
-          'userId|10': /[0-9]/,
-          'deviceId|10': /[0-9]/,
-          system: '@pick(["IOS", "Window", "Android"])',
-          content: '@cparagraph(1)',
-          time: '@datetime()',
+const mockPie = () => {
+  return new Array(3).fill(0).map((_, index) => ({
+    name: ['纯文本', '图文类', '视频类'][index],
+    count: Mock.Random.natural(20, 100),
+  }));
+};
+
+Mock.mock(new RegExp('/api/data-analysis/overview'), (params) => {
+  const { type } = qs.parseUrl(params.url).query;
+  return Mock.mock({
+    count: () => Mock.Random.natural(1000, 10000),
+    increment: () => Mock.Random.boolean(),
+    diff: () => Mock.Random.natural(100, 1000),
+    chartType: type,
+    chartData: () => {
+      if (type === 'pie') {
+        return mockPie();
+      } else if (type === 'line') {
+        return [...mockLine('类目1'), ...mockLine('类目2')];
+      }
+      return mockLine('类目1');
+    },
+  });
+});
+
+const getTimeLine = (name) => {
+  const timeArr = new Array(12).fill(0).map((_, index) => {
+    const time = index * 2;
+    return time < 9 ? `0${time}:00` : `${time}:00`;
+  });
+  return new Array(12).fill(0).map((_, index) => ({
+    name,
+    time: timeArr[index],
+    count: Mock.Random.natural(1000, 5000),
+    rate: Mock.Random.natural(0, 100),
+  }));
+};
+
+Mock.mock(new RegExp('/api/data-analysis/content-publishing'), () => {
+  return [
+    ...getTimeLine('纯文本'),
+    ...getTimeLine('视频类'),
+    ...getTimeLine('图文类'),
+  ];
+});
+
+Mock.mock(new RegExp('/api/data-analysis/author-list'), () => {
+  return Mock.mock({
+    'list|8': [
+      {
+        'id|+1': 1,
+        author: () => Mock.Random.cword(3, 10),
+        time: function () {
+          return new Array(12).fill(0).map((_, index) => {
+            const time = index * 2;
+            return time < 9 ? `0${time}:00` : `${time}:00`;
+          })[this.id % 12];
         },
-      ],
-    });
-
-    return {
-      ...res,
-      total,
-    };
+        contentCount: () => Mock.Random.natural(1000, 5000),
+        clickCount: () => Mock.Random.natural(5000, 30000),
+      },
+    ],
   });
-}
+});
