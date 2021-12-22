@@ -1,5 +1,5 @@
 import '../style/global.less';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { createStore } from 'redux';
@@ -11,9 +11,9 @@ import axios from 'axios';
 import NProgress from 'nprogress';
 import rootReducer from '../store';
 import Setting from '../components/Settings';
+import storage from '@/utils/storage';
 import { GlobalContext } from '../context';
 import checkLogin from '@/utils/checkLogin';
-import storage from '@/utils/storage';
 import Layout from './layout';
 import '../mock';
 
@@ -31,18 +31,18 @@ function getLang() {
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const lang = getLang();
+  const [lang, setLang] = useState(getLang());
 
-  function getArcoLocale() {
+  const locale = useMemo(() => {
     switch (lang) {
       case 'zh-CN':
         return zhCN;
       case 'en-US':
         return enUS;
       default:
-        return zhCN;
+        return enUS;
     }
-  }
+  }, [lang]);
 
   function fetchUserInfo() {
     axios.get('/api/user/userInfo').then((res) => {
@@ -66,6 +66,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       NProgress.set(0.4);
       NProgress.start();
     };
+
     const handleStop = () => {
       NProgress.done();
     };
@@ -83,10 +84,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   const contextValue = {
     lang,
+    setLang,
   };
 
   return (
-    <ConfigProvider locale={getArcoLocale()}>
+    <ConfigProvider locale={locale}>
       <Provider store={store}>
         <GlobalContext.Provider value={contextValue}>
           {Component.displayName === 'LoginPage' ? (

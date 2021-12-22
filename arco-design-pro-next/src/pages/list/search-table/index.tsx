@@ -1,70 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Table,
-  Typography,
-  Button,
-  DatePicker,
-  Input,
   Breadcrumb,
   Card,
   PaginationProps,
+  Button,
+  Space,
 } from '@arco-design/web-react';
+import { IconDownload, IconPlus } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
+import SearchForm from './form';
 import locale from './locale';
 import styles from './style/index.module.less';
 import './mock';
+import getColumns from './constants';
+
+export const ContentType = ['图文', '横版短视频', '竖版短视频'];
+export const FilterType = ['规则筛选', '人工'];
+export const Status = ['已上线', '未上线'];
 
 function SearchTable() {
   const t = useLocale(locale);
 
-  const columns = useMemo(
-    () => [
-      {
-        title: t['searchTable.columns.name'],
-        dataIndex: 'name',
-      },
-      {
-        title: t['searchTable.columns.workflow'],
-        dataIndex: 'workflow',
-        render: (value) => <Typography.Text copyable>{value}</Typography.Text>,
-      },
-      {
-        title: t['searchTable.columns.period'],
-        dataIndex: 'period',
-      },
-      {
-        title: t['searchTable.columns.statistic'],
-        dataIndex: 'statistic',
-      },
-      {
-        title: t['searchTable.columns.createdTime'],
-        dataIndex: 'createdTime',
-      },
-      {
-        title: t['searchTable.columns.deadline'],
-        dataIndex: 'deadline',
-      },
-      {
-        title: t['searchTable.columns.operations'],
-        dataIndex: 'operations',
-        render: () => (
-          <div className={styles.operations}>
-            <Button type="text" size="small">
-              {t['searchTable.columns.operations.view']}
-            </Button>
-            <Button type="text" size="small">
-              {t['searchTable.columns.operations.update']}
-            </Button>
-            <Button type="text" status="danger" size="small">
-              {t['searchTable.columns.operations.delete']}
-            </Button>
-          </div>
-        ),
-      },
-    ],
-    [t]
-  );
+  const tableCallback = async (record, type) => {
+    console.log(record, type);
+  };
+
+  const columns = useMemo(() => getColumns(t, tableCallback), [t]);
 
   const [data, setData] = useState([]);
   const [pagination, setPatination] = useState<PaginationProps>({
@@ -79,16 +42,17 @@ function SearchTable() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pagination.current, pagination.pageSize, JSON.stringify(formParams)]);
 
-  function fetchData(current = 1, pageSize = 10, params = {}) {
+  function fetchData() {
+    const { current, pageSize } = pagination;
     setLoading(true);
     axios
-      .get('/api/policy', {
+      .get('/api/list', {
         params: {
           page: current,
           pageSize,
-          ...params,
+          ...formParams,
         },
       })
       .then((res) => {
@@ -100,25 +64,15 @@ function SearchTable() {
           total: res.data.total,
         });
         setLoading(false);
-        setFormParams(params);
       });
   }
 
   function onChangeTable(pagination) {
-    const { current, pageSize } = pagination;
-    fetchData(current, pageSize, formParams);
+    setPatination(pagination);
   }
 
-  function onSearch(keyword) {
-    fetchData(1, pagination.pageSize, { keyword });
-  }
-
-  function onDateChange(date) {
-    const [start, end] = date;
-    fetchData(1, pagination.pageSize, {
-      createdTimeStart: start,
-      createdTimeEnd: end,
-    });
+  function handleSearch(params) {
+    setFormParams(params);
   }
 
   return (
@@ -128,22 +82,15 @@ function SearchTable() {
         <Breadcrumb.Item>{t['menu.list.searchTable']}</Breadcrumb.Item>
       </Breadcrumb>
       <Card bordered={false}>
-        <div className={styles.toolbar}>
-          <div>
-            <Button type="primary">{t['searchTable.addPolicy']}</Button>
-          </div>
-          <div>
-            <DatePicker.RangePicker
-              style={{ marginRight: 8 }}
-              onChange={onDateChange}
-            />
-            <Input.Search
-              style={{ width: 300 }}
-              searchButton
-              placeholder={t['searchTable.placeholder.name']}
-              onSearch={onSearch}
-            />
-          </div>
+        <SearchForm onSearch={handleSearch} locale={t} />
+        <div className={styles.buttonGroup}>
+          <Space>
+            <Button icon={<IconPlus />}>新建内容集合</Button>
+            <Button>批量导入</Button>
+          </Space>
+          <Space>
+            <Button icon={<IconDownload />}>下载</Button>
+          </Space>
         </div>
         <Table
           rowKey="id"

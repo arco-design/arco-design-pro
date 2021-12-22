@@ -56,7 +56,6 @@ function PopularContent() {
     {
       title: t['workplace.column.pv'],
       dataIndex: 'pv',
-      align: 'right' as const,
       width: 100,
       render: (text) => {
         return `${text / 1000}k`;
@@ -66,7 +65,6 @@ function PopularContent() {
       title: t['workplace.column.increase'],
       dataIndex: 'increase',
       sorter: (a, b) => a.increase - b.increase,
-      align: 'right' as const,
       width: 110,
       render: (text) => {
         return (

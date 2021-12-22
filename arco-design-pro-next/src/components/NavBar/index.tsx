@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Tooltip,
   Button,
@@ -12,6 +12,7 @@ import {
 import { IconSunFill, IconMoonFill } from '@arco-design/web-react/icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '@/store';
+import { GlobalContext } from '@/context';
 import useLocale from '@/utils/useLocale';
 import Logo from '@/assets/logo.svg';
 import MessageBox from '@/components/MessageBox';
@@ -23,6 +24,8 @@ function Navbar() {
   const theme = useSelector((state: GlobalState) => state.theme);
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
   const dispatch = useDispatch();
+
+  const { setLang } = useContext(GlobalContext);
 
   function logout() {
     storage.setItem('userStatus', 'logout');
@@ -67,7 +70,7 @@ function Navbar() {
             }}
             onChange={(value) => {
               storage.setItem('arco-lang', value);
-              window.location.reload();
+              setLang(value);
             }}
           />
         </li>
