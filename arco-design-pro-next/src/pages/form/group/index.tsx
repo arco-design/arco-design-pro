@@ -49,7 +49,7 @@ function GroupForm() {
         <Breadcrumb.Item>{t['menu.form']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.form.group']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Card bordered={false}>
+      <Card>
         <Form layout="vertical" ref={formRef}>
           <Typography.Title
             heading={6}

@@ -72,7 +72,6 @@ function Shortcuts() {
   return (
     <Card
       title={t['workplace.shortcuts']}
-      bordered={false}
       headerStyle={{ borderBottom: 0 }}
       extra={<Link>{t['workplace.manage']}</Link>}
     >

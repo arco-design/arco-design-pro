@@ -1,17 +1,12 @@
 import React from 'react';
-import { Breadcrumb, Grid, Space } from '@arco-design/web-react';
-import ActiveContributors from './active-contributors';
-import DataChainGrowth from './data-chain-growth';
+import { Breadcrumb, Typography, Card, Grid } from '@arco-design/web-react';
 import DataOverview from './data-overview';
-import DownloadRaking from './download-ranking';
-import DownloadHistory from './download-history';
-import ProductEvaluation from './product-evaluation';
-import UserDistributionGeo from './user-distribution-geo';
-import UserDistributionType from './user-distribution-type';
 import useLocale from './locale/useLocale';
 import styles from './style/index.module.less';
 import './mock';
 
+const { Row, Col } = Grid;
+const { Title } = Typography;
 function DataAnalysis() {
   const t = useLocale();
   return (
@@ -22,36 +17,19 @@ function DataAnalysis() {
           {t['menu.visualization.multiDimensionDataAnalysis']}
         </Breadcrumb.Item>
       </Breadcrumb>
-      <Space direction="vertical" size={12} style={{ width: '100%' }}>
-        <DataOverview />
-        <DataChainGrowth />
-        <div>
-          <Grid.Row gutter={12}>
-            <Grid.Col span={16}>
-              <DownloadHistory />
-            </Grid.Col>
-            <Grid.Col span={8}>
-              <DownloadRaking />
-            </Grid.Col>
-          </Grid.Row>
-        </div>
-        <div>
-          <Grid.Row gutter={12}>
-            <Grid.Col span={6}>
-              <UserDistributionGeo />
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <UserDistributionType />
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <ProductEvaluation />
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <ActiveContributors />
-            </Grid.Col>
-          </Grid.Row>
-        </div>
-      </Space>
+      <Row gutter={20}>
+        <Col span={16}>
+          <Card>
+            <Title heading={6}>
+              {t['multiDAnalysis.card.title.dataOverview']}
+            </Title>
+            <DataOverview />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card></Card>
+        </Col>
+      </Row>
     </div>
   );
 }

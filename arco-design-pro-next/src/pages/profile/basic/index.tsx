@@ -58,7 +58,7 @@ function BasicProfile() {
         <Breadcrumb.Item>{t['menu.profile']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.profile.basic']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Card bordered={false}>
+      <Card>
         <Grid.Row
           justify="space-between"
           align="center"

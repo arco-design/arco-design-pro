@@ -88,7 +88,17 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <ConfigProvider locale={locale}>
+    <ConfigProvider
+      locale={locale}
+      componentConfig={{
+        Card: {
+          bordered: false,
+        },
+        List: {
+          bordered: false,
+        },
+      }}
+    >
       <Provider store={store}>
         <GlobalContext.Provider value={contextValue}>
           {Component.displayName === 'LoginPage' ? (

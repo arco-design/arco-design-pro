@@ -1,89 +1,103 @@
 // 数据总览
-import React from 'react';
-import { Card, Typography, Grid, Statistic } from '@arco-design/web-react';
-import { IconCode, IconUser, IconDesktop } from '@arco-design/web-react/icon';
+import React, { useEffect, useState, useMemo } from 'react';
+import {
+  Card,
+  Typography,
+  Grid,
+  Statistic,
+  Spin,
+} from '@arco-design/web-react';
+import axios from 'axios';
+import {
+  IconUser,
+  IconMosaic,
+  IconCamera,
+  IconDesktop,
+} from '@arco-design/web-react/icon';
 import useLocale from './locale/useLocale';
 import styles from './style/data-overview.module.less';
+import MutiAreaLine from '@/components/Chart/muti-area-line';
 
+const { Title } = Typography;
 export default () => {
   const t = useLocale();
-  const data = [
-    {
-      title: t['multiDAnalysis.dataOverview.components'],
-      value: 20,
-      prefix: {
-        icon: <IconCode />,
-        background: '#f53f3f',
+  const [overview, setOverview] = useState([]);
+  const [lineData, setLineData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getData = async () => {
+    setLoading(true);
+    const { data } = await axios
+      .get('/api/muti-dimension/overview')
+      .finally(() => setLoading(false));
+
+    const { overviewData, chartData } = data;
+    setLineData(chartData);
+    setOverview(overviewData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const formatedData = useMemo(() => {
+    return [
+      {
+        title: t['multiDAnalysis.dataOverview.contentProduction'],
+        icon: <IconMosaic />,
+        value: overview[0],
+        background: 'rgb(var(--orange-2))',
+        color: 'rgb(var(--orange-6))',
       },
-    },
-    {
-      title: t['multiDAnalysis.dataOverview.issues'],
-      value: 20,
-      prefix: {
+      {
+        title: t['multiDAnalysis.dataOverview.contentClicks'],
         icon: <IconDesktop />,
-        background: '#0fc6c2',
+        value: overview[1],
+        background: 'rgb(var(--cyan-2))',
+        color: 'rgb(var(--cyan-6))',
       },
-    },
-    {
-      title: t['multiDAnalysis.dataOverview.activeContributors'],
-      value: 128,
-      prefix: {
+      {
+        title: t['multiDAnalysis.dataOverview.contextExposure'],
+        value: overview[2],
+        icon: <IconCamera />,
+        background: 'rgb(var(--arcoblue-1))',
+        color: 'rgb(var(--arcoblue-6))',
+      },
+      {
+        title: t['multiDAnalysis.dataOverview.activeUsers'],
+        value: overview[3],
         icon: <IconUser />,
-        background: '#175dff',
+        background: 'rgb(var(--purple-1))',
+        color: 'rgb(var(--purple-6))',
       },
-    },
-    {
-      title: t['multiDAnalysis.dataOverview.todayDownloads'],
-      value: 1275,
-      prefix: {
-        icon: <IconCode />,
-        background: '#ff7d03',
-      },
-    },
-    {
-      title: t['multiDAnalysis.dataOverview.todayDownloads'],
-      value: 1275,
-      prefix: {
-        icon: <IconCode />,
-        background: '#ff7d03',
-      },
-    },
-    {
-      title: t['multiDAnalysis.dataOverview.todayDownloads'],
-      value: 1275,
-      prefix: {
-        icon: <IconCode />,
-        background: '#ff7d03',
-      },
-    },
-  ];
+    ];
+  }, [t, overview]);
+
   return (
-    <Card bordered={false}>
-      <Typography.Title
-        style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
-        heading={6}
-      >
-        {t['multiDAnalysis.card.title.dataOverview']}
-      </Typography.Title>
-      <Grid.Row justify="space-between">
-        {data.map((item, index) => (
-          <Grid.Col span={24 / data.length} key={`${index}`}>
-            <Statistic
-              title={item.title}
-              value={item.value}
-              groupSeparator
-              prefix={
-                <span
-                  className={styles['statistic-prefix']}
-                  style={{ background: item.prefix.background }}
-                >
-                  {item.prefix.icon}
-                </span>
-              }
-            />
-          </Grid.Col>
-        ))}
-      </Grid.Row>
-    </Card>
+    <Grid.Row justify="space-between">
+      {formatedData.map((item, index) => (
+        <Grid.Col span={24 / formatedData.length} key={`${index}`}>
+          <Card className={styles.card} title={null}>
+            <Title heading={6}>{item.title}</Title>
+            <div className={styles.content}>
+              <div
+                style={{ backgroundColor: item.background, color: item.color }}
+                className={styles['content-icon']}
+              >
+                {item.icon}
+              </div>
+              {loading ? (
+                <Spin />
+              ) : (
+                <Statistic value={item.value} groupSeparator />
+              )}
+            </div>
+          </Card>
+        </Grid.Col>
+      ))}
+      <Grid.Col span={24}>
+        <MutiAreaLine data={lineData} loading={loading} />
+      </Grid.Col>
+    </Grid.Row>
   );
 };

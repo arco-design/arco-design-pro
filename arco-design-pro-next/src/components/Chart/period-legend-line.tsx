@@ -1,10 +1,10 @@
 import React from 'react';
-import { Chart, Tooltip, Interval, Axis } from 'bizcharts';
+import { Chart, Line, Axis, Tooltip, Legend, Slider } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
-import styles from '../style/chart.module.less';
+import styles from './style/index.module.less';
 import CustomTooltip from './customer-tooltip';
 
-function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
+function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
@@ -12,13 +12,13 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
         padding="auto"
         data={data}
         autoFit
+        scale={{ time: 'time' }}
         className={styles['chart-wrapper']}
       >
-        <Interval
-          adjust="stack"
-          color={['name', ['#81E2FF', '#00B2FF', '#246EFF']]}
-          position="time*count"
-          size={16}
+        <Line
+          shape="smooth"
+          position="time*rate"
+          color={['name', ['#21CCFF', '#313CA9', '#249EFF']]}
         />
         <Tooltip crosshairs={{ type: 'x' }} showCrosshairs shared>
           {(title, items) => {
@@ -26,16 +26,18 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
           }}
         </Tooltip>
         <Axis
-          name="count"
+          name="rate"
           label={{
             formatter(text) {
-              return `${Number(text) / 1000}k`;
+              return `${Number(text)} %`;
             },
           }}
         />
+        <Legend name="name" />
+        <Slider />
       </Chart>
     </Spin>
   );
 }
 
-export default MultiInterval;
+export default PeriodLine;

@@ -1,44 +1,36 @@
 import Mock from 'mockjs';
-import qs from 'query-string';
+import dayjs from 'dayjs';
 
-if (process.env.NODE_ENV === 'development') {
-  Mock.mock(new RegExp('/api/dataChainGrowth'), () => {
-    const year = new Date().getFullYear();
-    const getLineData = (name) => {
-      return new Array(12).fill(0).map((_item, index) => ({
-        x: `${index + 1}月`,
-        y: Mock.Random.natural(0, 100),
-        name: String(name),
-      }));
-    };
-    return {
-      value: 5670,
-      growth: 206.32,
-      chartData: [...getLineData(year), ...getLineData(year - 1)],
-    };
-  });
+const legend = ['内容曝光量', '内容点击量', '内容生产量', '活跃用户数'];
 
-  Mock.mock(new RegExp('/api/downloadHistory'), (params) => {
-    const { showCompetitor } = qs.parseUrl(params.url).query as unknown as {
-      roomNumber: string;
-      startTime: string;
-      showCompetitor: string;
-    };
-    const year = new Date().getFullYear();
-    const getLineData = (name) => {
-      return new Array(12).fill(0).map((_item, index) => ({
-        x: `${year}/${index + 1}`,
-        y: Mock.Random.natural(0, 75) * 1000,
-        name,
-      }));
-    };
-    const chartData = [...getLineData('开发者'), ...getLineData('设计师')];
-    if (showCompetitor === 'true') {
-      chartData.push(
-        ...getLineData('竞品-开发者'),
-        ...getLineData('竞品-设计师')
-      );
-    }
-    return chartData;
+const getLineData = (name) => {
+  const { list } = Mock.mock({
+    'list|10': [
+      {
+        'id|+1': 1,
+        time: function () {
+          return dayjs().subtract(this.id, 'days').format('MM-DD');
+        },
+        count: () => Mock.Random.natural(100, 5000),
+        name: name,
+      },
+    ],
   });
-}
+  return list;
+};
+
+Mock.mock(new RegExp('/api/muti-dimension/overview'), () => {
+  const { array: overviewData } = Mock.mock({
+    'array|4': [
+      function () {
+        return Mock.Random.natural(0, 10000);
+      },
+    ],
+  });
+  let list = [];
+  legend.forEach((name) => (list = list.concat(getLineData(name))));
+  return {
+    overviewData,
+    chartData: list,
+  };
+});

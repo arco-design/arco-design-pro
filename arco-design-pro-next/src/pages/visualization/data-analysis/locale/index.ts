@@ -2,6 +2,7 @@ const i18n = {
   'en-US': {
     'menu.visualization': 'Data Visualization',
     'menu.visualization.analysis': 'Analysis',
+    'dataAnalysis.yesterday': 'Yesterday',
     'dataAnalysis.title.publicOpinion': 'Public Opinion Analysis',
     'dataAnalysis.publicOpinion.visitor': 'Total visitors',
     'dataAnalysis.publicOpinion.content': 'Total content publishing',
@@ -18,6 +19,7 @@ const i18n = {
   'zh-CN': {
     'menu.visualization': '数据可视化',
     'menu.visualization.analysis': '分析页',
+    'dataAnalysis.yesterday': '较昨日',
     'dataAnalysis.title.publicOpinion': '舆情分析',
     'dataAnalysis.publicOpinion.visitor': '访问总人数',
     'dataAnalysis.publicOpinion.content': '内容发布量',

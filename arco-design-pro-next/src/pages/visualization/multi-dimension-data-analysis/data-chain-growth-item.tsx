@@ -45,7 +45,7 @@ export default (props: DataChainGrowthItemProps) => {
 
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
-      <Card bordered={false}>
+      <Card>
         <div className={styles.content}>
           <Statistic
             title={title}

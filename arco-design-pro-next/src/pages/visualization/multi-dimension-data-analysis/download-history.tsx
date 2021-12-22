@@ -60,7 +60,7 @@ export default () => {
 
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
-      <Card bordered={false}>
+      <Card>
         <Typography.Title
           style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
           heading={6}

@@ -1,11 +1,30 @@
-.statistic-prefix {
-  display: inline-block;
-  width: 14.4px;
-  height: 12.96px;
-  line-height: 12.96px;
-  border-radius: 2px;
-  color: var(--color-white);
-  font-size: 10px;
-  text-align: center;
-  vertical-align: middle;
+.card {
+  margin-bottom: 48px;
+
+  :global(.arco-spin) {
+    width: 100%;
+  }
+
+  h6 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .content {
+    display: flex;
+    line-height: 32px;
+
+    &-icon {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 6px;
+      margin-right: 8px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    :global(.arco-statistic) {
+      line-height: normal;
+    }
+  }
 }

@@ -179,6 +179,7 @@ function Overview() {
             />
             <Area
               position="date*count"
+              shape="smooth"
               color="l (0) 0:rgba(17, 126, 255, 0.16) 1:rgba(17, 128, 255, 0)"
             />
             <Tooltip

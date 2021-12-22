@@ -81,7 +81,7 @@ function SearchTable() {
         <Breadcrumb.Item>{t['menu.list']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.list.searchTable']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Card bordered={false}>
+      <Card>
         <SearchForm onSearch={handleSearch} locale={t} />
         <div className={styles.buttonGroup}>
           <Space>

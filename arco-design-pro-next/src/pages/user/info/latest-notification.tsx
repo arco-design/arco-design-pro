@@ -5,7 +5,7 @@ import useLocale from './locale/useLocale';
 export default function LatestActivity() {
   const t = useLocale();
   return (
-    <Card bordered={false} title={t['userInfo.title.latestNotification']}>
+    <Card title={t['userInfo.title.latestNotification']}>
       <Result
         status="404"
         title={

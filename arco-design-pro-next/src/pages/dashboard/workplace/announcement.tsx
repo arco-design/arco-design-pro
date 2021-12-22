@@ -43,7 +43,6 @@ function Announcement() {
     <Card
       title={t['workplace.announcement']}
       extra={<Link>{t['workplace.seeMore']}</Link>}
-      bordered={false}
       headerStyle={{ borderBottom: 0 }}
     >
       <Skeleton loading={loading} text={{ rows: 5, width: '100%' }} animation>

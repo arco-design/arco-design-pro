@@ -11,7 +11,7 @@ import useLocale from './locale/useLocale';
 export default function QuickOperation() {
   const t = useLocale();
   return (
-    <Card bordered={false}>
+    <Card>
       <Typography.Title style={{ marginTop: 0, marginBottom: 16 }} heading={6}>
         {t['monitor.title.quickOperation']}
       </Typography.Title>

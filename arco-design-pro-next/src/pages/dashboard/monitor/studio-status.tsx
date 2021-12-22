@@ -77,7 +77,7 @@ export default function StudioStatus() {
   ];
 
   return (
-    <Card bordered={false}>
+    <Card>
       <Space align="start">
         <Typography.Title
           style={{ marginTop: 0, marginBottom: 16 }}

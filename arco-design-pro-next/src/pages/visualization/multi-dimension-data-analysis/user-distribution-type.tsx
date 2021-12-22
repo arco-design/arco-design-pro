@@ -24,7 +24,7 @@ export default () => {
   ]);
 
   return (
-    <Card bordered={false}>
+    <Card>
       <Typography.Title
         style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
         heading={6}

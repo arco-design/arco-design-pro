@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Typography, Spin } from '@arco-design/web-react';
+import { Statistic, Typography } from '@arco-design/web-react';
 import cs from 'classnames';
 import {
   Chart,
@@ -30,7 +30,7 @@ export interface PublicOpinionCardProps {
   count: number;
   increment: boolean;
   diff: number;
-  loading?: boolean;
+  compareTime: string;
 }
 
 function SimpleLine(props: { chartData: any[] }) {
@@ -114,44 +114,41 @@ function SimplePie(props: { chartData: any[] }) {
 }
 
 function PublicOpinionCard(props: PublicOpinionCardProps) {
-  const { loading, chartType, title, count, increment, diff, chartData } =
-    props;
+  const { chartType, title, count, increment, diff, chartData } = props;
   const className = cs(styles.card, styles[`card-${chartType}`]);
 
   return (
-    <Spin loading={loading} style={{ width: '100%' }}>
-      <div className={className}>
-        <div className={styles.statistic}>
-          <Statistic
-            title={
-              <Title heading={6} className={styles.title}>
-                {title}
-              </Title>
-            }
-            value={count}
-            groupSeparator
-          />
-          <div className={styles['compare-yesterday']}>
-            <Text type="secondary" className={styles['compare-yesterday-text']}>
-              较昨日
-            </Text>
-            <span
-              className={cs(styles['diff'], {
-                [styles['diff-increment']]: increment,
-              })}
-            >
-              {diff}
-              {increment ? <IconArrowRise /> : <IconArrowFall />}
-            </span>
-          </div>
-        </div>
-        <div className={styles.chart}>
-          {chartType === 'interval' && <SimpleInterval chartData={chartData} />}
-          {chartType === 'line' && <SimpleLine chartData={chartData} />}
-          {chartType === 'pie' && <SimplePie chartData={chartData} />}
+    <div className={className}>
+      <div className={styles.statistic}>
+        <Statistic
+          title={
+            <Title heading={6} className={styles.title}>
+              {title}
+            </Title>
+          }
+          value={count}
+          groupSeparator
+        />
+        <div className={styles['compare-yesterday']}>
+          <Text type="secondary" className={styles['compare-yesterday-text']}>
+            {props.compareTime}
+          </Text>
+          <span
+            className={cs(styles['diff'], {
+              [styles['diff-increment']]: increment,
+            })}
+          >
+            {diff}
+            {increment ? <IconArrowRise /> : <IconArrowFall />}
+          </span>
         </div>
       </div>
-    </Spin>
+      <div className={styles.chart}>
+        {chartType === 'interval' && <SimpleInterval chartData={chartData} />}
+        {chartType === 'line' && <SimpleLine chartData={chartData} />}
+        {chartType === 'pie' && <SimplePie chartData={chartData} />}
+      </div>
+    </div>
   );
 }
 

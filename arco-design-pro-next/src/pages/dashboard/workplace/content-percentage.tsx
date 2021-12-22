@@ -39,7 +39,6 @@ function PopularContent() {
   return (
     <Card
       title={t['workplace.contentPercentage']}
-      bordered={false}
       headerStyle={{ borderBottom: 0 }}
     >
       <Spin loading={loading} style={{ display: 'block' }}>
