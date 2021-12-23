@@ -3,7 +3,6 @@ import { isSSR } from '@/utils/is';
 import storage from '@/utils/storage';
 
 const defaultTheme = storage.getItem('arco-theme') || 'light';
-
 function changeTheme(newTheme?: 'string') {
   if ((newTheme || defaultTheme) === 'dark') {
     document.body.setAttribute('arco-theme', 'dark');
