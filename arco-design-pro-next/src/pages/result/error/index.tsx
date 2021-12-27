@@ -48,7 +48,10 @@ function Success() {
                   {t['error.detailLine.record.link']}
                 </Link>
               </li>
-              <li>{t['error.detailLine.auth']}</li>
+              <li>
+                {t['error.detailLine.auth']}
+                <Link>{t['error.detailLine.auth.link']}</Link>
+              </li>
             </ol>
           </Typography.Paragraph>
         </div>
