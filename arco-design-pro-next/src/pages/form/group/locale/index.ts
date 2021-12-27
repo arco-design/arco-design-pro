@@ -4,7 +4,7 @@ const i18n = {
     'menu.form.group': 'Group Form',
     'groupForm.title.video': 'Video Parameters',
     'groupForm.title.audio': 'Audio Parameters',
-    'groupForm.title.approvers': 'Enter Approver',
+    'groupForm.title.explanation': 'Enter Explanation',
     'groupForm.form.label.video.mode': 'Match Mode',
     'groupForm.form.label.video.acquisition.resolution':
       'Acquisition Resolution',
@@ -34,11 +34,11 @@ const i18n = {
     'groupForm.placeholder.audio.acquisition.channels': 'Please Select',
     'groupForm.placeholder.audio.encoding.rate': 'Enter Range [150, 1800]',
     'groupForm.placeholder.audio.encoding.profile': 'Enter Range [150, 1800]',
-    'groupForm.form.label.approvers': 'Approver',
-    'groupForm.placeholder.approvers':
-      'Please @ the corresponding approver, enter the employee mailbox prefix to search, multiple approvers are separated by commas',
+    'groupForm.form.label.explanation': 'Explanation',
+    'groupForm.placeholder.explanation':
+      'Please fill in the parameter description, no more than 200 characters',
     'groupForm.submit': 'Submit',
-    'groupForm.cancel': 'Cancel',
+    'groupForm.reset': 'Reset',
     'groupForm.submitSuccess': 'Submit Success',
   },
   'zh-CN': {
@@ -46,7 +46,7 @@ const i18n = {
     'menu.form.group': '分组表单',
     'groupForm.title.video': '视频参数',
     'groupForm.title.audio': '音频参数',
-    'groupForm.title.approvers': '填写审批人',
+    'groupForm.title.explanation': '填写说明',
     'groupForm.form.label.video.mode': '匹配模式',
     'groupForm.form.label.video.acquisition.resolution': '采集分辨率',
     'groupForm.form.label.video.acquisition.frameRate': '采集帧率',
@@ -65,7 +65,7 @@ const i18n = {
     'groupForm.placeholder.video.encoding.rate.default': '输入范围[150, 1800]',
     'groupForm.placeholder.video.encoding.frameRate': '输入范围[1, 30]',
     'groupForm.placeholder.video.encoding.profile': '输入范围[150, 1800]',
-    'groupForm.form.label.audio.mode': '匹配模式',
+    'groupForm.form.label.audio.mode': '配置模式',
     'groupForm.form.label.audio.acquisition.channels': '采集声道数',
     'groupForm.form.label.audio.encoding.rate': '编码码率',
     'groupForm.form.label.audio.encoding.profile': '编码profile',
@@ -73,11 +73,10 @@ const i18n = {
     'groupForm.placeholder.audio.acquisition.channels': '请选择',
     'groupForm.placeholder.audio.encoding.rate': '输入范围[150, 1800]',
     'groupForm.placeholder.audio.encoding.profile': '输入范围[150, 1800]',
-    'groupForm.form.label.approvers': '审批人',
-    'groupForm.placeholder.approvers':
-      '请@对应的审批人，输入员工邮箱前缀进行搜索，多个审批人以逗号分隔',
+    'groupForm.form.label.explanation': '参数说明',
+    'groupForm.placeholder.explanation': '请填写参数说明，最多不超多200字',
     'groupForm.submit': '提交',
-    'groupForm.cancel': '取消',
+    'groupForm.reset': '重置',
     'groupForm.submitSuccess': '提交成功',
   },
 };

@@ -41,6 +41,10 @@ export const routes = [
         name: 'menu.form.group',
         key: 'form/group',
       },
+      {
+        name: 'menu.form.step',
+        key: 'form/step',
+      },
     ],
   },
   {
