@@ -1,12 +1,11 @@
 import React from 'react';
-import { Avatar, Space, Button } from '@arco-design/web-react';
+import { Avatar, Space } from '@arco-design/web-react';
 import {
   IconCamera,
   IconLocation,
   IconUser,
   IconHome,
 } from '@arco-design/web-react/icon';
-import useLocale from './locale/useLocale';
 import styles from './style/index.module.less';
 
 interface HeaderProps {
@@ -20,12 +19,16 @@ interface HeaderProps {
 }
 
 function UserInfoHeader(props: HeaderProps) {
-  const t = useLocale();
   const { userInfo } = props;
   if (!userInfo) return null;
   return (
     <div className={styles.header}>
-      <Space size={8} direction="vertical" align="center">
+      <Space
+        size={8}
+        direction="vertical"
+        align="center"
+        className={styles['header-content']}
+      >
         <Avatar size={64} triggerIcon={<IconCamera />}>
           <img src={userInfo.avatar} />
         </Avatar>
@@ -52,15 +55,6 @@ function UserInfoHeader(props: HeaderProps) {
             </div>
           </Space>
         </div>
-        <Button
-          type="primary"
-          className={styles['user-edit-btn']}
-          onClick={() => {
-            window.location.href = '/user/setting';
-          }}
-        >
-          {t['userInfo.editUserInfo']}
-        </Button>
       </Space>
     </div>
   );
