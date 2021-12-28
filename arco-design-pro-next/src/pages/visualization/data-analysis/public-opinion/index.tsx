@@ -62,16 +62,18 @@ function PublicOpinion() {
 
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
-      <Row gutter={20}>
-        {formatData.map((item, index) => (
-          <Col span={6} key={index}>
-            <PublicOpinionCard
-              {...item}
-              compareTime={t['dataAnalysis.yesterday']}
-            />
-          </Col>
-        ))}
-      </Row>
+      <div arco-theme="light" className="arco-theme">
+        <Row gutter={20}>
+          {formatData.map((item, index) => (
+            <Col span={6} key={index}>
+              <PublicOpinionCard
+                {...item}
+                compareTime={t['dataAnalysis.yesterday']}
+              />
+            </Col>
+          ))}
+        </Row>
+      </div>
     </Spin>
   );
 }

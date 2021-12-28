@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Breadcrumb, Card, Tabs } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import InfoHeader from './header';
 import InfoForm from './info';
 import Security from './security';
-import styles from './style/header.module.less';
+import styles from './style/index.module.less';
 import './mock';
 import Verified from './verified';
 
 function UserInfo() {
   const t = useLocale(locale);
+  const userInfo = useSelector((state: any) => state.userInfo);
+  const loading = useSelector((state: any) => state.userLoading);
   const [activeTab, setActiveTab] = useState('basic');
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
+      <Breadcrumb style={{ marginBottom: 16 }}>
         <Breadcrumb.Item>{t['menu.user']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.user.setting']}</Breadcrumb.Item>
       </Breadcrumb>
       <Card style={{ padding: '14px 20px' }}>
-        <InfoHeader />
+        <InfoHeader userInfo={userInfo} loading={loading} />
       </Card>
       <Card style={{ marginTop: '16px' }}>
         <Tabs activeTab={activeTab} onChange={setActiveTab} type="rounded">
           <Tabs.TabPane key="basic" title={t['userSetting.title.basicInfo']}>
-            <InfoForm />
+            <InfoForm loading={loading} />
           </Tabs.TabPane>
           <Tabs.TabPane key="security" title={t['userSetting.title.security']}>
             <Security />

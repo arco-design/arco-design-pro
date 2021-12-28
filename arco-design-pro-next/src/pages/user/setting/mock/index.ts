@@ -25,6 +25,6 @@ Mock.mock(new RegExp('/api/user/verified/authList'), () => {
     authType: '企业证件认证',
     authContent: `企业证件认证，法人姓名${Mock.Random.cfirst()}**`,
     authStatus: Mock.Random.natural(0, 1),
-    authTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
+    createdTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
   }));
 });

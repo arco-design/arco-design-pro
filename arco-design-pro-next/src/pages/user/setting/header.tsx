@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import {
   Button,
   Avatar,
   Upload,
   Descriptions,
   Tag,
+  Skeleton,
 } from '@arco-design/web-react';
 import { IconCamera, IconPlus } from '@arco-design/web-react/icon';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/header.module.less';
 
-export default function Info() {
+export default function Info({
+  userInfo = {},
+  loading,
+}: {
+  userInfo: any;
+  loading: boolean;
+}) {
   const t = useLocale(locale);
-  const userInfo = useSelector((state: any) => {
-    return state.userInfo || {};
-  });
 
   const [avatar, setAvatar] = useState('');
 
@@ -28,16 +31,29 @@ export default function Info() {
     setAvatar(userInfo.avatar);
   }, [userInfo]);
 
+  const loadingImg = (
+    <Skeleton
+      text={{ rows: 0 }}
+      style={{ width: '100px', height: '100px' }}
+      animation
+    />
+  );
+
+  const loadingNode = <Skeleton text={{ rows: 1 }} animation />;
   return (
     <div className={styles['info-wrapper']}>
       <Upload showUploadList={false} onChange={onAvatarChange}>
-        <Avatar
-          size={100}
-          triggerIcon={<IconCamera />}
-          className={styles['info-avatar']}
-        >
-          {avatar ? <img src={avatar} /> : <IconPlus />}
-        </Avatar>
+        {loading ? (
+          loadingImg
+        ) : (
+          <Avatar
+            size={100}
+            triggerIcon={<IconCamera />}
+            className={styles['info-avatar']}
+          >
+            {avatar ? <img src={avatar} /> : <IconPlus />}
+          </Avatar>
+        )}
       </Upload>
       <Descriptions
         className={styles['info-content']}
@@ -46,11 +62,13 @@ export default function Info() {
         data={[
           {
             label: t['userSetting.label.name'],
-            value: userInfo.name,
+            value: loading ? loadingNode : userInfo.name,
           },
           {
             label: t['userSetting.label.verified'],
-            value: (
+            value: loading ? (
+              loadingNode
+            ) : (
               <span>
                 {userInfo.verified ? (
                   <Tag color="green">{t['userSetting.value.verified']}</Tag>
@@ -63,11 +81,13 @@ export default function Info() {
           },
           {
             label: t['userSetting.label.accountId'],
-            value: userInfo.accountId,
+            value: loading ? loadingNode : userInfo.accountId,
           },
           {
             label: t['userSetting.label.phoneNumber'],
-            value: (
+            value: loading ? (
+              loadingNode
+            ) : (
               <span>
                 {userInfo.phoneNumber}
                 <Button type="text">{t['userSetting.btn.edit']}</Button>
@@ -76,7 +96,7 @@ export default function Info() {
           },
           {
             label: t['userSetting.label.registrationTime'],
-            value: userInfo.registrationTime,
+            value: loading ? loadingNode : userInfo.registrationTime,
           },
         ]}
       ></Descriptions>

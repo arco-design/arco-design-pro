@@ -1,6 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Typography, Grid, Button, Result } from '@arco-design/web-react';
+import {
+  Typography,
+  Grid,
+  Button,
+  Result,
+  Skeleton,
+} from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import UserInfoHeader from './header';
@@ -16,10 +22,11 @@ const { Row, Col } = Grid;
 function UserInfo() {
   const t = useLocale(locale);
   const userInfo = useSelector((state: any) => state.userInfo);
-  if (!userInfo) return null;
+  const loading = useSelector((state: any) => state.userLoading);
+
   return (
     <div className={styles['container']}>
-      <UserInfoHeader userInfo={userInfo} />
+      <UserInfoHeader userInfo={userInfo} loading={loading} />
       <Row gutter={16}>
         <Col span={16}>
           <Card className={styles.wrapper}>

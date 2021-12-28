@@ -18,7 +18,7 @@ function Verified() {
   const t = useLocale(locale);
   const [data, setData] = useState({
     accountType: '',
-    isVerified: false,
+    isVerified: true,
     verifiedTime: '',
     legalPersonName: '',
     certificateType: '',
@@ -107,7 +107,10 @@ function Verified() {
               );
             },
           },
-          { title: t['userSetting.verified.authTime'], dataIndex: 'authTime' },
+          {
+            title: t['userSetting.verified.createdTime'],
+            dataIndex: 'createdTime',
+          },
           {
             title: t['userSetting.verified.operation'],
             headerCellStyle: { paddingLeft: '15px' },
