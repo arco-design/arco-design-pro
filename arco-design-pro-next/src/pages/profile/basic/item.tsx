@@ -1,19 +1,24 @@
 import React, { CSSProperties } from 'react';
 import useLocale from '@/utils/useLocale';
-import { Descriptions, Typography, Card } from '@arco-design/web-react';
+import {
+  Descriptions,
+  Typography,
+  Card,
+  Skeleton,
+} from '@arco-design/web-react';
 import locale from './locale';
-import styles from './style/index.module.less';
 
 interface ProfileItemProps {
   title: string;
   data: any;
   style?: CSSProperties;
   type: 'origin' | 'current';
+  loading?: boolean;
 }
 
 function ProfileItem(props: ProfileItemProps) {
   const t = useLocale(locale);
-  const { title, data, style, type } = props;
+  const { title, data, type, loading } = props;
   const blockDataList: {
     title: string;
     data: {
@@ -107,7 +112,19 @@ function ProfileItem(props: ProfileItemProps) {
             labelStyle={{ textAlign: 'right', width: 200, paddingRight: 10 }}
             valueStyle={{ width: 400 }}
             title={blockTitle}
-            data={blockData}
+            data={
+              loading
+                ? blockData.map((item) => ({
+                    ...item,
+                    value: (
+                      <Skeleton
+                        text={{ rows: 1, style: { width: '200px' } }}
+                        animation
+                      />
+                    ),
+                  }))
+                : blockData
+            }
             style={index > 0 ? { marginTop: '20px' } : {}}
           />
         ))}

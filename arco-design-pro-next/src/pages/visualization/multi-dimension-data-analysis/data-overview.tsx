@@ -5,7 +5,7 @@ import {
   Typography,
   Grid,
   Statistic,
-  Spin,
+  Skeleton,
 } from '@arco-design/web-react';
 import axios from 'axios';
 import {
@@ -88,7 +88,11 @@ export default () => {
                 {item.icon}
               </div>
               {loading ? (
-                <Spin />
+                <Skeleton
+                  animation
+                  text={{ rows: 1, className: styles['skeleton'] }}
+                  style={{ width: '120px' }}
+                />
               ) : (
                 <Statistic value={item.value} groupSeparator />
               )}

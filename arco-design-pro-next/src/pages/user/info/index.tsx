@@ -64,11 +64,15 @@ function UserInfo() {
             <div className={styles['card-title-wrapper']}>
               <Title heading={6}>{t['userInfo.title.notice']}</Title>
             </div>
-            <Result
-              status="404"
-              subTitle={t['userInfo.notice.empty']}
-              style={{ paddingTop: '60px', paddingBottom: '130px' }}
-            />
+            {loading ? (
+              <Skeleton text={{ rows: 10 }} animation />
+            ) : (
+              <Result
+                status="404"
+                subTitle={t['userInfo.notice.empty']}
+                style={{ paddingTop: '60px', paddingBottom: '130px' }}
+              />
+            )}
           </Card>
         </Col>
       </Row>

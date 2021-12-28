@@ -5,6 +5,7 @@ import {
   Spin,
   Grid,
   Card,
+  Skeleton,
 } from '@arco-design/web-react';
 import cs from 'classnames';
 import { Chart, Line, Interval, Tooltip, Interaction } from 'bizcharts';
@@ -26,12 +27,12 @@ const basicChartProps = {
 
 export interface CardProps {
   key: string;
-  title: string;
-  chartData: any[];
-  chartType: 'line' | 'interval';
-  count: number;
-  increment: boolean;
-  diff: number;
+  title?: string;
+  chartData?: any[];
+  chartType: string;
+  count?: number;
+  increment?: boolean;
+  diff?: number;
   loading?: boolean;
 }
 
@@ -100,17 +101,26 @@ function CardBlock(props: CardProps) {
               {title}
             </Title>
           }
+          loading={loading}
           value={count}
           extra={
             <div className={styles['compare-yesterday']}>
-              <span
-                className={cs(styles['diff'], {
-                  [styles['diff-increment']]: increment,
-                })}
-              >
-                {diff}
-                {increment ? <IconArrowRise /> : <IconArrowFall />}
-              </span>
+              {loading ? (
+                <Skeleton
+                  text={{ rows: 1 }}
+                  style={{ width: '100px' }}
+                  animation
+                />
+              ) : (
+                <span
+                  className={cs(styles['diff'], {
+                    [styles['diff-increment']]: increment,
+                  })}
+                >
+                  {diff}
+                  {increment ? <IconArrowRise /> : <IconArrowFall />}
+                </span>
+              )}
             </div>
           }
           groupSeparator
@@ -147,7 +157,12 @@ const cardInfo = [
 function CardList() {
   const t = useLocale(locale);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(
+    cardInfo.map((item) => ({
+      ...item,
+      chartType: item.type,
+    }))
+  );
 
   const getData = async () => {
     const requestList = cardInfo.map(async (info) => {

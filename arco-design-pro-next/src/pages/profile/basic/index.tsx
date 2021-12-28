@@ -102,21 +102,18 @@ function BasicProfile() {
         </Steps>
       </Card>
 
-      <Spin loading={loading} style={{ width: '100%' }}>
-        <ProfileItem
-          title={t['basicProfile.title.currentParams']}
-          data={data}
-          type="current"
-        />
-      </Spin>
-      <Spin loading={preLoading} style={{ width: '100%' }}>
-        <ProfileItem
-          title={t['basicProfile.title.originParams']}
-          data={preData}
-          type="origin"
-        />
-      </Spin>
-
+      <ProfileItem
+        title={t['basicProfile.title.currentParams']}
+        data={data}
+        type="current"
+        loading={loading}
+      />
+      <ProfileItem
+        title={t['basicProfile.title.originParams']}
+        data={preData}
+        type="origin"
+        loading={preLoading}
+      />
       <Card>
         <Typography.Title
           heading={6}
