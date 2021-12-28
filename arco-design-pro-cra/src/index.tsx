@@ -10,7 +10,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
-import Setting from './components/Settings';
 import { GlobalContext } from './context';
 import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
@@ -67,7 +66,6 @@ function Index() {
               <Route path="/user/login" component={Login} />
               <Route path="/" component={PageLayout} />
             </Switch>
-            <Setting />
           </GlobalContext.Provider>
         </Provider>
       </ConfigProvider>

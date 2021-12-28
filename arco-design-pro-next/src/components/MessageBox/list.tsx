@@ -7,6 +7,7 @@ import {
   Space,
 } from '@arco-design/web-react';
 import useLocale from '../../utils/useLocale';
+import styles from './style/index.module.less';
 
 export interface MessageItemData {
   id: string;
@@ -48,10 +49,17 @@ function MessageList(props: MessageListProps) {
     <List
       footer={
         unReadData.length ? (
-          <div style={{ textAlign: 'center' }}>
-            <Button type="text" onClick={onAllBtnClick}>
-              {t['messageBox.allRead']}
-            </Button>
+          <div className={styles.footer}>
+            <div className={styles.footerItem}>
+              <Button type="text" size="small" onClick={onAllBtnClick}>
+                {t['message.allRead']}
+              </Button>
+            </div>
+            <div className={styles.footerItem}>
+              <Button type="text" size="small">
+                {t['message.seeMore']}
+              </Button>
+            </div>
           </div>
         ) : null
       }
@@ -75,7 +83,7 @@ function MessageList(props: MessageListProps) {
             <List.Item.Meta
               avatar={
                 item.avatar ? (
-                  <Avatar shape="circle">
+                  <Avatar shape="circle" size={36}>
                     <img src={item.avatar} />
                   </Avatar>
                 ) : (
@@ -93,7 +101,7 @@ function MessageList(props: MessageListProps) {
               description={
                 <div>
                   <div>{item.content}</div>
-                  <Typography.Text type="secondary">
+                  <Typography.Text type="secondary" style={{ fontSize: 12 }}>
                     {item.time}
                   </Typography.Text>
                 </div>

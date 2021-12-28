@@ -45,8 +45,9 @@ const i18n = {
     'settings.color.tooltip': '10 gradient colors generated according to the theme color',
     'message.tab.title.message': 'Message',
     'message.tab.title.notice': 'Notice',
-    'message.tab.title.approve': 'Approve',
+    'message.tab.title.todo': 'ToDo',
     'message.allRead': 'All Read',
+    'message.seeMore': 'SeeMore',
   },
   'zh-CN': {
     'menu.welcome': '欢迎页',
@@ -95,8 +96,9 @@ const i18n = {
       '根据主题颜色生成的 10 个梯度色（将配置复制到项目中，主题色才能对亮色 / 暗黑模式同时生效）',
     'message.tab.title.message': '消息',
     'message.tab.title.notice': '通知',
-    'message.tab.title.approve': '审批',
+    'message.tab.title.todo': '待办',
     'message.allRead': '全部已读',
+    'message.seeMore': '查看更多',
   },
 };
 
