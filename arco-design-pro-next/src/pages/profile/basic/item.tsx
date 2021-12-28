@@ -1,6 +1,6 @@
-import { Descriptions, Typography } from '@arco-design/web-react';
 import React, { CSSProperties } from 'react';
 import useLocale from '@/utils/useLocale';
+import { Descriptions, Typography, Card } from '@arco-design/web-react';
 import locale from './locale';
 import styles from './style/index.module.less';
 
@@ -8,11 +8,12 @@ interface ProfileItemProps {
   title: string;
   data: any;
   style?: CSSProperties;
+  type: 'origin' | 'current';
 }
 
 function ProfileItem(props: ProfileItemProps) {
   const t = useLocale(locale);
-  const { title, data, style } = props;
+  const { title, data, style, type } = props;
   const blockDataList: {
     title: string;
     data: {
@@ -22,7 +23,7 @@ function ProfileItem(props: ProfileItemProps) {
   }[] = [];
 
   blockDataList.push({
-    title: t['basicProfile.title.video'],
+    title: t[`basicProfile.title.${type}Video`],
     data: [
       {
         label: t['basicProfile.label.video.mode'],
@@ -64,7 +65,7 @@ function ProfileItem(props: ProfileItemProps) {
   });
 
   blockDataList.push({
-    title: t['basicProfile.title.audio'],
+    title: t[`basicProfile.title.${type}Audio`],
     data: [
       {
         label: t['basicProfile.label.audio.mode'],
@@ -94,11 +95,11 @@ function ProfileItem(props: ProfileItemProps) {
   });
 
   return (
-    <div style={style}>
+    <Card>
       <Typography.Title heading={6} style={{ marginTop: 0, marginBottom: 16 }}>
         {title}
       </Typography.Title>
-      <div className={styles.itemContainer}>
+      <div>
         {blockDataList.map(({ title: blockTitle, data: blockData }, index) => (
           <Descriptions
             key={`${index}`}
@@ -107,10 +108,11 @@ function ProfileItem(props: ProfileItemProps) {
             valueStyle={{ width: 400 }}
             title={blockTitle}
             data={blockData}
+            style={index > 0 ? { marginTop: '20px' } : {}}
           />
         ))}
       </div>
-    </div>
+    </Card>
   );
 }
 

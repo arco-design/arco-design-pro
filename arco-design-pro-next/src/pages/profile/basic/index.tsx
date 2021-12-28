@@ -8,6 +8,8 @@ import {
   Grid,
   Space,
   Button,
+  Table,
+  Badge,
 } from '@arco-design/web-react';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
@@ -22,6 +24,8 @@ function BasicProfile() {
   const [data, setData] = useState({ status: 1 });
   const [preLoading, setPreLoading] = useState(false);
   const [preData, setPreData] = useState({});
+  const [tableLoading, setTableLoading] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   function fetchData() {
     setLoading(true);
@@ -47,17 +51,31 @@ function BasicProfile() {
       });
   }
 
+  function fetchTableData() {
+    setTableLoading(true);
+    axios
+      .get('/api/adjustment')
+      .then((res) => {
+        console.log(res.data);
+        setTableData(res.data);
+      })
+      .finally(() => {
+        setTableLoading(false);
+      });
+  }
   useEffect(() => {
     fetchData();
     fetchPreData();
+    fetchTableData();
   }, []);
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
+      <Breadcrumb>
         <Breadcrumb.Item>{t['menu.profile']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.profile.basic']}</Breadcrumb.Item>
       </Breadcrumb>
+
       <Card>
         <Grid.Row
           justify="space-between"
@@ -66,37 +84,96 @@ function BasicProfile() {
         >
           <Grid.Col span={16}>
             <Typography.Title heading={6} style={{ margin: 0 }}>
-              王力群{t['basicProfile.title.form']}
+              {t['basicProfile.title.form']}
             </Typography.Title>
           </Grid.Col>
           <Grid.Col span={8} style={{ textAlign: 'right' }}>
             <Space>
-              <Button size="mini" type="primary">
-                {t['basicProfile.goBack']}
-              </Button>
-              <Button size="mini">{t['basicProfile.cancel']}</Button>
+              <Button>{t['basicProfile.cancel']}</Button>
+              <Button type="primary">{t['basicProfile.goBack']}</Button>
             </Space>
           </Grid.Col>
         </Grid.Row>
-        <Spin loading={loading} style={{ width: '100%' }}>
-          <Steps current={data.status} lineless className={styles.steps}>
-            <Steps.Step title={t['basicProfile.steps.commit']} />
-            <Steps.Step title={t['basicProfile.steps.approval']} />
-            <Steps.Step title={t['basicProfile.steps.finish']} />
-          </Steps>
-          <ProfileItem
-            title={t['basicProfile.title.currentParams']}
-            data={data}
-            style={{ marginTop: 24 }}
-          />
-        </Spin>
-        <Spin loading={preLoading} style={{ width: '100%' }}>
-          <ProfileItem
-            title={t['basicProfile.title.originParams']}
-            data={preData}
-            style={{ marginTop: 24 }}
-          />
-        </Spin>
+
+        <Steps current={data.status} lineless className={styles.steps}>
+          <Steps.Step title={t['basicProfile.steps.commit']} />
+          <Steps.Step title={t['basicProfile.steps.approval']} />
+          <Steps.Step title={t['basicProfile.steps.finish']} />
+        </Steps>
+      </Card>
+
+      <Spin loading={loading} style={{ width: '100%' }}>
+        <ProfileItem
+          title={t['basicProfile.title.currentParams']}
+          data={data}
+          type="current"
+        />
+      </Spin>
+      <Spin loading={preLoading} style={{ width: '100%' }}>
+        <ProfileItem
+          title={t['basicProfile.title.originParams']}
+          data={preData}
+          type="origin"
+        />
+      </Spin>
+
+      <Card>
+        <Typography.Title
+          heading={6}
+          style={{ marginTop: 0, marginBottom: '16px' }}
+        >
+          {t['basicProfile.adjustment.record']}
+        </Typography.Title>
+        <Table
+          loading={tableLoading}
+          data={tableData}
+          columns={[
+            {
+              dataIndex: 'contentId',
+              title: t['basicProfile.adjustment.contentId'],
+            },
+            {
+              dataIndex: 'content',
+              title: t['basicProfile.adjustment.content'],
+            },
+            {
+              dataIndex: 'status',
+              title: t['basicProfile.adjustment.status'],
+              render: (status) => {
+                if (status) {
+                  return (
+                    <Badge
+                      status="success"
+                      text={t['basicProfile.adjustment.success']}
+                    />
+                  );
+                }
+
+                return (
+                  <Badge
+                    status="processing"
+                    text={t['basicProfile.adjustment.waiting']}
+                  />
+                );
+              },
+            },
+            {
+              dataIndex: 'updatedTime',
+              title: t['basicProfile.adjustment.updatedTime'],
+            },
+            {
+              title: t['basicProfile.adjustment.operation'],
+              headerCellStyle: { paddingLeft: '15px' },
+              render() {
+                return (
+                  <Button type="text">
+                    {t['basicProfile.adjustment.operation.view']}
+                  </Button>
+                );
+              },
+            },
+          ]}
+        />
       </Card>
     </div>
   );

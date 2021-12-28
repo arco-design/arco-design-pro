@@ -62,7 +62,7 @@ function PublicOpinion() {
 
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
-      <div arco-theme="light" className="arco-theme">
+      <div>
         <Row gutter={20}>
           {formatData.map((item, index) => (
             <Col span={6} key={index}>
