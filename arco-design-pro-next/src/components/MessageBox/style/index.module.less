@@ -1,29 +1,33 @@
-.messageBoxTrigger {
-  padding: 16px 0;
-  width: 20px;
-  text-align: center;
-  cursor: pointer;
-  color: var(--color-text-1);
-
-  &:hover {
-    color: rgb(var(--arcoblue-6));
-  }
-}
+@import "@arco-design/web-react/es/style/theme/default.less";
 
 .messageBox {
-  min-width: 352px;
+  width: 400px;
   max-height: 800px;
+  background-color: var(--color-bg-popup);
+  border: 1px solid var(--color-border-2);
+  box-shadow: @shadow2-down;
+  border-radius: @border-radius-medium;
 
   :global(.arco-tabs-header-nav) {
-    padding: 8px 0 12px;
-    border-bottom: 1px solid var(--color-neutral-3);
-  }
-
-  :global(.arco-tabs-header) {
-    margin: 0 auto;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--color-border-2);
   }
 
   :global(.arco-list-item-meta) {
     align-items: flex-start;
+  }
+}
+
+.footer {
+  display: flex;
+}
+
+.footerItem {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+
+  &:first-child {
+    border-right: 1px solid var(--color-border-2);
   }
 }

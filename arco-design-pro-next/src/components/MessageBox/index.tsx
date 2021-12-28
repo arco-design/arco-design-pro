@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import groupBy from 'lodash/groupBy';
+import { Trigger, Badge, Tabs, Avatar, Spin } from '@arco-design/web-react';
 import {
-  Dropdown,
-  Badge,
-  Tabs,
-  Menu,
-  Avatar,
-  Spin,
-} from '@arco-design/web-react';
-import {
-  IconNotification,
   IconMessage,
   IconCustomerService,
   IconFile,
@@ -66,17 +58,17 @@ function DropContent() {
   const tabList = [
     {
       key: 'message',
-      title: t['messageBox.tab.title.message'],
+      title: t['message.tab.title.message'],
       titleIcon: <IconMessage />,
     },
     {
       key: 'notice',
-      title: t['messageBox.tab.title.notice'],
+      title: t['message.tab.title.notice'],
       titleIcon: <IconCustomerService />,
     },
     {
-      key: 'approve',
-      title: t['messageBox.tab.title.approve'],
+      key: 'todo',
+      title: t['message.tab.title.todo'],
       titleIcon: <IconFile />,
       avatar: (
         <Avatar style={{ backgroundColor: '#0FC6C2' }}>
@@ -87,62 +79,57 @@ function DropContent() {
   ];
 
   return (
-    <Spin loading={loading} style={{ width: '100%' }}>
-      <Tabs type="rounded" defaultActiveTab="message" destroyOnHide>
-        {tabList.map((item) => {
-          const { key, title, titleIcon, avatar } = item;
-          const data = groupData[key] || [];
-          const unReadData = data.filter((item) => !item.status);
-          return (
-            <Tabs.TabPane
-              key={key}
-              title={
-                <span>
-                  {titleIcon}
-                  {title}
-                  {unReadData.length ? `(${unReadData.length})` : ''}
-                </span>
-              }
-            >
-              <MessageList
-                data={data}
-                unReadData={unReadData}
-                avatar={avatar}
-                onItemClick={(item) => {
-                  readMessage([item]);
-                }}
-                onAllBtnClick={(unReadData) => {
-                  readMessage(unReadData);
-                }}
-              />
-            </Tabs.TabPane>
-          );
-        })}
-      </Tabs>
-    </Spin>
+    <div className={styles.messageBox}>
+      <Spin loading={loading} style={{ display: 'block' }}>
+        <Tabs type="rounded" defaultActiveTab="message" destroyOnHide>
+          {tabList.map((item) => {
+            const { key, title, titleIcon, avatar } = item;
+            const data = groupData[key] || [];
+            const unReadData = data.filter((item) => !item.status);
+            return (
+              <Tabs.TabPane
+                key={key}
+                title={
+                  <span>
+                    {titleIcon}
+                    {title}
+                    {unReadData.length ? `(${unReadData.length})` : ''}
+                  </span>
+                }
+              >
+                <MessageList
+                  data={data}
+                  unReadData={unReadData}
+                  avatar={avatar}
+                  onItemClick={(item) => {
+                    readMessage([item]);
+                  }}
+                  onAllBtnClick={(unReadData) => {
+                    readMessage(unReadData);
+                  }}
+                />
+              </Tabs.TabPane>
+            );
+          })}
+        </Tabs>
+      </Spin>
+    </div>
   );
 }
 
-function MessageBox() {
+function MessageBox({ children }) {
   return (
-    <Dropdown
-      trigger="click"
-      droplist={
-        <Menu className={styles.messageBox}>
-          <DropContent />
-        </Menu>
-      }
+    <Trigger
+      trigger="hover"
+      popup={() => <DropContent />}
       position="br"
-      triggerProps={{
-        autoFitPosition: false,
-      }}
+      unmountOnExit={false}
+      popupAlign={{ bottom: 4 }}
     >
-      <div className={styles.messageBoxTrigger}>
-        <Badge count={9} dot>
-          <IconNotification />
-        </Badge>
-      </div>
-    </Dropdown>
+      <Badge count={9} dot>
+        {children}
+      </Badge>
+    </Trigger>
   );
 }
 
