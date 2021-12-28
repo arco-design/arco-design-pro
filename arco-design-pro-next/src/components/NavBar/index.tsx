@@ -1,10 +1,25 @@
 import React, { useContext } from 'react';
-import { Tooltip, Input, Avatar, Select } from '@arco-design/web-react';
+import {
+  Tooltip,
+  Input,
+  Avatar,
+  Select,
+  Dropdown,
+  Menu,
+  Divider,
+  Message,
+} from '@arco-design/web-react';
 import {
   IconLanguage,
   IconNotification,
   IconSunFill,
   IconMoonFill,
+  IconUser,
+  IconSettings,
+  IconPoweroff,
+  IconExperiment,
+  IconDashboard,
+  IconInteraction,
 } from '@arco-design/web-react/icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '@/store';
@@ -33,8 +48,46 @@ function Navbar() {
   function onMenuItemClick(key) {
     if (key === 'logout') {
       logout();
+    } else {
+      Message.info(`You clicked ${key}`);
     }
   }
+
+  const droplist = (
+    <Menu onClickMenuItem={onMenuItemClick}>
+      <Menu.Item key="user info">
+        <IconUser className={styles.dropdownIcon} />
+        {t['menu.user.info']}
+      </Menu.Item>
+      <Menu.Item key="setting">
+        <IconSettings className={styles.dropdownIcon} />
+        {t['menu.user.setting']}
+      </Menu.Item>
+      <Menu.SubMenu
+        key="more"
+        title={
+          <div style={{ width: 80 }}>
+            <IconExperiment className={styles.dropdownIcon} />
+            {t['message.seeMore']}
+          </div>
+        }
+      >
+        <Menu.Item key="workplace">
+          <IconDashboard className={styles.dropdownIcon} />
+          {t['menu.dashboard.workplace']}
+        </Menu.Item>
+        <Menu.Item key="card list">
+          <IconInteraction className={styles.dropdownIcon} />
+          {t['menu.list.cardList']}
+        </Menu.Item>
+      </Menu.SubMenu>
+      <Divider style={{ margin: '4px 0' }} />
+      <Menu.Item key="logout">
+        <IconPoweroff className={styles.dropdownIcon} />
+        {t['navbar.logout']}
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className={styles.navbar}>
@@ -95,9 +148,11 @@ function Navbar() {
         <Settings />
         {userInfo && (
           <li>
-            <Avatar size={32}>
-              <img alt="avatar" src={userInfo.avatar} />
-            </Avatar>
+            <Dropdown droplist={droplist} position="br">
+              <Avatar size={32} style={{ cursor: 'pointer' }}>
+                <img alt="avatar" src={userInfo.avatar} />
+              </Avatar>
+            </Dropdown>
           </li>
         )}
       </ul>
