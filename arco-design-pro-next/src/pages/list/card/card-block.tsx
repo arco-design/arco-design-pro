@@ -9,6 +9,7 @@ import {
   Typography,
   Dropdown,
   Menu,
+  Skeleton,
 } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import cs from 'classnames';
@@ -26,6 +27,7 @@ import {
 interface CardBlockType {
   type: 'quality' | 'service' | 'rules';
   card: QualityInspection & BasicCard;
+  loading?: boolean;
 }
 
 const IconList = [
@@ -36,10 +38,10 @@ const IconList = [
   IconPenFill,
 ].map((Tag, index) => <Tag key={index} />);
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 function CardBlock(props: CardBlockType) {
-  const { type, card } = props;
+  const { type, card, loading } = props;
   const [visible, setVisible] = useState(false);
 
   const getTitleIcon = () => {
@@ -57,10 +59,14 @@ function CardBlock(props: CardBlockType) {
     if (type === 'quality') {
       return (
         <>
-          <Button type="primary" style={{ marginLeft: '12px' }}>
+          <Button
+            type="primary"
+            style={{ marginLeft: '12px' }}
+            loading={loading}
+          >
             质检
           </Button>
-          <Button>删除</Button>
+          <Button loading={loading}>删除</Button>
         </>
       );
     }
@@ -69,9 +75,9 @@ function CardBlock(props: CardBlockType) {
       return (
         <>
           {card.status === 1 ? (
-            <Button>取消开通</Button>
+            <Button loading={loading}>取消开通</Button>
           ) : (
-            <Button type="outline">
+            <Button type="outline" loading={loading}>
               {card.status === 0 ? '开通服务' : '续约服务'}
             </Button>
           )}
@@ -79,7 +85,7 @@ function CardBlock(props: CardBlockType) {
       );
     }
 
-    return <Switch defaultChecked={!!card.status} />;
+    return <Switch defaultChecked={!!card.status} loading={loading} />;
   };
 
   const getStatus = () => {
@@ -124,6 +130,9 @@ function CardBlock(props: CardBlockType) {
   };
 
   const getContent = () => {
+    if (loading) {
+      return <Skeleton text={{ rows: 3 }} animation />;
+    }
     if (type !== 'quality') {
       return <Paragraph>{card.description}</Paragraph>;
     }
@@ -146,33 +155,42 @@ function CardBlock(props: CardBlockType) {
       bordered={true}
       className={className}
       title={
-        <>
-          <Title
-            className={cs(styles.title, { [styles.titleMore]: visible })}
-            heading={6}
-          >
-            {getTitleIcon()}
-            {card.title}
-            {getStatus()}
-            <Dropdown
-              droplist={
-                <Menu>
-                  {['操作1', '操作2'].map((item, key) => (
-                    <Menu.Item key={key.toString()}>{item}</Menu.Item>
-                  ))}
-                </Menu>
-              }
-              trigger="click"
-              onVisibleChange={setVisible}
-              popupVisible={visible}
+        loading ? (
+          <Skeleton
+            animation
+            text={{ rows: 1, width: ['100%'] }}
+            style={{ width: '120px' }}
+          />
+        ) : (
+          <>
+            <div
+              className={cs(styles.title, {
+                [styles.titleMore]: visible,
+              })}
             >
-              <div className={styles.more}>
-                <IconMore />
-              </div>
-            </Dropdown>
-          </Title>
-          <div className={styles.time}>{card.time}</div>
-        </>
+              {getTitleIcon()}
+              {card.title}
+              {getStatus()}
+              <Dropdown
+                droplist={
+                  <Menu>
+                    {['操作1', '操作2'].map((item, key) => (
+                      <Menu.Item key={key.toString()}>{item}</Menu.Item>
+                    ))}
+                  </Menu>
+                }
+                trigger="click"
+                onVisibleChange={setVisible}
+                popupVisible={visible}
+              >
+                <div className={styles.more}>
+                  <IconMore />
+                </div>
+              </Dropdown>
+            </div>
+            <div className={styles.time}>{card.time}</div>
+          </>
+        )
       }
     >
       <div className={styles.content}>{getContent()}</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Statistic, Typography, Spin } from '@arco-design/web-react';
+import { Skeleton, Statistic, Typography } from '@arco-design/web-react';
 import cs from 'classnames';
 import {
   Chart,
@@ -153,11 +153,20 @@ function PublicOpinionCard(props: PublicOpinionCardProps) {
         </div>
       </div>
       <div className={styles.chart}>
-        <Spin loading={loading} style={{ width: '100%' }}>
-          {chartType === 'interval' && <SimpleInterval chartData={chartData} />}
-          {chartType === 'line' && <SimpleLine chartData={chartData} />}
-          {chartType === 'pie' && <SimplePie chartData={chartData} />}
-        </Spin>
+        {loading ? (
+          <Skeleton
+            text={{ rows: 3, width: Array(3).fill('100%') }}
+            animation
+          />
+        ) : (
+          <>
+            {chartType === 'interval' && (
+              <SimpleInterval chartData={chartData} />
+            )}
+            {chartType === 'line' && <SimpleLine chartData={chartData} />}
+            {chartType === 'pie' && <SimplePie chartData={chartData} />}
+          </>
+        )}
       </div>
     </div>
   );
