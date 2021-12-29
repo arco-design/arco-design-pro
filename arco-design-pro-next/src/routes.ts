@@ -13,10 +13,6 @@ export const routes = [
         name: 'menu.dashboard.workplace',
         key: 'dashboard/workplace',
       },
-      {
-        name: 'menu.dashboard.monitor',
-        key: 'dashboard/monitor',
-      },
     ],
   },
   {
@@ -40,6 +36,10 @@ export const routes = [
       {
         name: 'menu.form.group',
         key: 'form/group',
+      },
+      {
+        name: 'menu.form.step',
+        key: 'form/step',
       },
     ],
   },

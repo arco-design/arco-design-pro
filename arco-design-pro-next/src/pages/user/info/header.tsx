@@ -1,12 +1,11 @@
 import React from 'react';
-import { Avatar, Space, Button } from '@arco-design/web-react';
+import { Avatar, Space, Skeleton } from '@arco-design/web-react';
 import {
   IconCamera,
   IconLocation,
   IconUser,
   IconHome,
 } from '@arco-design/web-react/icon';
-import useLocale from './locale/useLocale';
 import styles from './style/index.module.less';
 
 interface HeaderProps {
@@ -17,50 +16,69 @@ interface HeaderProps {
     organizationName?: string;
     locationName?: string;
   };
+  loading?: boolean;
 }
 
 function UserInfoHeader(props: HeaderProps) {
-  const t = useLocale();
-  const { userInfo } = props;
-  if (!userInfo) return null;
+  const { userInfo = {}, loading } = props;
+
+  const loadingNode = (
+    <Skeleton
+      text={{
+        rows: 1,
+        style: { width: '100px', height: '20px', marginBottom: '-4px' },
+        width: ['100%'],
+      }}
+      animation
+    />
+  );
+  const loadingImgNode = (
+    <Skeleton
+      text={{ rows: 0 }}
+      image={{ style: { width: '64px', height: '64px' }, shape: 'circle' }}
+      animation
+    />
+  );
   return (
     <div className={styles.header}>
-      <Space size={8} direction="vertical" align="center">
-        <Avatar size={64} triggerIcon={<IconCamera />}>
-          <img src={userInfo.avatar} />
-        </Avatar>
-        <div className={styles.username}>{userInfo.name}</div>
+      <Space
+        size={8}
+        direction="vertical"
+        align="center"
+        className={styles['header-content']}
+      >
+        {loading ? (
+          loadingImgNode
+        ) : (
+          <Avatar size={64} triggerIcon={<IconCamera />}>
+            <img src={userInfo.avatar} />
+          </Avatar>
+        )}
+        <div className={styles.username}>
+          {loading ? loadingNode : userInfo.name}
+        </div>
         <div className={styles['user-msg']}>
           <Space size={18}>
             <div>
               <IconUser />
               <span className={styles['user-msg-text']}>
-                {userInfo.jobName}
+                {loading ? loadingNode : userInfo.jobName}
               </span>
             </div>
             <div>
               <IconHome />
               <span className={styles['user-msg-text']}>
-                {userInfo.organizationName}
+                {loading ? loadingNode : userInfo.organizationName}
               </span>
             </div>
             <div>
               <IconLocation />
               <span className={styles['user-msg-text']}>
-                {userInfo.locationName}
+                {loading ? loadingNode : userInfo.locationName}
               </span>
             </div>
           </Space>
         </div>
-        <Button
-          type="primary"
-          className={styles['user-edit-btn']}
-          onClick={() => {
-            window.location.href = '/user/setting';
-          }}
-        >
-          {t['userInfo.editUserInfo']}
-        </Button>
       </Space>
     </div>
   );

@@ -65,7 +65,7 @@ function DataAnalysis() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 16 }}>
+      <Breadcrumb>
         <Breadcrumb.Item>{t['menu.visualization']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.visualization.analysis']}</Breadcrumb.Item>
       </Breadcrumb>

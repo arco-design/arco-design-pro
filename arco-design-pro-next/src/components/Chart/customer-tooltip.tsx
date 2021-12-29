@@ -10,9 +10,11 @@ interface TooltipProps {
     value: string;
     color: string;
   }[];
+  formatter?: (value: string) => React.ReactNode;
 }
 
 function CustomTooltip(props: TooltipProps) {
+  const { formatter = (value) => value } = props;
   return (
     <div className={styles['customer-tooltip']}>
       <div className={styles['customer-tooltip-title']}>
@@ -26,7 +28,7 @@ function CustomTooltip(props: TooltipProps) {
               {item.name}
             </div>
             <div>
-              <Text bold>{item.value} %</Text>
+              <Text bold>{formatter(item.value)}</Text>
             </div>
           </div>
         ))}

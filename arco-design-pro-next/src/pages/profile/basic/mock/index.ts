@@ -1,37 +1,44 @@
 import Mock from 'mockjs';
 
-if (process.env.NODE_ENV === 'development') {
-  Mock.mock(new RegExp('/api/basicProfile'), () => {
-    return {
-      status: 2,
-      video: {
-        mode: '自定义',
-        acquisition: {
-          resolution: '720*1280',
-          frameRate: 15,
-        },
-        encoding: {
-          resolution: '720*1280',
-          rate: {
-            min: 300,
-            max: 800,
-            default: 1500,
-          },
-          frameRate: 15,
-          profile: 'high',
-        },
+Mock.mock(new RegExp('/api/basicProfile'), () => {
+  return {
+    status: 2,
+    video: {
+      mode: '自定义',
+      acquisition: {
+        resolution: '720*1280',
+        frameRate: 15,
       },
-      audio: {
-        mode: '自定义',
-        acquisition: {
-          channels: 8,
+      encoding: {
+        resolution: '720*1280',
+        rate: {
+          min: 300,
+          max: 800,
+          default: 1500,
         },
-        encoding: {
-          channels: 8,
-          rate: 128,
-          profile: 'ACC-LC',
-        },
+        frameRate: 15,
+        profile: 'high',
       },
-    };
-  });
-}
+    },
+    audio: {
+      mode: '自定义',
+      acquisition: {
+        channels: 8,
+      },
+      encoding: {
+        channels: 8,
+        rate: 128,
+        profile: 'ACC-LC',
+      },
+    },
+  };
+});
+
+Mock.mock(new RegExp('/api/adjustment'), () => {
+  return new Array(2).fill('0').map(() => ({
+    contentId: Mock.mock(/[视频类|音频类]{3}[0-9]{6}/),
+    content: '视频参数变更，音频参数变更',
+    status: Mock.Random.natural(0, 1),
+    updatedTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
+  }));
+});

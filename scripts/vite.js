@@ -26,7 +26,7 @@ const maps = {
   'src/settings.json': 'src/settings.json',
   'src/routes.ts': 'src/routes.ts',
   'src/declaration.d.ts': 'src/declaration.d.ts',
-  'src/context.ts': 'src/context.ts',
+  'src/context.tsx': 'src/context.tsx',
   '.eslintrc': '.eslintrc',
   '.eslintignore': '.eslintignore',
   '.stylelintrc': '.stylelintrc',

@@ -37,10 +37,14 @@ function GroupForm() {
       });
   }
 
-  function onSubmitClick() {
+  function handleSubmit() {
     formRef.current.validate().then((values) => {
       submit(values);
     });
+  }
+
+  function handleReset() {
+    formRef.current.resetFields();
   }
 
   return (
@@ -49,8 +53,8 @@ function GroupForm() {
         <Breadcrumb.Item>{t['menu.form']}</Breadcrumb.Item>
         <Breadcrumb.Item>{t['menu.form.group']}</Breadcrumb.Item>
       </Breadcrumb>
-      <Card>
-        <Form layout="vertical" ref={formRef}>
+      <Form layout="vertical" ref={formRef}>
+        <Card>
           <Typography.Title
             heading={6}
             style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
@@ -62,6 +66,7 @@ function GroupForm() {
               <Form.Item
                 label={t['groupForm.form.label.video.mode']}
                 field="video.mode"
+                initialValue={'custom'}
               >
                 <Select placeholder={t['groupForm.placeholder.video.mode']}>
                   <Select.Option value="custom">自定义</Select.Option>
@@ -185,7 +190,8 @@ function GroupForm() {
               </Form.Item>
             </Grid.Col>
           </Grid.Row>
-
+        </Card>
+        <Card>
           <Typography.Title
             heading={6}
             style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
@@ -196,6 +202,7 @@ function GroupForm() {
             <Grid.Col span={8}>
               <Form.Item
                 label={t['groupForm.form.label.audio.mode']}
+                initialValue={'custom'}
                 field="audio.mode"
               >
                 <Select placeholder={t['groupForm.placeholder.audio.mode']}>
@@ -248,32 +255,39 @@ function GroupForm() {
               </Form.Item>
             </Grid.Col>
           </Grid.Row>
-
+        </Card>
+        <Card>
           <Typography.Title
             heading={6}
             style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
           >
-            {t['groupForm.title.approvers']}
+            {t['groupForm.title.explanation']}
           </Typography.Title>
           <Form.Item
-            label={t['groupForm.form.label.approvers']}
-            field="audio.approvers"
+            label={t['groupForm.form.label.explanation']}
+            field="audio.explanation"
           >
             <Input.TextArea
-              placeholder={t['groupForm.placeholder.approvers']}
+              placeholder={t['groupForm.placeholder.explanation']}
             />
           </Form.Item>
-
-          <div className={styles.actions}>
-            <Space>
-              <Button type="primary" onClick={onSubmitClick} loading={loading}>
-                {t['groupForm.submit']}
-              </Button>
-              <Button>{t['groupForm.cancel']}</Button>
-            </Space>
-          </div>
-        </Form>
-      </Card>
+        </Card>
+      </Form>
+      <div className={styles.actions}>
+        <Space>
+          <Button onClick={handleReset} size="large">
+            {t['groupForm.reset']}
+          </Button>
+          <Button
+            type="primary"
+            onClick={handleSubmit}
+            loading={loading}
+            size="large"
+          >
+            {t['groupForm.submit']}
+          </Button>
+        </Space>
+      </div>
     </div>
   );
 }

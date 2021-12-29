@@ -5,7 +5,7 @@ import {
   Typography,
   Grid,
   Statistic,
-  Spin,
+  Skeleton,
 } from '@arco-design/web-react';
 import axios from 'axios';
 import {
@@ -14,13 +14,14 @@ import {
   IconCamera,
   IconDesktop,
 } from '@arco-design/web-react/icon';
-import useLocale from './locale/useLocale';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/data-overview.module.less';
 import MutiAreaLine from '@/components/Chart/muti-area-line';
 
 const { Title } = Typography;
 export default () => {
-  const t = useLocale();
+  const t = useLocale(locale);
   const [overview, setOverview] = useState([]);
   const [lineData, setLineData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -87,7 +88,11 @@ export default () => {
                 {item.icon}
               </div>
               {loading ? (
-                <Spin />
+                <Skeleton
+                  animation
+                  text={{ rows: 1, className: styles['skeleton'] }}
+                  style={{ width: '120px' }}
+                />
               ) : (
                 <Statistic value={item.value} groupSeparator />
               )}

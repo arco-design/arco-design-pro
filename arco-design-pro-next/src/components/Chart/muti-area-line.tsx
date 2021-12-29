@@ -1,6 +1,7 @@
 import React from 'react';
-import { Chart, Line, Axis, Legend, Area } from 'bizcharts';
+import { Chart, Line, Axis, Legend, Area, Tooltip } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
+import CustomTooltip from './customer-tooltip';
 import styles from './style/index.module.less';
 
 const areaColorMap = [
@@ -16,9 +17,9 @@ function MutiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
-        height={370}
-        padding="auto"
+        height={320}
         data={data}
+        padding={[10, 0, 30, 30]}
         autoFit
         scale={{ time: 'time' }}
         className={styles['chart-wrapper']}
@@ -32,7 +33,24 @@ function MutiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
           position="time*count"
           shape="smooth"
           color={['name', areaColorMap]}
+          tooltip={false}
         />
+        <Tooltip
+          crosshairs={{ type: 'x' }}
+          showCrosshairs
+          shared
+          showMarkers={true}
+        >
+          {(title, items) => {
+            return (
+              <CustomTooltip
+                title={title}
+                data={items}
+                formatter={(value) => `${Number(value) / 1000}k`}
+              />
+            );
+          }}
+        </Tooltip>
         <Axis
           name="count"
           label={{ formatter: (value) => `${Number(value) / 100} k` }}

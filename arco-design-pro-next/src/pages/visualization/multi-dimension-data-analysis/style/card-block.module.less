@@ -1,0 +1,30 @@
+.card {
+  .statistic {
+    display: flex;
+  }
+
+  .title {
+    margin: 0;
+  }
+
+  :global(.arco-statistic-content) {
+    margin-top: 12px;
+    margin-bottom: 4px;
+    display: flex;
+
+    :global(.arco-statistic-value) {
+      font-size: 24px;
+      line-height: 28px;
+    }
+  }
+
+  .diff {
+    margin-left: 12px;
+    line-height: 20px;
+    color: rgb(var(--red-6));
+  }
+
+  .diff-increment {
+    color: rgb(var(--green-6));
+  }
+}

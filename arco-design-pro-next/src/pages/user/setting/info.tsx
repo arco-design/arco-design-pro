@@ -1,159 +1,176 @@
+import React, { useContext } from 'react';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
+import { GlobalContext } from '@/context';
 import {
-  Form,
-  Typography,
   Input,
-  Button,
-  Space,
-  Avatar,
-  Upload,
-  Message,
   Select,
+  Cascader,
+  Button,
+  Form,
+  Space,
+  Message,
+  Skeleton,
 } from '@arco-design/web-react';
-import { FormInstance } from '@arco-design/web-react/es/Form';
-import { IconCamera, IconPlus } from '@arco-design/web-react/icon';
-import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import useLocale from './locale/useLocale';
-import styles from './style/index.module.less';
 
-export default function Info() {
-  const t = useLocale();
-  const userInfo = useSelector((state: any) => state.userInfo);
-  const formRef = useRef<FormInstance>();
-  const [loading, setLoading] = useState(false);
-  const [avatar, setAvatar] = useState('');
+function InfoForm({ loading }: { loading?: boolean }) {
+  const t = useLocale(locale);
+  const [form] = Form.useForm();
+  const { lang } = useContext(GlobalContext);
 
-  function save(params) {
-    setLoading(true);
-    axios
-      .post('/api/user/saveInfo', { data: params })
-      .then(() => {
-        Message.success(t['userSetting.saveSuccess']);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+  const handleSave = async () => {
+    try {
+      await form.validate();
+      Message.success('userSetting.saveSuccess');
+    } catch (_) {}
+  };
 
-  function onSaveBtnClick() {
-    formRef.current.validate().then((values) => {
-      save({
-        ...values,
-        avatar,
-      });
-    });
-  }
+  const handleReset = () => {
+    form.resetFields();
+  };
 
-  function onCancelBtnClick() {
-    setInitialValue(userInfo);
-  }
-
-  function setInitialValue(values) {
-    if (values) {
-      setAvatar(values.avatar);
-      formRef.current.setFieldsValue({
-        ...values,
-        avatar: [
-          {
-            uid: 1,
-            url: values.avatar,
-          },
-        ],
-      });
-    }
-  }
-
-  useEffect(() => {
-    if (userInfo) {
-      setAvatar(userInfo.avatar);
-      setInitialValue(userInfo);
-    }
-  }, [userInfo]);
-
-  function onAvatarChange(_, file) {
-    setAvatar(file.originFile ? URL.createObjectURL(file.originFile) : '');
-  }
+  const loadingNode = (rows = 1) => {
+    return (
+      <Skeleton
+        text={{
+          rows,
+          width: new Array(rows).fill('100%'),
+        }}
+        animation
+      />
+    );
+  };
 
   return (
-    <Form className={styles['info-form']} layout="vertical" ref={formRef}>
-      <Typography.Title
-        heading={6}
-        style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
-      >
-        {t['userSetting.title.basicInfo']}
-      </Typography.Title>
+    <Form
+      style={{ width: '500px', margin: '0 auto' }}
+      form={form}
+      labelCol={{ span: lang === 'en-US' ? 7 : 6 }}
+      wrapperCol={{ span: lang === 'en-US' ? 17 : 18 }}
+    >
       <Form.Item
-        label={t['userSetting.label.avatar']}
-        field="avatar"
-        rules={[{ required: true }]}
-        triggerPropName="fileList"
+        label={t['userSetting.info.email']}
+        field="email"
+        rules={[
+          {
+            type: 'email',
+            required: true,
+            message: t['userSetting.info.email.placeholder'],
+          },
+        ]}
       >
-        <Upload showUploadList={false} onChange={onAvatarChange}>
-          <Avatar
-            size={64}
-            triggerIcon={<IconCamera />}
-            className={styles['info-avatar']}
-          >
-            {avatar ? <img src={avatar} /> : <IconPlus />}
-          </Avatar>
-        </Upload>
+        {loading ? (
+          loadingNode()
+        ) : (
+          <Input placeholder={t['userSetting.info.email.placeholder']} />
+        )}
       </Form.Item>
       <Form.Item
-        label={t['userSetting.label.name']}
-        field="name"
-        rules={[{ required: true }]}
+        label={t['userSetting.info.nickName']}
+        field="nickName"
+        rules={[
+          {
+            required: true,
+            message: t['userSetting.info.nickName.placeholder'],
+          },
+        ]}
       >
-        <Input />
+        {loading ? (
+          loadingNode()
+        ) : (
+          <Input placeholder={t['userSetting.info.nickName.placeholder']} />
+        )}
       </Form.Item>
       <Form.Item
-        label={t['userSetting.label.location']}
+        label={t['userSetting.info.area']}
+        field="rangeArea"
+        rules={[
+          { required: true, message: t['userSetting.info.area.placeholder'] },
+        ]}
+      >
+        {loading ? (
+          loadingNode()
+        ) : (
+          <Select
+            options={[]}
+            placeholder={t['userSetting.info.area.placeholder']}
+          />
+        )}
+      </Form.Item>
+      <Form.Item
+        label={t['userSetting.info.location']}
         field="location"
-        rules={[{ required: true }]}
+        initialValue={['BeiJing', 'BeiJing', 'HaiDian']}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
-        <Select>
-          <Select.Option key="beijing" value="beijing">
-            北京
-          </Select.Option>
-          <Select.Option key="shanghai" value="shanghai">
-            上海
-          </Select.Option>
-          <Select.Option key="hangzhou" value="hangzhou">
-            杭州
-          </Select.Option>
-          <Select.Option key="xiamen" value="xiamen">
-            厦门
-          </Select.Option>
-        </Select>
+        {loading ? (
+          loadingNode()
+        ) : (
+          <Cascader
+            options={[
+              {
+                label: '北京市',
+                value: 'BeiJing',
+                children: [
+                  {
+                    label: '北京市',
+                    value: 'BeiJing',
+                    children: [
+                      { label: '海淀区', value: 'HaiDian' },
+                      { label: '朝阳区', value: 'ChaoYang' },
+                    ],
+                  },
+                ],
+              },
+              {
+                label: '上海市',
+                value: 'ShangHai',
+                children: [
+                  {
+                    label: '上海市',
+                    value: 'ShangHai',
+                    children: [
+                      { label: '黄浦区', value: 'HuangPu' },
+                      { label: '静安区', value: 'JingAn' },
+                    ],
+                  },
+                ],
+              },
+            ]}
+          />
+        )}
       </Form.Item>
-      <Form.Item
-        label={t['userSetting.label.introduction']}
-        field="introduction"
-      >
-        <Input.TextArea />
+      <Form.Item label={t['userSetting.info.address']} field="address">
+        {loading ? (
+          loadingNode()
+        ) : (
+          <Input placeholder={t['userSetting.info.address.placeholder']} />
+        )}
+      </Form.Item>
+      <Form.Item label={t['userSetting.info.profile']} field="profile">
+        {loading ? (
+          loadingNode(3)
+        ) : (
+          <Input.TextArea
+            placeholder={t['userSetting.info.profile.placeholder']}
+          />
+        )}
       </Form.Item>
 
-      <Typography.Title heading={6}>
-        {t['userSetting.title.socialInfo']}
-      </Typography.Title>
-      <Form.Item
-        label={t['userSetting.label.personalWebsite']}
-        field="personalWebsite"
-      >
-        <Input />
+      <Form.Item label=" ">
+        <Space>
+          <Button type="primary" onClick={handleSave}>
+            {t['userSetting.save']}
+          </Button>
+          <Button onClick={handleReset}>{t['userSetting.reset']}</Button>
+        </Space>
       </Form.Item>
-      <Form.Item
-        label={t['userSetting.label.personalWebsite']}
-        field="personalWebsite"
-      >
-        <Input />
-      </Form.Item>
-      <Space>
-        <Button type="primary" loading={loading} onClick={onSaveBtnClick}>
-          {t['userSetting.save']}
-        </Button>
-        <Button onClick={onCancelBtnClick}>{t['userSetting.cancel']}</Button>
-      </Space>
     </Form>
   );
 }
+
+export default InfoForm;

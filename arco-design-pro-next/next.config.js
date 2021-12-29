@@ -8,9 +8,7 @@ module.exports = withLess(
   withTM({
     lessLoaderOptions: {
       lessOptions: {
-        modifyVars: {
-          // "primary-color": "red",
-        },
+        modifyVars: {},
       },
     },
     webpack: (config) => {

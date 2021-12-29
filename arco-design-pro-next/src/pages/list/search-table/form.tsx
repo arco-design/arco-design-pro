@@ -35,17 +35,19 @@ function SearchForm(props: {
     props.onSearch({});
   };
 
+  const colSpan = lang === 'zh-CN' ? 8 : 12;
+
   return (
     <div className={styles.searchFormWrapper}>
       <Form
         form={form}
         className={styles.searchForm}
         labelAlign="left"
-        labelCol={{ span: lang === 'zh-CN' ? 4 : 6 }}
-        wrapperCol={{ span: 18 }}
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 19 }}
       >
         <Row gutter={24}>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item label={locale['searchTable.columns.id']} field="id">
               <Input
                 placeholder={locale['searchForm.id.placeholder']}
@@ -53,7 +55,7 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item label={locale['searchTable.columns.name']} field="name">
               <Input
                 allowClear
@@ -61,7 +63,7 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item
               label={locale['searchTable.columns.contentType']}
               field="contentType"
@@ -77,9 +79,7 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
-        </Row>
-        <Row gutter={24}>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item
               label={locale['searchTable.columns.filterType']}
               field="filterType"
@@ -95,7 +95,7 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item
               label={locale['searchTable.columns.createdTime']}
               field="createdTime"
@@ -107,7 +107,7 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={colSpan}>
             <Form.Item
               label={locale['searchTable.columns.status']}
               field="status"

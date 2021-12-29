@@ -1,14 +1,16 @@
 .container {
-  padding: 20px;
+  padding: 16 20px;
+  padding-bottom: 0px;
 }
 
 .header {
-  height: 204px;
-  background-color: rgb(var(--arcoblue-6));
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--color-white);
+  color: var(--color-text-1);
+  border-radius: 4px;
+  position: relative;
 
   :global(.arco-avatar-trigger-icon-button) {
     color: rgb(var(--arcoblue-6));
@@ -29,94 +31,45 @@
       margin-left: 6px;
     }
   }
-
-  .user-edit-btn {
-    color: #fff;
-    border-color: #fff;
-    background: transparent;
-
-    :hover,
-    :active {
-      color: #fff;
-      border-color: #fff;
-      background: transparent;
-    }
-  }
 }
 
-.content {
-  margin-top: 12px;
+.header::after {
+  background: url(../assets/header-banner.png) no-repeat;
+  background-size: 100%;
+  height: 200px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
+  content: ' ';
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.wrapper {
+  > :global(.arco-card-body) {
+    padding: 20px;
+  }
+  margin-top: 16px;
+}
+
+.card-title-wrapper {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 
-  &-left {
+  h6 {
+    margin: 0;
+  }
+}
+
+.list-meta-ellipsis {
+  :global(.arco-list-item-meta-content) {
+    width: 0;
     flex: 1;
-    margin-right: 12px;
-    overflow: hidden;
   }
-
-  &-right {
-    width: 332px;
-  }
-
-  &-left {
-    background-color: var(--color-bg-2);
-  }
-
-  .tab-pane-wrapper {
-    padding: 0 16px 16px;
-  }
-}
-
-.latest-project {
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  &-title {
-    margin-top: 0 !important;
-    margin-bottom: 18px !important;
-  }
-
-  &-list {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &-item {
-    padding-right: 16px;
-
-    &:last-child {
-      padding-right: 0;
-    }
-  }
-}
-
-.latest-activity {
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-.visits {
-  &-item {
-    width: 160px;
-  }
-
-  &-unit {
-    font-size: 12px;
-    padding-left: 8px;
-  }
-
-  &-label {
-    font-size: 12px;
-    padding-right: 8px;
-  }
-}
-
-.other-wrapper {
-  background-color: var(--color-bg-2);
 }

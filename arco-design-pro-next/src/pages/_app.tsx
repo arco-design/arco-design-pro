@@ -44,10 +44,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [lang]);
 
   function fetchUserInfo() {
+    store.dispatch({
+      type: 'update-userInfo',
+      payload: { userLoading: true },
+    });
     axios.get('/api/user/userInfo').then((res) => {
       store.dispatch({
         type: 'update-userInfo',
-        payload: { userInfo: res.data },
+        payload: { userInfo: res.data, userLoading: false },
       });
     });
   }

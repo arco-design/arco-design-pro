@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Typography } from '@arco-design/web-react';
+import { Skeleton, Statistic, Typography, Spin } from '@arco-design/web-react';
 import cs from 'classnames';
 import {
   Chart,
@@ -25,12 +25,13 @@ const basicChartProps = {
 export interface PublicOpinionCardProps {
   key: string;
   title: string;
-  chartData: any[];
+  chartData?: any[];
   chartType: 'line' | 'interval' | 'pie';
-  count: number;
-  increment: boolean;
-  diff: number;
-  compareTime: string;
+  count?: number;
+  increment?: boolean;
+  diff?: number;
+  compareTime?: string;
+  loading?: boolean;
 }
 
 function SimpleLine(props: { chartData: any[] }) {
@@ -114,7 +115,8 @@ function SimplePie(props: { chartData: any[] }) {
 }
 
 function PublicOpinionCard(props: PublicOpinionCardProps) {
-  const { chartType, title, count, increment, diff, chartData } = props;
+  const { chartType, title, count, increment, diff, chartData, loading } =
+    props;
   const className = cs(styles.card, styles[`card-${chartType}`]);
 
   return (
@@ -126,6 +128,7 @@ function PublicOpinionCard(props: PublicOpinionCardProps) {
               {title}
             </Title>
           }
+          loading={loading}
           value={count}
           groupSeparator
         />
@@ -138,15 +141,23 @@ function PublicOpinionCard(props: PublicOpinionCardProps) {
               [styles['diff-increment']]: increment,
             })}
           >
-            {diff}
-            {increment ? <IconArrowRise /> : <IconArrowFall />}
+            {loading ? (
+              <Skeleton text={{ rows: 1 }} animation />
+            ) : (
+              <>
+                {diff}
+                {increment ? <IconArrowRise /> : <IconArrowFall />}
+              </>
+            )}
           </span>
         </div>
       </div>
       <div className={styles.chart}>
-        {chartType === 'interval' && <SimpleInterval chartData={chartData} />}
-        {chartType === 'line' && <SimpleLine chartData={chartData} />}
-        {chartType === 'pie' && <SimplePie chartData={chartData} />}
+        <Spin loading={loading} style={{ width: '100%' }}>
+          {chartType === 'interval' && <SimpleInterval chartData={chartData} />}
+          {chartType === 'line' && <SimpleLine chartData={chartData} />}
+          {chartType === 'pie' && <SimplePie chartData={chartData} />}
+        </Spin>
       </div>
     </div>
   );
