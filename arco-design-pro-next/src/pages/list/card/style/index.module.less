@@ -34,6 +34,7 @@
     border-bottom: none;
     height: auto;
     padding: 16px;
+    padding-bottom: 0px;
   }
 
   .title {
@@ -83,7 +84,6 @@
     color: var(--color-text-3);
     padding: 0;
     line-height: 20px;
-    margin-bottom: 4px;
   }
 
   :global(.arco-descriptions-item-value) {
@@ -91,14 +91,10 @@
     padding-left: 6px;
   }
 
-  :global(.arco-descriptions) {
-    margin-bottom: 10px;
+  .content {
+    height: 48px;
   }
 
-  .content {
-    margin-bottom: 10px;
-    min-height: 60px;
-  }
   .extra {
     display: flex;
     flex-direction: row-reverse;
@@ -130,8 +126,8 @@
   }
 
   :global(.arco-card-body) {
-    padding-top: 64px;
-    padding-bottom: 66px;
+    padding-top: 60px;
+    padding-bottom: 64px;
   }
 }
 
@@ -141,7 +137,7 @@
   }
 
   .title {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .content {

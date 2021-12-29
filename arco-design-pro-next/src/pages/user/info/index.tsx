@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import {
   Typography,
@@ -23,6 +24,17 @@ function UserInfo() {
   const t = useLocale(locale);
   const userInfo = useSelector((state: any) => state.userInfo);
   const loading = useSelector((state: any) => state.userLoading);
+
+  const [noticeLoading, setNoticeLoading] = useState(false);
+
+  const getNotice = async () => {
+    setNoticeLoading(true);
+    await axios.get('/api/user/notice').finally(() => setNoticeLoading(false));
+  };
+
+  useEffect(() => {
+    getNotice();
+  }, []);
 
   return (
     <div className={styles['container']}>
@@ -64,7 +76,7 @@ function UserInfo() {
             <div className={styles['card-title-wrapper']}>
               <Title heading={6}>{t['userInfo.title.notice']}</Title>
             </div>
-            {loading ? (
+            {noticeLoading ? (
               <Skeleton text={{ rows: 10 }} animation />
             ) : (
               <Result

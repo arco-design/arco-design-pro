@@ -9,7 +9,7 @@ function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
         height={370}
-        padding="auto"
+        padding={[10, 20, 120, 60]}
         data={data}
         autoFit
         scale={{ time: 'time' }}
