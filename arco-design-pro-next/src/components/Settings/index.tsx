@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import { GlobalState } from '../../store';
 import Block from './block';
 import ColorPanel from './color';
+import IconButton from '../NavBar/IconButton';
 import useLocale from '@/utils/useLocale';
-import styles from './style/index.module.less';
 
 function Setting() {
   const [visible, setVisible] = useState(false);
@@ -20,10 +20,8 @@ function Setting() {
   }
 
   return (
-    <div>
-      <div className={styles.btn} onClick={() => setVisible(true)}>
-        <IconSettings />
-      </div>
+    <li>
+      <IconButton icon={<IconSettings />} onClick={() => setVisible(true)} />
       <Drawer
         width={300}
         title={
@@ -56,7 +54,7 @@ function Setting() {
         />
         <Alert content={locale['settings.alertContent']} />
       </Drawer>
-    </div>
+    </li>
   );
 }
 

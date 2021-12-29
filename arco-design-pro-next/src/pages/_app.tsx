@@ -10,7 +10,6 @@ import enUS from '@arco-design/web-react/es/locale/en-US';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import rootReducer from '../store';
-import Setting from '../components/Settings';
 import storage from '@/utils/storage';
 import { GlobalContext } from '../context';
 import checkLogin from '@/utils/checkLogin';
@@ -108,12 +107,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           {Component.displayName === 'LoginPage' ? (
             <Component {...pageProps} />
           ) : (
-            <>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              <Setting />
-            </>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           )}
         </GlobalContext.Provider>
       </Provider>
