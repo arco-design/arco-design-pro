@@ -132,11 +132,11 @@ function Overview() {
       <div>
         <div className={styles.ctw}>
           <Typography.Paragraph
-            className={styles.chartTitle}
+            className={styles['chart-title']}
             style={{ marginBottom: 0 }}
           >
             {t['workplace.contentData']}
-            <span className={styles.chartSubTitle}>
+            <span className={styles['chart-sub-title']}>
               ({t['workplace.7days']})
             </span>
           </Typography.Paragraph>

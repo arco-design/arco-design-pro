@@ -9,7 +9,7 @@ function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
         height={370}
-        padding="auto"
+        padding={[10, 20, 120, 60]}
         data={data}
         autoFit
         scale={{ time: 'time' }}
@@ -34,7 +34,35 @@ function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
           }}
         />
         <Legend name="name" />
-        <Slider />
+        <Slider
+          foregroundStyle={{
+            borderRadius: ' 4px',
+            fill: 'l (180) 0:rgba(206, 224, 255, 0.9) 1:rgba(146, 186, 255, 0.8)',
+            opacity: 0.3,
+          }}
+          trendCfg={{
+            data: data.map((item) => item.rate),
+            isArea: true,
+            areaStyle: {
+              fill: 'rgba(4, 135, 255, 0.15)',
+              opacity: 1,
+            },
+            backgroundStyle: {
+              fill: '#F2F3F5',
+            },
+            lineStyle: {
+              stroke: 'rgba(36, 158, 255, 0.3)',
+              lineWidth: 2,
+            },
+          }}
+          handlerStyle={{
+            fill: '#ffffff',
+            opacity: 1,
+            width: 22,
+            height: 22,
+            stroke: '#165DFF',
+          }}
+        />
       </Chart>
     </Spin>
   );

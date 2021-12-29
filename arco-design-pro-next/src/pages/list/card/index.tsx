@@ -5,7 +5,6 @@ import {
   Breadcrumb,
   Card,
   Input,
-  Spin,
   Typography,
   Grid,
 } from '@arco-design/web-react';
@@ -19,13 +18,15 @@ import './mock';
 
 const { Title } = Typography;
 const { Row, Col } = Grid;
+
+const defaultList = new Array(10).fill({});
 export default function ListCard() {
   const t = useLocale(locale);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    quality: [],
-    service: [],
-    rules: [],
+    quality: defaultList,
+    service: defaultList,
+    rules: defaultList,
   });
 
   const [activeKey, setActiveKey] = useState('all');
@@ -49,20 +50,18 @@ export default function ListCard() {
     type: keyof typeof data
   ) => {
     return (
-      <Spin loading={loading} style={{ width: '100%' }}>
-        <Row gutter={24} className={styles.cardContent}>
-          {type === 'quality' && (
-            <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6}>
-              <AddCard description={t['cardList.add.quality']} />
-            </Col>
-          )}
-          {list.map((item, index) => (
-            <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6} key={index}>
-              <CardBlock card={item} type={type} />
-            </Col>
-          ))}
-        </Row>
-      </Spin>
+      <Row gutter={24} className={styles['card-content']}>
+        {type === 'quality' && (
+          <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6}>
+            <AddCard description={t['cardList.add.quality']} />
+          </Col>
+        )}
+        {list.map((item, index) => (
+          <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6} key={index}>
+            <CardBlock card={item} type={type} loading={loading} />
+          </Col>
+        ))}
+      </Row>
     );
   };
 
@@ -98,7 +97,7 @@ export default function ListCard() {
             </div>
           ))
         ) : (
-          <div className={styles.singleContent}>
+          <div className={styles['single-content']}>
             {getCardList(data[activeKey], activeKey as keyof typeof data)}
           </div>
         )}

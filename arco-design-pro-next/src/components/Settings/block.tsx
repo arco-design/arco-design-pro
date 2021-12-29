@@ -25,7 +25,7 @@ export default function Block(props: BlockProps) {
           const type = option.type || 'switch';
 
           return (
-            <div className={styles.switchWrapper} key={option.value}>
+            <div className={styles['switch-wrapper']} key={option.value}>
               <span>{locale[option.name]}</span>
               {type === 'switch' && (
                 <Switch

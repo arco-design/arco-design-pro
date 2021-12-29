@@ -13,6 +13,10 @@ export const routes = [
         name: 'menu.dashboard.workplace',
         key: 'dashboard/workplace',
       },
+      {
+        name: 'menu.dashboard.monitor',
+        key: 'dashboard/monitor',
+      },
     ],
   },
   {

@@ -16,29 +16,33 @@
     margin-bottom: 12px;
   }
 
-  .cardContent {
+  .card-content {
     min-height: 180px;
     width: 100%;
   }
 
-  .singleContent {
+  .single-content {
     margin-top: 30px;
   }
 }
 
-.cardBlock {
+.card-block {
   border-radius: 4px;
   margin-bottom: 16px;
 
   :global(.arco-card-header) {
     border-bottom: none;
     height: auto;
+    padding: 16px;
+    padding-bottom: 0px;
   }
 
   .title {
     display: flex;
     line-height: 24px;
     align-items: center;
+    font-size: 14px;
+    font-weight: 500;
 
     .icon {
       height: 24px;
@@ -65,7 +69,7 @@
     }
   }
 
-  .titleMore {
+  .title-more {
     .more {
       opacity: 1;
     }
@@ -80,7 +84,6 @@
     color: var(--color-text-3);
     padding: 0;
     line-height: 20px;
-    margin-bottom: 4px;
   }
 
   :global(.arco-descriptions-item-value) {
@@ -88,21 +91,17 @@
     padding-left: 6px;
   }
 
-  :global(.arco-descriptions) {
-    margin-bottom: 10px;
+  .content {
+    height: 48px;
   }
 
-  .content {
-    margin-bottom: 10px;
-    min-height: 60px;
-  }
   .extra {
     display: flex;
     flex-direction: row-reverse;
   }
 }
 
-.cardBlock:hover {
+.card-block:hover {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
 
   .title {
@@ -112,11 +111,11 @@
   }
 }
 
-.addCard {
+.add-card {
   text-align: center;
   cursor: pointer;
 
-  .addIcon {
+  .add-icon {
     font-size: 22px;
   }
 
@@ -127,18 +126,18 @@
   }
 
   :global(.arco-card-body) {
-    padding-top: 64px;
-    padding-bottom: 66px;
+    padding-top: 60px;
+    padding-bottom: 64px;
   }
 }
 
-.serviceCard {
+.service-card {
   :global(.arco-card-body) {
     padding: 0px 16px 16px 48px;
   }
 
   .title {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .content {
@@ -147,7 +146,7 @@
   }
 }
 
-.rulesCard {
+.rules-card {
   :global(.arco-card-body) {
     padding: 0px 16px 16px 16px;
   }

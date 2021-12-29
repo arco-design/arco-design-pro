@@ -89,13 +89,15 @@ function DataAnalysis() {
             title={t['dataAnalysis.title.authorsList']}
             className={styles.wrapper}
           >
-            <Table
-              rowKey="id"
-              loading={tableLoading}
-              pagination={false}
-              data={tableData}
-              columns={columns}
-            />
+            <div style={{ height: '370px' }}>
+              <Table
+                rowKey="id"
+                loading={tableLoading}
+                pagination={false}
+                data={tableData}
+                columns={columns}
+              />
+            </div>
           </Card>
         </Col>
         <Col span={24}>

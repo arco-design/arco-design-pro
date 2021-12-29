@@ -83,7 +83,7 @@ function SearchTable() {
       </Breadcrumb>
       <Card>
         <SearchForm onSearch={handleSearch} locale={t} />
-        <div className={styles.buttonGroup}>
+        <div className={styles['button-group']}>
           <Space>
             <Button icon={<IconPlus />}>新建内容集合</Button>
             <Button>批量导入</Button>
