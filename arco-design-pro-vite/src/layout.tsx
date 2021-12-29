@@ -158,14 +158,14 @@ function PageLayout() {
   return (
     <Layout className={styles.layout}>
       {showNavbar && (
-        <div className={styles.layoutNavbar}>
+        <div className={styles['layout-navbar']}>
           <Navbar />
         </div>
       )}
       <Layout>
         {showMenu && (
           <Sider
-            className={styles.layoutSider}
+            className={styles['layout-sider']}
             width={menuWidth}
             collapsed={collapsed}
             onCollapse={setCollapsed}
@@ -174,7 +174,7 @@ function PageLayout() {
             breakpoint="xl"
             style={paddingTop}
           >
-            <div className={styles.menuWrapper}>
+            <div className={styles['menu-wrapper']}>
               <Menu
                 collapse={collapsed}
                 onClickMenuItem={onClickMenuItem}
@@ -184,12 +184,12 @@ function PageLayout() {
                 {renderRoutes(locale)}
               </Menu>
             </div>
-            <div className={styles.collapseBtn} onClick={toggleCollapse}>
+            <div className={styles['collapse-btn']} onClick={toggleCollapse}>
               {collapsed ? <IconMenuUnfold /> : <IconMenuFold />}
             </div>
           </Sider>
         )}
-        <Layout className={styles.layoutContent} style={paddingStyle}>
+        <Layout className={styles['layout-content']} style={paddingStyle}>
           <Content>
             <Switch>
               {flattenRoutes.map((route, index) => {
