@@ -5,19 +5,19 @@ import cs from 'classnames';
 import styles from './style/index.module.less';
 
 export interface Message {
-  id: string;
-  username: string;
-  content: string;
-  time: string;
-  isCollect: boolean;
+  id?: string;
+  username?: string;
+  content?: string;
+  time?: string;
+  isCollect?: boolean;
 }
 
 export interface MessageItemProps {
   data: Message;
 }
 
-export default function MessageItem(props: MessageItemProps) {
-  const { data } = props;
+function MessageItem(props: MessageItemProps) {
+  const { data = {} } = props;
   const classNames = cs(styles['message-item'], {
     [styles['message-item-collected']]: data.isCollect,
   });
@@ -48,3 +48,5 @@ export default function MessageItem(props: MessageItemProps) {
     </div>
   );
 }
+
+export default MessageItem;

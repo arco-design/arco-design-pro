@@ -23,7 +23,6 @@ export default function ChatPanel() {
     axios
       .get('/api/chatList')
       .then((res) => {
-        console.log(res);
         setMessageList(res.data || []);
       })
       .finally(() => {

@@ -7,8 +7,8 @@ interface MessageListProps {
   data: Message[];
 }
 
-export default function MessageList(props: MessageListProps) {
-  const { data } = props;
+function MessageList(props: MessageListProps) {
+  const { data = [] } = props;
   return (
     <div className={styles['message-list']}>
       {data.map((item) => (
@@ -18,3 +18,5 @@ export default function MessageList(props: MessageListProps) {
     </div>
   );
 }
+
+export default MessageList;

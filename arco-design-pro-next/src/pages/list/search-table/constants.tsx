@@ -1,24 +1,24 @@
 import React from 'react';
 import { Button, Typography, Tag } from '@arco-design/web-react';
+import dayjs from 'dayjs';
+import styles from './style/index.module.less';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-import dayjs from 'dayjs';
-import styles from './style/index.module.less';
 
 const { Text } = Typography;
 
-export const ContentType = ['图文', '横版短视频', '竖版短视频'];
-export const FilterType = ['规则筛选', '人工'];
-export const Status = ['已上线', '未上线'];
+export const contentType = ['图文', '横版短视频', '竖版短视频'];
+export const filterType = ['规则筛选', '人工'];
+export const status = ['已上线', '未上线'];
 
-const ContentIcon = [
+const icons = [
   <IconText key={0} />,
   <IconHorizontalVideo key={1} />,
   <IconVerticalVideo key={2} />,
 ];
 
-export default function getColumns(
+export function getColumns(
   t: any,
   callback: (record: Record<string, any>, type: string) => Promise<void>
 ) {
@@ -37,15 +37,15 @@ export default function getColumns(
       dataIndex: 'contentType',
       render: (value) => (
         <div className={styles['content-type']}>
-          {ContentIcon[value]}
-          {ContentType[value]}
+          {icons[value]}
+          {contentType[value]}
         </div>
       ),
     },
     {
       title: t['searchTable.columns.filterType'],
       dataIndex: 'filterType',
-      render: (value) => FilterType[value],
+      render: (value) => filterType[value],
     },
     {
       title: t['searchTable.columns.contentNum'],
@@ -63,9 +63,9 @@ export default function getColumns(
       dataIndex: 'status',
       render: (x) => {
         if (x === 0) {
-          return <Tag color="#165DFF">{Status[x]}</Tag>;
+          return <Tag color="#165DFF">{status[x]}</Tag>;
         }
-        return <Tag color="#F53F3F">{Status[x]}</Tag>;
+        return <Tag color="#F53F3F">{status[x]}</Tag>;
       },
     },
     {
@@ -121,4 +121,8 @@ export default function getColumns(
       ),
     },
   ];
+}
+
+export default function Page() {
+  return <></>;
 }

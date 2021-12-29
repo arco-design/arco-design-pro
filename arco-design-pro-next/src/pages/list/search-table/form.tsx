@@ -8,9 +8,11 @@ import {
   Button,
   Grid,
 } from '@arco-design/web-react';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import { GlobalContext } from '@/context';
 import { IconRefresh, IconSearch } from '@arco-design/web-react/icon';
-import { ContentType, FilterType, Status } from './constants';
+import { contentType, filterType, status } from './constants';
 import styles from './style/index.module.less';
 
 const { Row, Col } = Grid;
@@ -18,12 +20,11 @@ const { useForm } = Form;
 
 function SearchForm(props: {
   onSearch: (values: Record<string, any>) => void;
-  locale: Record<string, string>;
 }) {
   const { lang } = useContext(GlobalContext);
 
-  const { locale } = props;
   const [form] = useForm();
+  const t = useLocale(locale);
 
   const handleSubmit = () => {
     const values = form.getFieldsValue();
@@ -48,29 +49,26 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={locale['searchTable.columns.id']} field="id">
-              <Input
-                placeholder={locale['searchForm.id.placeholder']}
-                allowClear
-              />
+            <Form.Item label={t['searchTable.columns.id']} field="id">
+              <Input placeholder={t['searchForm.id.placeholder']} allowClear />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item label={locale['searchTable.columns.name']} field="name">
+            <Form.Item label={t['searchTable.columns.name']} field="name">
               <Input
                 allowClear
-                placeholder={locale['searchForm.name.placeholder']}
+                placeholder={t['searchForm.name.placeholder']}
               />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.contentType']}
+              label={t['searchTable.columns.contentType']}
               field="contentType"
             >
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
-                options={ContentType.map((item, index) => ({
+                placeholder={t['searchForm.all.placeholder']}
+                options={contentType.map((item, index) => ({
                   label: item,
                   value: index,
                 }))}
@@ -81,12 +79,12 @@ function SearchForm(props: {
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.filterType']}
+              label={t['searchTable.columns.filterType']}
               field="filterType"
             >
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
-                options={FilterType.map((item, index) => ({
+                placeholder={t['searchForm.all.placeholder']}
+                options={filterType.map((item, index) => ({
                   label: item,
                   value: index,
                 }))}
@@ -97,7 +95,7 @@ function SearchForm(props: {
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.createdTime']}
+              label={t['searchTable.columns.createdTime']}
               field="createdTime"
             >
               <DatePicker.RangePicker
@@ -108,13 +106,10 @@ function SearchForm(props: {
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item
-              label={locale['searchTable.columns.status']}
-              field="status"
-            >
+            <Form.Item label={t['searchTable.columns.status']} field="status">
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
-                options={Status.map((item, index) => ({
+                placeholder={t['searchForm.all.placeholder']}
+                options={status.map((item, index) => ({
                   label: item,
                   value: index,
                 }))}

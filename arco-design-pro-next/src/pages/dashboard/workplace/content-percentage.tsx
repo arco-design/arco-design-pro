@@ -25,17 +25,6 @@ function PopularContent() {
     fetchData();
   }, []);
 
-  const cols = {
-    percent: {
-      formatter: (val) => {
-        val = val * 100 + '%';
-        return val;
-      },
-    },
-  };
-
-  console.log(data);
-
   return (
     <Card
       title={t['workplace.contentPercentage']}
