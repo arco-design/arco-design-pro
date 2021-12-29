@@ -99,6 +99,13 @@
     display: flex;
     flex-direction: row-reverse;
   }
+
+  &-skeleton {
+    :global(.arco-skeleton-content .arco-skeleton-text-row:not(:last-child)) {
+      height: 14px;
+      margin-bottom: 8px;
+    }
+  }
 }
 
 .card-block:hover {
@@ -133,11 +140,7 @@
 
 .service-card {
   :global(.arco-card-body) {
-    padding: 0px 16px 16px 48px;
-  }
-
-  .title {
-    margin-bottom: 12px;
+    padding: 12px 16px 16px 48px;
   }
 
   .content {
@@ -148,11 +151,7 @@
 
 .rules-card {
   :global(.arco-card-body) {
-    padding: 0px 16px 16px 16px;
-  }
-
-  .title {
-    margin-bottom: 8px;
+    padding: 12px 16px 16px 16px;
   }
 
   .content {

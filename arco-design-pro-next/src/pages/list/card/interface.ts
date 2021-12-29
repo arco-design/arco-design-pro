@@ -1,5 +1,5 @@
 export interface QualityInspection {
-  title: string;
+  title?: string;
   time?: string;
   qualityCount?: number;
   randomCount?: number;

@@ -59,7 +59,17 @@ function Index() {
 
   return (
     <BrowserRouter>
-      <ConfigProvider locale={getArcoLocale()}>
+      <ConfigProvider
+        locale={getArcoLocale()}
+        componentConfig={{
+          Card: {
+            bordered: false,
+          },
+          List: {
+            bordered: false,
+          },
+        }}
+      >
         <Provider store={store}>
           <GlobalContext.Provider value={contextValue}>
             <Switch>

@@ -41,7 +41,7 @@ const IconList = [
 const { Paragraph } = Typography;
 
 function CardBlock(props: CardBlockType) {
-  const { type, card, loading } = props;
+  const { type, card = {}, loading } = props;
   const [visible, setVisible] = useState(false);
 
   const getTitleIcon = () => {
@@ -131,7 +131,13 @@ function CardBlock(props: CardBlockType) {
 
   const getContent = () => {
     if (loading) {
-      return <Skeleton text={{ rows: 3 }} animation />;
+      return (
+        <Skeleton
+          text={{ rows: type !== 'quality' ? 3 : 2 }}
+          animation
+          className={styles['card-block-skeleton']}
+        />
+      );
     }
     if (type !== 'quality') {
       return <Paragraph>{card.description}</Paragraph>;
@@ -158,8 +164,9 @@ function CardBlock(props: CardBlockType) {
         loading ? (
           <Skeleton
             animation
-            text={{ rows: 1, width: ['100%'] }}
-            style={{ width: '120px' }}
+            text={{ rows: 2, width: ['100%'] }}
+            style={{ width: '120px', height: '44px' }}
+            className={styles['card-block-skeleton']}
           />
         ) : (
           <>
