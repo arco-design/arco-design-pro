@@ -36,7 +36,7 @@ export default function getColumns(
       title: t['searchTable.columns.contentType'],
       dataIndex: 'contentType',
       render: (value) => (
-        <div className={styles.contentType}>
+        <div className={styles['content-type']}>
           {ContentIcon[value]}
           {ContentType[value]}
         </div>

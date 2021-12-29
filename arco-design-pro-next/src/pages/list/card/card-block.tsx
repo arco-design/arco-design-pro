@@ -148,7 +148,7 @@ function CardBlock(props: CardBlockType) {
     );
   };
 
-  const className = cs(styles.cardBlock, styles[`${type}Card`]);
+  const className = cs(styles['card-block'], styles[`${type}-card`]);
 
   return (
     <Card
@@ -165,7 +165,7 @@ function CardBlock(props: CardBlockType) {
           <>
             <div
               className={cs(styles.title, {
-                [styles.titleMore]: visible,
+                [styles['title-more']]: visible,
               })}
             >
               {getTitleIcon()}

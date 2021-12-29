@@ -79,7 +79,7 @@ function DropContent() {
   ];
 
   return (
-    <div className={styles.messageBox}>
+    <div className={styles['message-box']}>
       <Spin loading={loading} style={{ display: 'block' }}>
         <Tabs type="rounded" defaultActiveTab="message" destroyOnHide>
           {tabList.map((item) => {

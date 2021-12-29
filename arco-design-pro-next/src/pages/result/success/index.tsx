@@ -36,7 +36,7 @@ function Success() {
             </Button>,
           ]}
         />
-        <div className={styles.stepsWrapper}>
+        <div className={styles['steps-wrapper']}>
           <Typography.Paragraph bold>
             {t['success.result.progress']}
           </Typography.Paragraph>

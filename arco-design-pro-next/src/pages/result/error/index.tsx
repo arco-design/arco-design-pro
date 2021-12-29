@@ -35,7 +35,7 @@ function Success() {
             </Button>,
           ]}
         />
-        <div className={styles.detailsWrapper}>
+        <div className={styles['details-wrapper']}>
           <Typography.Title heading={6} style={{ marginTop: 0 }}>
             {t['error.detailTitle']}
           </Typography.Title>

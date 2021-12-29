@@ -38,10 +38,10 @@ function SearchForm(props: {
   const colSpan = lang === 'zh-CN' ? 8 : 12;
 
   return (
-    <div className={styles.searchFormWrapper}>
+    <div className={styles['search-form-wrapper']}>
       <Form
         form={form}
-        className={styles.searchForm}
+        className={styles['search-form']}
         labelAlign="left"
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 19 }}
@@ -125,7 +125,7 @@ function SearchForm(props: {
           </Col>
         </Row>
       </Form>
-      <div className={styles.rightButton}>
+      <div className={styles['right-button']}>
         <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
           查询
         </Button>

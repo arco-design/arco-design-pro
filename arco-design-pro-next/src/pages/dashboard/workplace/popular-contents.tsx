@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  Link,
-  Card,
-  Radio,
-  Table,
-  Typography,
-  Select,
-} from '@arco-design/web-react';
+import { Link, Card, Radio, Table, Typography } from '@arco-design/web-react';
 import { IconCaretDown, IconCaretUp } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from './locale/useLocale';

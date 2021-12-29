@@ -50,12 +50,12 @@ function MessageList(props: MessageListProps) {
       footer={
         unReadData.length ? (
           <div className={styles.footer}>
-            <div className={styles.footerItem}>
+            <div className={styles['footer-item']}>
               <Button type="text" size="small" onClick={onAllBtnClick}>
                 {t['message.allRead']}
               </Button>
             </div>
-            <div className={styles.footerItem}>
+            <div className={styles['footer-item']}>
               <Button type="text" size="small">
                 {t['message.seeMore']}
               </Button>

@@ -56,34 +56,34 @@ function Navbar() {
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
       <Menu.Item key="user info">
-        <IconUser className={styles.dropdownIcon} />
+        <IconUser className={styles['dropdown-icon']} />
         {t['menu.user.info']}
       </Menu.Item>
       <Menu.Item key="setting">
-        <IconSettings className={styles.dropdownIcon} />
+        <IconSettings className={styles['dropdown-icon']} />
         {t['menu.user.setting']}
       </Menu.Item>
       <Menu.SubMenu
         key="more"
         title={
           <div style={{ width: 80 }}>
-            <IconExperiment className={styles.dropdownIcon} />
+            <IconExperiment className={styles['dropdown-icon']} />
             {t['message.seeMore']}
           </div>
         }
       >
         <Menu.Item key="workplace">
-          <IconDashboard className={styles.dropdownIcon} />
+          <IconDashboard className={styles['dropdown-icon']} />
           {t['menu.dashboard.workplace']}
         </Menu.Item>
         <Menu.Item key="card list">
-          <IconInteraction className={styles.dropdownIcon} />
+          <IconInteraction className={styles['dropdown-icon']} />
           {t['menu.list.cardList']}
         </Menu.Item>
       </Menu.SubMenu>
       <Divider style={{ margin: '4px 0' }} />
       <Menu.Item key="logout">
-        <IconPoweroff className={styles.dropdownIcon} />
+        <IconPoweroff className={styles['dropdown-icon']} />
         {t['navbar.logout']}
       </Menu.Item>
     </Menu>
@@ -94,7 +94,7 @@ function Navbar() {
       <div className={styles.left}>
         <div className={styles.logo}>
           <Logo />
-          <div className={styles.logoName}>Arco Pro</div>
+          <div className={styles['logo-name']}>Arco Pro</div>
         </div>
       </div>
       <ul className={styles.right}>
