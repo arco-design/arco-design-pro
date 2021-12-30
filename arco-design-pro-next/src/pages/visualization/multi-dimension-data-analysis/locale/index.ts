@@ -8,7 +8,7 @@ const i18n = {
     'multiDAnalysis.card.title.downloads': 'Downloads',
     'multiDAnalysis.card.title.dataOverview': 'Overview',
     'multiDAnalysis.card.title.todayActivity':
-      "Today's Likes and Comments Statistics",
+      'Today\'s Likes and Comments Statistics',
     'multiDAnalysis.card.title.contentTheme': 'Content theme distribution',
     'multiDAnalysis.card.title.contentSource': 'Content publishing source',
     'multiDAnalysis.dataOverview.contentProduction': 'Content production',

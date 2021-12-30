@@ -1,6 +1,6 @@
 .container {
   padding: 16 20px;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .header {
@@ -34,7 +34,7 @@
 }
 
 .header::after {
-  background: url(../assets/header-banner.png) no-repeat;
+  background: url("../assets/header-banner.png") no-repeat;
   background-size: 100%;
   height: 200px;
   width: 100%;
@@ -42,7 +42,7 @@
   top: 0;
   left: 0;
   opacity: 0.4;
-  content: ' ';
+  content: " ";
 }
 
 .header-content {
@@ -54,6 +54,7 @@
   > :global(.arco-card-body) {
     padding: 20px;
   }
+
   margin-top: 16px;
 }
 
