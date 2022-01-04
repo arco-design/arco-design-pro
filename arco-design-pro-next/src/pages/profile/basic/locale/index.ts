@@ -41,7 +41,7 @@ const i18n = {
   'zh-CN': {
     'menu.profile': '详情页',
     'menu.profile.basic': '基础详情页',
-    'basicProfile.title.form': '的参数审批流程表',
+    'basicProfile.title.form': '参数审批流程表',
     'basicProfile.steps.commit': '提交修改',
     'basicProfile.steps.approval': '审批中',
     'basicProfile.steps.finish': '修改完成',

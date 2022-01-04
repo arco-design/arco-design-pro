@@ -1,4 +1,4 @@
-import { Space, Breadcrumb } from '@arco-design/web-react';
+import { Space } from '@arco-design/web-react';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ChatPanel from './chat-panel';
@@ -8,18 +8,12 @@ import StudioStatus from './studio-status';
 import QuickOperation from './quick-operation';
 import StudioInformation from './studio-information';
 import styles from './style/index.module.less';
-import useLocale from './locale/useLocale';
 import './mock';
 
 export default function Monitor() {
-  const t = useLocale();
   const userInfo = useSelector((state: any) => state.userInfo);
   return (
-    <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.dashboard']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.dashboard.monitor']}</Breadcrumb.Item>
-      </Breadcrumb>
+    <div>
       <div className={styles.layout}>
         <div className={styles['layout-left-side']}>
           <ChatPanel />

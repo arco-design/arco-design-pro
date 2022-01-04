@@ -118,3 +118,14 @@ export const routes = [
     ],
   },
 ];
+
+export const getName = (path: string, routes) => {
+  return routes.find((item) => {
+    const itemPath = `/${item.key}`;
+    if (path === itemPath) {
+      return item.name;
+    } else if (item.children) {
+      return getName(path, item.children);
+    }
+  });
+};

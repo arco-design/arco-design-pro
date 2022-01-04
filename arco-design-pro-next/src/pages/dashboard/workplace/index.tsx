@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@arco-design/web-react';
-import useLocale from './locale/useLocale';
 import Overview from './overview';
 import PopularContents from './popular-contents';
 import ContentPercentage from './content-percentage';
@@ -16,8 +15,6 @@ const { Row, Col } = Grid;
 const gutter = 16;
 
 function Workplace() {
-  const t = useLocale();
-
   return (
     <div className={styles.container}>
       <div className={styles.left}>

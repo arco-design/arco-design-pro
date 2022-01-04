@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  Tabs,
-  Breadcrumb,
-  Card,
-  Input,
-  Typography,
-  Grid,
-} from '@arco-design/web-react';
+import { Tabs, Card, Input, Typography, Grid } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
@@ -67,10 +60,6 @@ export default function ListCard() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.list']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.list.card']}</Breadcrumb.Item>
-      </Breadcrumb>
       <Card>
         <Tabs
           activeTab={activeKey}

@@ -19,7 +19,7 @@ export default function Welcome() {
           {userInfo.name}, {userInfo.email}
         </Typography.Text>
       </div>
-      <div className={styles.content}>
+      <div>
         <Alert type="success" content={t['welcome.invite']} />
         <Card style={{ marginTop: 20 }} title={t['welcome.usage']}>
           <Typography.Title heading={6} style={{ marginTop: 0 }}>

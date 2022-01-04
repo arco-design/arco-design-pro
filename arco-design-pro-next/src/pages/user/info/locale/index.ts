@@ -1,5 +1,7 @@
 const i18n = {
   'en-US': {
+    'menu.user': 'Personal Center',
+    'menu.user.info': 'User Center',
     'userInfo.title.project': 'My project',
     'userInfo.title.news': 'Latest News',
     'userInfo.title.team': 'My team',
@@ -9,6 +11,8 @@ const i18n = {
     'userInfo.notice.empty': 'No Data',
   },
   'zh-CN': {
+    'menu.user': '个人中心',
+    'menu.user.info': '用户中心',
     'userInfo.title.project': '我的项目',
     'userInfo.title.news': '最新动态',
     'userInfo.title.team': '我的团队',

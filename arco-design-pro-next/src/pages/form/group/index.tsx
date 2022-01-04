@@ -9,7 +9,6 @@ import {
   Space,
   Button,
   Message,
-  Breadcrumb,
 } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import axios from 'axios';
@@ -49,10 +48,6 @@ function GroupForm() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.form']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.form.group']}</Breadcrumb.Item>
-      </Breadcrumb>
       <Form layout="vertical" ref={formRef}>
         <Card>
           <Typography.Title
@@ -256,7 +251,7 @@ function GroupForm() {
             </Grid.Col>
           </Grid.Row>
         </Card>
-        <Card>
+        <Card style={{ marginBottom: '40px' }}>
           <Typography.Title
             heading={6}
             style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}

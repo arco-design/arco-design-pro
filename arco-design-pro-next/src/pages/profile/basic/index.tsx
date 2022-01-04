@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Breadcrumb,
   Card,
   Steps,
   Typography,
-  Spin,
   Grid,
   Space,
   Button,
@@ -70,11 +68,6 @@ function BasicProfile() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb>
-        <Breadcrumb.Item>{t['menu.profile']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.profile.basic']}</Breadcrumb.Item>
-      </Breadcrumb>
-
       <Card>
         <Grid.Row
           justify="space-between"

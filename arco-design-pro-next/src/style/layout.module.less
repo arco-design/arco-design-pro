@@ -41,7 +41,7 @@
   }
 
   &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
@@ -82,7 +82,7 @@
 
   :global(.arco-menu-item-inner > a::after),
   :global(.arco-menu-item > a::after) {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 100%;
@@ -104,12 +104,26 @@
   vertical-align: text-bottom;
 }
 
+.icon-empty {
+  width: 12px;
+  height: 18px;
+  display: inline-block;
+}
+
 .layout-content {
   background-color: var(--color-fill-2);
   min-width: @layout-max-width;
   min-height: 100vh;
   transition: padding-left 0.2s;
   box-sizing: border-box;
+}
+
+.layout-content-wrapper {
+  padding: 16px 20px 0px 20px;
+}
+
+.layout-breadcrumb {
+  margin-bottom: 16px;
 }
 
 .spin {

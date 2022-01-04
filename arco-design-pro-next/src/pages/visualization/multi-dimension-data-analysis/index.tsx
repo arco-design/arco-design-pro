@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, Typography, Card, Grid } from '@arco-design/web-react';
+import { Typography, Card, Grid } from '@arco-design/web-react';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import HorizontalInterval from '@/components/Chart/horizontal-interval';
@@ -62,12 +62,6 @@ function DataAnalysis() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb>
-        <Breadcrumb.Item>{t['menu.visualization']}</Breadcrumb.Item>
-        <Breadcrumb.Item>
-          {t['menu.visualization.multiDimensionDataAnalysis']}
-        </Breadcrumb.Item>
-      </Breadcrumb>
       <Row gutter={20}>
         <Col span={16}>
           <Card>

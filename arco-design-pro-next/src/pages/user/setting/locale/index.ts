@@ -1,6 +1,6 @@
 const i18n = {
   'en-US': {
-    'menu.user': 'User Center',
+    'menu.user': 'Personal Center',
     'menu.user.setting': 'User Setting',
     'userSetting.menu.title.info': 'Personal Information',
     'userSetting.menu.title.account': 'Account Setting',

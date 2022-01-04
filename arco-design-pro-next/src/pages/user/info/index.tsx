@@ -37,7 +37,7 @@ function UserInfo() {
   }, []);
 
   return (
-    <div className={styles['container']}>
+    <div>
       <UserInfoHeader userInfo={userInfo} loading={loading} />
       <Row gutter={16}>
         <Col span={16}>

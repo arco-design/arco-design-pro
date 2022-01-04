@@ -9,16 +9,18 @@ function Exception403() {
 
   return (
     <div className={styles.container}>
-      <Result
-        className={styles.result}
-        status="403"
-        subTitle={t['exception.result.403.description']}
-        extra={
-          <Button key="back" type="primary">
-            {t['exception.result.403.back']}
-          </Button>
-        }
-      />
+      <div className={styles.wrapper}>
+        <Result
+          className={styles.result}
+          status="403"
+          subTitle={t['exception.result.403.description']}
+          extra={
+            <Button key="back" type="primary">
+              {t['exception.result.403.back']}
+            </Button>
+          }
+        />
+      </div>
     </div>
   );
 }

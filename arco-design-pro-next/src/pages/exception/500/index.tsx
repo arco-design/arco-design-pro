@@ -8,7 +8,7 @@ function Exception500() {
   const t = useLocale(locale);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.wrapper}>
       <Result
         className={styles.result}
         status="500"

@@ -12,7 +12,6 @@ import {
   Card,
   Switch,
   Result,
-  Breadcrumb,
 } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
@@ -44,10 +43,6 @@ function StepForm() {
   };
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.form']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.form.step']}</Breadcrumb.Item>
-      </Breadcrumb>
       <Card>
         <Title heading={5}>{t['stepForm.desc.basicInfo']}</Title>
         <div className={styles.wrapper}>

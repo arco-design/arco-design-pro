@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Table,
-  Breadcrumb,
   Card,
   PaginationProps,
   Button,
@@ -76,11 +75,7 @@ function SearchTable() {
   }
 
   return (
-    <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.list']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.list.searchTable']}</Breadcrumb.Item>
-      </Breadcrumb>
+    <div>
       <Card>
         <SearchForm onSearch={handleSearch} />
         <div className={styles['button-group']}>

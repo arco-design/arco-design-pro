@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Breadcrumb, Card, Grid, Table } from '@arco-design/web-react';
+import { Card, Grid, Table } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import axios from 'axios';
 import locale from './locale';
@@ -64,11 +64,7 @@ function DataAnalysis() {
   }, [t]);
 
   return (
-    <div className={styles.container}>
-      <Breadcrumb>
-        <Breadcrumb.Item>{t['menu.visualization']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.visualization.analysis']}</Breadcrumb.Item>
-      </Breadcrumb>
+    <div>
       <Card
         title={t['dataAnalysis.title.publicOpinion']}
         className={styles.wrapper}

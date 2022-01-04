@@ -4,6 +4,7 @@ import { Spin } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import CustomTooltip from './customer-tooltip';
 
+const lineColor = ['#21CCFF', '#313CA9', '#249EFF'];
 function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
@@ -15,11 +16,7 @@ function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
         scale={{ time: 'time' }}
         className={styles['chart-wrapper']}
       >
-        <Line
-          shape="smooth"
-          position="time*rate"
-          color={['name', ['#21CCFF', '#313CA9', '#249EFF']]}
-        />
+        <Line shape="smooth" position="time*rate" color={['name', lineColor]} />
         <Tooltip crosshairs={{ type: 'x' }} showCrosshairs shared>
           {(title, items) => {
             return <CustomTooltip title={title} data={items} />;
@@ -33,7 +30,18 @@ function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
             },
           }}
         />
-        <Legend name="name" />
+        <Legend
+          name="name"
+          marker={(_, index) => {
+            return {
+              symbol: 'circle',
+              style: {
+                fill: lineColor[index],
+                r: 4,
+              },
+            };
+          }}
+        />
         <Slider
           foregroundStyle={{
             borderRadius: ' 4px',

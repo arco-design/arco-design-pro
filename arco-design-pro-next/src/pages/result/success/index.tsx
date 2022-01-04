@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Typography,
-  Result,
-  Button,
-  Steps,
-  Breadcrumb,
-} from '@arco-design/web-react';
+import { Typography, Result, Button, Steps } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
@@ -16,11 +10,7 @@ function Success() {
   const t = useLocale(locale);
 
   return (
-    <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>{t['menu.result']}</Breadcrumb.Item>
-        <Breadcrumb.Item>{t['menu.result.success']}</Breadcrumb.Item>
-      </Breadcrumb>
+    <div>
       <div className={styles.wrapper}>
         <Result
           className={styles.result}

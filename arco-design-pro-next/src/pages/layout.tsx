@@ -1,5 +1,5 @@
-import React, { useState, ReactNode } from 'react';
-import { Layout, Menu } from '@arco-design/web-react';
+import React, { useState, ReactNode, useRef, useEffect } from 'react';
+import { Layout, Menu, Breadcrumb } from '@arco-design/web-react';
 import {
   IconDashboard,
   IconList,
@@ -49,58 +49,9 @@ function getIconFromKey(key) {
       return <IconExclamationCircle className={styles.icon} />;
     case 'user':
       return <IconUser className={styles.icon} />;
+    default:
+      return <div className={styles['icon-empty']} />;
   }
-}
-
-function renderRoutes(locale) {
-  const nodes = [];
-  function travel(_routes, level) {
-    return _routes.map((route) => {
-      const titleDom = (
-        <>
-          {getIconFromKey(route.key)} {locale[route.name] || route.name}
-        </>
-      );
-      if (
-        route.key &&
-        (!isArray(route.children) ||
-          (isArray(route.children) && !route.children.length))
-      ) {
-        if (level > 1) {
-          return (
-            <MenuItem key={route.key}>
-              <Link href={`/${route.key}`}>
-                <a>{titleDom}</a>
-              </Link>
-            </MenuItem>
-          );
-        }
-        nodes.push(
-          <MenuItem key={route.key}>
-            <Link href={`/${route.key}`}>
-              <a>{titleDom}</a>
-            </Link>
-          </MenuItem>
-        );
-      }
-      if (isArray(route.children) && route.children.length) {
-        if (level > 1) {
-          return (
-            <SubMenu key={route.key} title={titleDom}>
-              {travel(route.children, level + 1)}
-            </SubMenu>
-          );
-        }
-        nodes.push(
-          <SubMenu key={route.key} title={titleDom}>
-            {travel(route.children, level + 1)}
-          </SubMenu>
-        );
-      }
-    });
-  }
-  travel(routes, 1);
-  return nodes;
 }
 
 function PageLayout({ children }: { children: ReactNode }) {
@@ -124,6 +75,10 @@ function PageLayout({ children }: { children: ReactNode }) {
   const showMenu = settings?.menu && urlParams.menu !== false;
   const showFooter = settings?.footer && urlParams.footer !== false;
 
+  const routeMap = useRef<Map<string, string[]>>(new Map());
+
+  const [breadcrumb, setBreadCrumb] = useState([]);
+
   function onClickMenuItem(key) {
     setSelectedKeys([key]);
   }
@@ -135,6 +90,68 @@ function PageLayout({ children }: { children: ReactNode }) {
   const paddingLeft = showMenu ? { paddingLeft: menuWidth } : {};
   const paddingTop = showNavbar ? { paddingTop: navbarHeight } : {};
   const paddingStyle = { ...paddingLeft, ...paddingTop };
+
+  function renderRoutes(locale) {
+    const nodes = [];
+    function travel(_routes, level, parentName = '') {
+      return _routes.map((route) => {
+        const titleDom = (
+          <>
+            {getIconFromKey(route.key)} {locale[route.name] || route.name}
+          </>
+        );
+        if (
+          route.key &&
+          (!isArray(route.children) ||
+            (isArray(route.children) && !route.children.length))
+        ) {
+          routeMap.current.set(
+            `/${route.key}`,
+            parentName ? [parentName, route.name] : [route.name]
+          );
+
+          if (level > 1) {
+            return (
+              <MenuItem key={route.key}>
+                <Link href={`/${route.key}`}>
+                  <a>{titleDom}</a>
+                </Link>
+              </MenuItem>
+            );
+          }
+
+          nodes.push(
+            <MenuItem key={route.key}>
+              <Link href={`/${route.key}`}>
+                <a>{titleDom}</a>
+              </Link>
+            </MenuItem>
+          );
+        }
+        if (isArray(route.children) && route.children.length) {
+          if (level > 1) {
+            return (
+              <SubMenu key={route.key} title={titleDom}>
+                {travel(route.children, level + 1, route.name)}
+              </SubMenu>
+            );
+          }
+          nodes.push(
+            <SubMenu key={route.key} title={titleDom}>
+              {travel(route.children, level + 1, route.name)}
+            </SubMenu>
+          );
+        }
+      });
+    }
+    travel(routes, 1);
+    return nodes;
+  }
+
+  useEffect(() => {
+    const routeConfig = routeMap.current.get(pathname);
+    setBreadCrumb(routeConfig || []);
+  }, [pathname]);
 
   return (
     <Layout className={styles.layout}>
@@ -171,7 +188,16 @@ function PageLayout({ children }: { children: ReactNode }) {
           </Sider>
         )}
         <Layout className={styles['layout-content']} style={paddingStyle}>
-          <Content>{children}</Content>
+          <div className={styles['layout-content-wrapper']}>
+            <div className={styles['layout-breadcrumb']}>
+              <Breadcrumb>
+                {breadcrumb.map((name) => (
+                  <Breadcrumb.Item key={name}>{locale[name]}</Breadcrumb.Item>
+                ))}
+              </Breadcrumb>
+            </div>
+            <Content>{children}</Content>
+          </div>
           {showFooter && <Footer />}
         </Layout>
       </Layout>
