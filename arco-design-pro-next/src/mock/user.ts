@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 import { isSSR } from '@/utils/is';
 
-if (process.env.NODE_ENV === 'development' && !isSSR) {
+if (!isSSR) {
   Mock.XHR.prototype.withCredentials = true;
 
   // 用户信息

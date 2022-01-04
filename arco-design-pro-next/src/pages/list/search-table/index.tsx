@@ -14,7 +14,7 @@ import SearchForm from './form';
 import locale from './locale';
 import styles from './style/index.module.less';
 import './mock';
-import getColumns from './constants';
+import { getColumns } from './constants';
 
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
 export const FilterType = ['规则筛选', '人工'];
@@ -82,7 +82,7 @@ function SearchTable() {
         <Breadcrumb.Item>{t['menu.list.searchTable']}</Breadcrumb.Item>
       </Breadcrumb>
       <Card>
-        <SearchForm onSearch={handleSearch} locale={t} />
+        <SearchForm onSearch={handleSearch} />
         <div className={styles['button-group']}>
           <Space>
             <Button icon={<IconPlus />}>新建内容集合</Button>

@@ -34,8 +34,6 @@ function PopularContent() {
     },
   };
 
-  console.log(data);
-
   return (
     <Card
       title={t['workplace.contentPercentage']}

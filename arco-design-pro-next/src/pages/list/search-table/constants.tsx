@@ -18,7 +18,7 @@ const ContentIcon = [
   <IconVerticalVideo key={2} />,
 ];
 
-export default function getColumns(
+export function getColumns(
   t: any,
   callback: (record: Record<string, any>, type: string) => Promise<void>
 ) {
@@ -122,3 +122,5 @@ export default function getColumns(
     },
   ];
 }
+
+export default () => ContentIcon;

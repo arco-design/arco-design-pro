@@ -8,7 +8,7 @@ import {
   Coordinate,
   Interaction,
   Tooltip,
-  registerShape,
+  G2,
 } from 'bizcharts';
 
 import { IconArrowRise, IconArrowFall } from '@arco-design/web-react/icon';
@@ -50,7 +50,7 @@ function SimpleLine(props: { chartData: any[] }) {
 function SimpleInterval(props: { chartData: any[] }) {
   const { chartData } = props;
 
-  registerShape('interval', 'border-radius', {
+  G2.registerShape('interval', 'border-radius', {
     draw(cfg, container) {
       const points = cfg.points as unknown as { x: string; y: number };
       let path = [];

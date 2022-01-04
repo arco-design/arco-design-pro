@@ -56,7 +56,6 @@ function BasicProfile() {
     axios
       .get('/api/adjustment')
       .then((res) => {
-        console.log(res.data);
         setTableData(res.data);
       })
       .finally(() => {

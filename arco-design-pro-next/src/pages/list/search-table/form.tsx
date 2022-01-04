@@ -9,6 +9,8 @@ import {
   Grid,
 } from '@arco-design/web-react';
 import { GlobalContext } from '@/context';
+import locale from './locale';
+import useLocale from '@/utils/useLocale';
 import { IconRefresh, IconSearch } from '@arco-design/web-react/icon';
 import { ContentType, FilterType, Status } from './constants';
 import styles from './style/index.module.less';
@@ -18,11 +20,10 @@ const { useForm } = Form;
 
 function SearchForm(props: {
   onSearch: (values: Record<string, any>) => void;
-  locale: Record<string, string>;
 }) {
   const { lang } = useContext(GlobalContext);
 
-  const { locale } = props;
+  const t = useLocale(locale);
   const [form] = useForm();
 
   const handleSubmit = () => {
@@ -48,28 +49,25 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={locale['searchTable.columns.id']} field="id">
-              <Input
-                placeholder={locale['searchForm.id.placeholder']}
-                allowClear
-              />
+            <Form.Item label={t['searchTable.columns.id']} field="id">
+              <Input placeholder={t['searchForm.id.placeholder']} allowClear />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item label={locale['searchTable.columns.name']} field="name">
+            <Form.Item label={t['searchTable.columns.name']} field="name">
               <Input
                 allowClear
-                placeholder={locale['searchForm.name.placeholder']}
+                placeholder={t['searchForm.name.placeholder']}
               />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.contentType']}
+              label={t['searchTable.columns.contentType']}
               field="contentType"
             >
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
+                placeholder={t['searchForm.all.placeholder']}
                 options={ContentType.map((item, index) => ({
                   label: item,
                   value: index,
@@ -81,11 +79,11 @@ function SearchForm(props: {
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.filterType']}
+              label={t['searchTable.columns.filterType']}
               field="filterType"
             >
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
+                placeholder={t['searchForm.all.placeholder']}
                 options={FilterType.map((item, index) => ({
                   label: item,
                   value: index,
@@ -97,7 +95,7 @@ function SearchForm(props: {
           </Col>
           <Col span={colSpan}>
             <Form.Item
-              label={locale['searchTable.columns.createdTime']}
+              label={t['searchTable.columns.createdTime']}
               field="createdTime"
             >
               <DatePicker.RangePicker
@@ -108,12 +106,9 @@ function SearchForm(props: {
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item
-              label={locale['searchTable.columns.status']}
-              field="status"
-            >
+            <Form.Item label={t['searchTable.columns.status']} field="status">
               <Select
-                placeholder={locale['searchForm.all.placeholder']}
+                placeholder={t['searchForm.all.placeholder']}
                 options={Status.map((item, index) => ({
                   label: item,
                   value: index,
