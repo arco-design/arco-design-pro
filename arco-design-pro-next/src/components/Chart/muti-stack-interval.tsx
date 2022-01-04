@@ -19,6 +19,9 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
           color={['name', ['#81E2FF', '#00B2FF', '#246EFF']]}
           position="time*count"
           size={16}
+          style={{
+            radius: [2, 2, 0, 0],
+          }}
         />
         <Tooltip crosshairs={{ type: 'x' }} showCrosshairs shared>
           {(title, items) => {

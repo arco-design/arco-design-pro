@@ -25,15 +25,6 @@ function PopularContent() {
     fetchData();
   }, []);
 
-  const cols = {
-    percent: {
-      formatter: (val) => {
-        val = val * 100 + '%';
-        return val;
-      },
-    },
-  };
-
   return (
     <Card
       title={t['workplace.contentPercentage']}
@@ -58,13 +49,10 @@ function PopularContent() {
           label={{
             visible: true,
             type: 'spider',
-            formatter: (v) =>
-              `${v.type}: ${(v.percent * 100).toFixed(0)}%\n（${Number(
-                v.count
-              ).toLocaleString()}）`,
+            formatter: (v) => `${(v.percent * 100).toFixed(0)}%`,
             style: {
               fill: '#86909C',
-              textAlign: 'center',
+              fontSize: 14,
             },
           }}
           legend={{

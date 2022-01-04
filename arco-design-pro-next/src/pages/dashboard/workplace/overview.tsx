@@ -137,7 +137,7 @@ function Overview() {
           >
             {t['workplace.contentData']}
             <span className={styles['chart-sub-title']}>
-              ({t['workplace.7days']})
+              ({t['workplace.1year']})
             </span>
           </Typography.Paragraph>
           <Link>{t['workplace.seeMore']}</Link>

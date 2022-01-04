@@ -9,6 +9,7 @@ import {
   Interaction,
   Tooltip,
   G2,
+  Legend,
 } from 'bizcharts';
 
 import { IconArrowRise, IconArrowFall } from '@arco-design/web-react/icon';
@@ -19,7 +20,7 @@ const basicChartProps = {
   pure: true,
   autoFit: true,
   height: 80,
-  padding: [0, 10, 0, 10],
+  padding: [10, 10, 0, 10],
 };
 
 export interface PublicOpinionCardProps {
@@ -40,8 +41,18 @@ function SimpleLine(props: { chartData: any[] }) {
     <Chart data={chartData} {...basicChartProps}>
       <Line
         position="x*y"
-        shape={['name', ['smooth', 'dash']]}
+        size={3}
+        shape={'smooth'}
         color={['name', ['#165DFF', 'rgba(106,161,255,0.3)']]}
+        style={{
+          fields: ['name'],
+          callback: (name) => {
+            if (name === '类目2') {
+              return { lineDash: [8, 10] };
+            }
+            return {};
+          },
+        }}
       />
     </Chart>
   );
@@ -99,16 +110,17 @@ function SimplePie(props: { chartData: any[] }) {
   const { chartData } = props;
 
   return (
-    <Chart data={chartData} {...basicChartProps} padding={[0, 0, 0, 0]}>
+    <Chart data={chartData} {...basicChartProps} padding={[0, 20, 0, 0]}>
       <Coordinate type="theta" radius={0.8} innerRadius={0.7} />
       <Interval
         adjust="stack"
         position="count"
         shape="sliceShape"
         color={['name', ['#8D4EDA', '#00B2FF', '#165DFF']]}
-        label="name"
+        label={false}
       />
       <Tooltip visible={true} />
+      <Legend position="right" />
       <Interaction type="element-single-selected" />
     </Chart>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QualityInspection, BasicCard } from './interface';
 import {
   Button,
@@ -41,8 +41,24 @@ const IconList = [
 const { Paragraph } = Typography;
 
 function CardBlock(props: CardBlockType) {
-  const { type, card = {}, loading } = props;
+  const { type, card = {} } = props;
   const [visible, setVisible] = useState(false);
+  const [status, setStatus] = useState(card.status);
+  const [loading, setLoading] = useState(props.loading);
+
+  const changeStatus = async () => {
+    setLoading(true);
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        setStatus(status !== 1 ? 1 : 0);
+        resolve(null);
+      }, 1000)
+    ).finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    setLoading(props.loading);
+  }, [props.loading]);
 
   const getTitleIcon = () => {
     if (type === 'service' && typeof card.icon === 'number') {
@@ -74,22 +90,26 @@ function CardBlock(props: CardBlockType) {
     if (type === 'service') {
       return (
         <>
-          {card.status === 1 ? (
-            <Button loading={loading}>取消开通</Button>
+          {status === 1 ? (
+            <Button loading={loading} onClick={changeStatus}>
+              取消开通
+            </Button>
           ) : (
-            <Button type="outline" loading={loading}>
-              {card.status === 0 ? '开通服务' : '续约服务'}
+            <Button type="outline" loading={loading} onClick={changeStatus}>
+              {status === 0 ? '开通服务' : '续约服务'}
             </Button>
           )}
         </>
       );
     }
 
-    return <Switch defaultChecked={!!card.status} loading={loading} />;
+    return (
+      <Switch checked={!!status} loading={loading} onChange={changeStatus} />
+    );
   };
 
   const getStatus = () => {
-    if (type === 'rules' && card.status) {
+    if (type === 'rules' && status) {
       return (
         <Tag
           color="green"
@@ -101,7 +121,7 @@ function CardBlock(props: CardBlockType) {
         </Tag>
       );
     }
-    switch (card.status) {
+    switch (status) {
       case 1:
         return (
           <Tag
@@ -164,8 +184,8 @@ function CardBlock(props: CardBlockType) {
         loading ? (
           <Skeleton
             animation
-            text={{ rows: 2, width: ['100%'] }}
-            style={{ width: '120px', height: '44px' }}
+            text={{ rows: 1, width: ['100%'] }}
+            style={{ width: '120px', height: '24px' }}
             className={styles['card-block-skeleton']}
           />
         ) : (

@@ -7,7 +7,11 @@ function IconButton(props, ref) {
   return (
     <Button
       ref={ref}
-      style={{ fontSize: 20, border: '1px solid var(--color-border-2)' }}
+      style={{
+        fontSize: 16,
+        border: '1px solid var(--color-border-2)',
+        lineHeight: '32px',
+      }}
       icon={icon}
       shape="circle"
       type="secondary"

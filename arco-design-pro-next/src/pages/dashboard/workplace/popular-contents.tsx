@@ -3,6 +3,7 @@ import { Link, Card, Radio, Table, Typography } from '@arco-design/web-react';
 import { IconCaretDown, IconCaretUp } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from './locale/useLocale';
+import styles from './style/popular-contents.module.less';
 
 function PopularContent() {
   const t = useLocale();
@@ -63,11 +64,13 @@ function PopularContent() {
         return (
           <span>
             {`${(text * 100).toFixed(2)}%`}
-            {text > 0 ? (
-              <IconCaretUp style={{ color: 'rgb(var(--green-6))' }} />
-            ) : (
-              <IconCaretDown style={{ color: 'rgb(var(--red-6))' }} />
-            )}
+            <span className={styles['symbol']}>
+              {text < 0 ? (
+                <IconCaretUp style={{ color: 'rgb(var(--green-6))' }} />
+              ) : (
+                <IconCaretDown style={{ color: 'rgb(var(--red-6))' }} />
+              )}
+            </span>
           </span>
         );
       },

@@ -5,13 +5,11 @@ const mockLine = (name) => {
   const result = new Array(12).fill(0).map(() => ({
     y: Mock.Random.natural(20, 100),
   }));
-  return result
-    .sort((a, b) => a.y - b.y)
-    .map((item, index) => ({
-      ...item,
-      x: index,
-      name,
-    }));
+  return result.map((item, index) => ({
+    ...item,
+    x: index,
+    name,
+  }));
 };
 
 const mockPie = () => {

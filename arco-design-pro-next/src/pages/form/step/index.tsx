@@ -68,12 +68,13 @@ function StepForm() {
                   required
                   field="basic.name"
                   rules={[
-                    { required: true },
+                    {
+                      required: true,
+                      message: t['stepForm.basicInfo.name.required'],
+                    },
                     {
                       validator: (value: string, callback) => {
-                        if (
-                          !/^[\\u4e00-\\u9fa5a-zA-Z0-9]{1,20}$/g.test(value)
-                        ) {
+                        if (!/^[\u4e00-\u9fa5a-zA-Z0-9]{1,20}$/g.test(value)) {
                           callback(t['stepForm.basicInfo.name.placeholder']);
                         }
                       },
@@ -89,9 +90,14 @@ function StepForm() {
                   required
                   initialValue="app"
                   field="basic.channelType"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t['stepForm.basicInfo.channelType.required'],
+                    },
+                  ]}
                 >
-                  <Select allowClear={false}>
+                  <Select>
                     <Select.Option value="app">APP通用渠道</Select.Option>
                     <Select.Option value="site">网页通用渠道</Select.Option>
                     <Select.Option value="game">游戏通用渠道</Select.Option>
@@ -101,18 +107,21 @@ function StepForm() {
                   label={t['stepForm.basicInfo.time']}
                   required
                   field="basic.time"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t['stepForm.basicInfo.time.required'],
+                    },
+                  ]}
                 >
-                  <DatePicker.RangePicker
-                    allowClear={false}
-                    style={{ width: '100%' }}
-                  />
+                  <DatePicker.RangePicker style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item
                   label={t['stepForm.basicInfo.link']}
                   required
                   extra={t['stepForm.basicInfo.link.tips']}
                   field="basic.link"
+                  initialValue={'https://arco.design'}
                   rules={[{ required: true }]}
                 >
                   <Input
@@ -127,7 +136,12 @@ function StepForm() {
                   label={t['stepForm.channel.source']}
                   required
                   field="channel.source"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t['stepForm.channel.source.required'],
+                    },
+                  ]}
                 >
                   <Input
                     placeholder={t['stepForm.channel.source.placeholder']}
@@ -137,7 +151,12 @@ function StepForm() {
                   label={t['stepForm.channel.media']}
                   required
                   field="channel.media"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t['stepForm.channel.media.required'],
+                    },
+                  ]}
                 >
                   <Input
                     placeholder={t['stepForm.channel.media.placeholder']}
@@ -167,7 +186,12 @@ function StepForm() {
                   label={t['stepForm.channel.content']}
                   required
                   field="channel.content"
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t['stepForm.channel.content.required'],
+                    },
+                  ]}
                 >
                   <Input.TextArea
                     placeholder={t['stepForm.channel.content.placeholder']}

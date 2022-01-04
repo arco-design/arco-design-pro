@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography, Tag } from '@arco-design/web-react';
+import { Button, Typography, Badge } from '@arco-design/web-react';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
@@ -10,7 +10,7 @@ const { Text } = Typography;
 
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
 export const FilterType = ['规则筛选', '人工'];
-export const Status = ['已上线', '未上线'];
+export const Status = ['未上线', '已上线'];
 
 const ContentIcon = [
   <IconText key={0} />,
@@ -63,61 +63,23 @@ export function getColumns(
       dataIndex: 'status',
       render: (x) => {
         if (x === 0) {
-          return <Tag color="#165DFF">{Status[x]}</Tag>;
+          return <Badge status="error" text={Status[x]}></Badge>;
         }
-        return <Tag color="#F53F3F">{Status[x]}</Tag>;
+        return <Badge status="success" text={Status[x]}></Badge>;
       },
     },
     {
       title: t['searchTable.columns.operations'],
       dataIndex: 'operations',
+      headerCellStyle: { paddingLeft: '15px' },
       render: (_, record) => (
-        <div className={styles.operations}>
-          {record.status === 1 ? (
-            <>
-              <Button
-                type="text"
-                size="small"
-                status="warning"
-                onClick={() => callback(record, 'offline')}
-              >
-                {t['searchTable.columns.operations.offline']}
-              </Button>
-              <Button
-                type="text"
-                size="small"
-                onClick={() => callback(record, 'view')}
-              >
-                {t['searchTable.columns.operations.view']}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                type="text"
-                size="small"
-                onClick={() => callback(record, 'online')}
-              >
-                {t['searchTable.columns.operations.online']}
-              </Button>
-              <Button
-                type="text"
-                size="small"
-                onClick={() => callback(record, 'update')}
-              >
-                {t['searchTable.columns.operations.update']}
-              </Button>
-              <Button
-                type="text"
-                status="danger"
-                size="small"
-                onClick={() => callback(record, 'delete')}
-              >
-                {t['searchTable.columns.operations.delete']}
-              </Button>
-            </>
-          )}
-        </div>
+        <Button
+          type="text"
+          size="small"
+          onClick={() => callback(record, 'view')}
+        >
+          {t['searchTable.columns.operations.view']}
+        </Button>
       ),
     },
   ];

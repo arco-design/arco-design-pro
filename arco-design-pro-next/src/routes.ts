@@ -20,6 +20,20 @@ export const routes = [
     ],
   },
   {
+    name: 'menu.visualization',
+    key: 'visualization',
+    children: [
+      {
+        name: 'menu.visualization.dataAnalysis',
+        key: 'visualization/data-analysis',
+      },
+      {
+        name: 'menu.visualization.multiDimensionDataAnalysis',
+        key: 'visualization/multi-dimension-data-analysis',
+      },
+    ],
+  },
+  {
     name: 'menu.list',
     key: 'list',
     children: [
@@ -57,20 +71,7 @@ export const routes = [
       },
     ],
   },
-  {
-    name: 'menu.visualization',
-    key: 'visualization',
-    children: [
-      {
-        name: 'menu.visualization.dataAnalysis',
-        key: 'visualization/data-analysis',
-      },
-      {
-        name: 'menu.visualization.multiDimensionDataAnalysis',
-        key: 'visualization/multi-dimension-data-analysis',
-      },
-    ],
-  },
+
   {
     name: 'menu.result',
     key: 'result',

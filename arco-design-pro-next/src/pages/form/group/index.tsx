@@ -48,12 +48,9 @@ function GroupForm() {
 
   return (
     <div className={styles.container}>
-      <Form layout="vertical" ref={formRef}>
+      <Form layout="vertical" ref={formRef} className={styles['form-group']}>
         <Card>
-          <Typography.Title
-            heading={6}
-            style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
-          >
+          <Typography.Title heading={6}>
             {t['groupForm.title.video']}
           </Typography.Title>
           <Grid.Row gutter={80}>
@@ -187,10 +184,7 @@ function GroupForm() {
           </Grid.Row>
         </Card>
         <Card>
-          <Typography.Title
-            heading={6}
-            style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
-          >
+          <Typography.Title heading={6}>
             {t['groupForm.title.audio']}
           </Typography.Title>
           <Grid.Row gutter={80}>
@@ -252,10 +246,7 @@ function GroupForm() {
           </Grid.Row>
         </Card>
         <Card style={{ marginBottom: '40px' }}>
-          <Typography.Title
-            heading={6}
-            style={{ marginTop: 0, marginBottom: 16, fontSize: 14 }}
-          >
+          <Typography.Title heading={6}>
             {t['groupForm.title.explanation']}
           </Typography.Title>
           <Form.Item

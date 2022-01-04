@@ -76,6 +76,7 @@ function PageLayout() {
   const history = useHistory();
   const pathname = history.location.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
+  const currentSubKey = qs.parseUrl(pathname).url.split('/')[1];
   const defaultSelectedKeys = [currentComponent || defaultRoute];
 
   const locale = useLocale();
@@ -193,7 +194,7 @@ function PageLayout() {
                 collapse={collapsed}
                 onClickMenuItem={onClickMenuItem}
                 selectedKeys={selectedKeys}
-                autoOpen
+                defaultOpenKeys={[currentSubKey]}
               >
                 {renderRoutes(locale)}
               </Menu>
