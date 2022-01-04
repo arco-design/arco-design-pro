@@ -34,21 +34,21 @@ const Content = Layout.Content;
 function getIconFromKey(key) {
   switch (key) {
     case 'dashboard':
-      return <IconDashboard />;
+      return <IconDashboard className={styles.icon} />;
     case 'list':
-      return <IconList />;
+      return <IconList className={styles.icon} />;
     case 'form':
-      return <IconSettings />;
+      return <IconSettings className={styles.icon} />;
     case 'profile':
-      return <IconFile />;
+      return <IconFile className={styles.icon} />;
     case 'visualization':
-      return <IconApps />;
+      return <IconApps className={styles.icon} />;
     case 'result':
-      return <IconCheckCircle />;
+      return <IconCheckCircle className={styles.icon} />;
     case 'exception':
-      return <IconExclamationCircle />;
+      return <IconExclamationCircle className={styles.icon} />;
     case 'user':
-      return <IconUser />;
+      return <IconUser className={styles.icon} />;
   }
 }
 
