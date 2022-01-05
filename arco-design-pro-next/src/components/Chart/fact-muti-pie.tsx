@@ -12,7 +12,7 @@ function FactMutiPie(props: FactMutiPieProps) {
       autoFit
       data={props.data}
       height={props.height || 400}
-      padding={[0, 0, 30, 0]}
+      padding={[0, 0, 10, 0]}
     >
       <Legend visible={true} />
       <Facet
@@ -33,7 +33,7 @@ function FactMutiPie(props: FactMutiPieProps) {
             .adjust('stack')
             .position('value')
             .color('type', [
-              '#249EFF',
+              '#249eff',
               '#846BCE',
               '#21CCFF',
               ' #86DF6C',

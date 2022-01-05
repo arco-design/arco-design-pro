@@ -60,6 +60,12 @@ function CardBlock(props: CardBlockType) {
     setLoading(props.loading);
   }, [props.loading]);
 
+  useEffect(() => {
+    if (card.status !== status) {
+      setStatus(card.status);
+    }
+  }, [card.status]);
+
   const getTitleIcon = () => {
     if (type === 'service' && typeof card.icon === 'number') {
       return (

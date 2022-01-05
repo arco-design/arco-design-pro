@@ -102,6 +102,8 @@ function PageLayout() {
     const nodes = [];
     function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
+        const { breadcrumb = true } = route;
+
         const iconDom = getIconFromKey(route.key);
         const titleDom = (
           <>
@@ -113,7 +115,10 @@ function PageLayout() {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          routeMap.current.set(`/${route.key}`, [...parentNode, route.name]);
+          routeMap.current.set(
+            `/${route.key}`,
+            breadcrumb ? [...parentNode, route.name] : []
+          );
           if (level > 1) {
             return <MenuItem key={route.key}>{titleDom}</MenuItem>;
           }
@@ -209,15 +214,17 @@ function PageLayout() {
         )}
         <Layout className={styles['layout-content']} style={paddingStyle}>
           <div className={styles['layout-content-wrapper']}>
-            <div className={styles['layout-breadcrumb']}>
-              <Breadcrumb>
-                {breadcrumb.map((node, index) => (
-                  <Breadcrumb.Item key={index}>
-                    {typeof node === 'string' ? locale[node] || node : node}
-                  </Breadcrumb.Item>
-                ))}
-              </Breadcrumb>
-            </div>
+            {!!breadcrumb.length && (
+              <div className={styles['layout-breadcrumb']}>
+                <Breadcrumb>
+                  {breadcrumb.map((node, index) => (
+                    <Breadcrumb.Item key={index}>
+                      {typeof node === 'string' ? locale[node] || node : node}
+                    </Breadcrumb.Item>
+                  ))}
+                </Breadcrumb>
+              </div>
+            )}
             <Content>
               <Switch>
                 {flattenRoutes.map((route, index) => {

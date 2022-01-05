@@ -45,8 +45,8 @@ function Index() {
   useEffect(() => {
     if (checkLogin()) {
       fetchUserInfo();
-    } else if (window.location.pathname !== '/user/login') {
-      window.location.href = '/user/login';
+    } else if (window.location.pathname !== '/login') {
+      window.location.href = '/login';
     }
   }, []);
 
@@ -78,7 +78,7 @@ function Index() {
         <Provider store={store}>
           <GlobalContext.Provider value={contextValue}>
             <Switch>
-              <Route path="/user/login" component={Login} />
+              <Route path="/login" component={Login} />
               <Route path="/" component={PageLayout} />
             </Switch>
           </GlobalContext.Provider>

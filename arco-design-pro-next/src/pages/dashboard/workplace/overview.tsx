@@ -77,7 +77,7 @@ function Overview() {
   return (
     <div className={styles.container}>
       <Typography.Title heading={5} style={{ marginTop: 0 }}>
-        👏 {t['workplace.welcomeBack']}Ryan Septimus
+        {t['workplace.welcomeBack']}Ryan Septimus
       </Typography.Title>
       <Divider />
       <Row>
