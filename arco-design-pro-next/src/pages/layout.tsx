@@ -76,7 +76,7 @@ function PageLayout({ children }: { children: ReactNode }) {
   const showMenu = settings?.menu && urlParams.menu !== false;
   const showFooter = settings?.footer && urlParams.footer !== false;
 
-  const routeMap = useRef<Map<string, string[]>>(new Map());
+  const routeMap = useRef<Map<string, ReactNode[]>>(new Map());
 
   const [breadcrumb, setBreadCrumb] = useState([]);
 
@@ -94,11 +94,12 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   function renderRoutes(locale) {
     const nodes = [];
-    function travel(_routes, level, parentName = '') {
+    function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
+        const iconDom = getIconFromKey(route.key);
         const titleDom = (
           <>
-            {getIconFromKey(route.key)} {locale[route.name] || route.name}
+            {iconDom} {locale[route.name] || route.name}
           </>
         );
         if (
@@ -106,10 +107,7 @@ function PageLayout({ children }: { children: ReactNode }) {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          routeMap.current.set(
-            `/${route.key}`,
-            parentName ? [parentName, route.name] : [route.name]
-          );
+          routeMap.current.set(`/${route.key}`, [...parentNode, route.name]);
 
           if (level > 1) {
             return (
@@ -130,16 +128,20 @@ function PageLayout({ children }: { children: ReactNode }) {
           );
         }
         if (isArray(route.children) && route.children.length) {
+          const parentNode = [];
+          if (iconDom.props.isIcon) {
+            parentNode.push(iconDom);
+          }
           if (level > 1) {
             return (
               <SubMenu key={route.key} title={titleDom}>
-                {travel(route.children, level + 1, route.name)}
+                {travel(route.children, level + 1, [...parentNode, route.name])}
               </SubMenu>
             );
           }
           nodes.push(
             <SubMenu key={route.key} title={titleDom}>
-              {travel(route.children, level + 1, route.name)}
+              {travel(route.children, level + 1, [...parentNode, route.name])}
             </SubMenu>
           );
         }
@@ -192,8 +194,10 @@ function PageLayout({ children }: { children: ReactNode }) {
           <div className={styles['layout-content-wrapper']}>
             <div className={styles['layout-breadcrumb']}>
               <Breadcrumb>
-                {breadcrumb.map((name) => (
-                  <Breadcrumb.Item key={name}>{locale[name]}</Breadcrumb.Item>
+                {breadcrumb.map((node, index) => (
+                  <Breadcrumb.Item key={index}>
+                    {typeof node === 'string' ? locale[node] || node : node}
+                  </Breadcrumb.Item>
                 ))}
               </Breadcrumb>
             </div>

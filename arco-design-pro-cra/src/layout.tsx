@@ -87,7 +87,7 @@ function PageLayout() {
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
 
-  const routeMap = useRef<Map<string, string[]>>(new Map());
+  const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
 
   const navbarHeight = 60;
   const menuWidth = collapsed ? 48 : settings.menuWidth;
@@ -100,11 +100,12 @@ function PageLayout() {
 
   function renderRoutes(locale) {
     const nodes = [];
-    function travel(_routes, level, parentName = '') {
+    function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
+        const iconDom = getIconFromKey(route.key);
         const titleDom = (
           <>
-            {getIconFromKey(route.key)} {locale[route.name] || route.name}
+            {iconDom} {locale[route.name] || route.name}
           </>
         );
         if (
@@ -112,10 +113,7 @@ function PageLayout() {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          routeMap.current.set(
-            `/${route.key}`,
-            parentName ? [parentName, route.name] : [route.name]
-          );
+          routeMap.current.set(`/${route.key}`, [...parentNode, route.name]);
           if (level > 1) {
             return <MenuItem key={route.key}>{titleDom}</MenuItem>;
           }
@@ -126,16 +124,21 @@ function PageLayout() {
           );
         }
         if (isArray(route.children) && route.children.length) {
+          const parentNode = [];
+          if (iconDom.props.isIcon) {
+            parentNode.push(iconDom);
+          }
+
           if (level > 1) {
             return (
               <SubMenu key={route.key} title={titleDom}>
-                {travel(route.children, level + 1, route.name)}
+                {travel(route.children, level + 1, [...parentNode, route.name])}
               </SubMenu>
             );
           }
           nodes.push(
             <SubMenu key={route.key} title={titleDom}>
-              {travel(route.children, level + 1, route.name)}
+              {travel(route.children, level + 1, [...parentNode, route.name])}
             </SubMenu>
           );
         }
@@ -208,8 +211,10 @@ function PageLayout() {
           <div className={styles['layout-content-wrapper']}>
             <div className={styles['layout-breadcrumb']}>
               <Breadcrumb>
-                {breadcrumb.map((name) => (
-                  <Breadcrumb.Item key={name}>{locale[name]}</Breadcrumb.Item>
+                {breadcrumb.map((node, index) => (
+                  <Breadcrumb.Item key={index}>
+                    {typeof node === 'string' ? locale[node] || node : node}
+                  </Breadcrumb.Item>
                 ))}
               </Breadcrumb>
             </div>

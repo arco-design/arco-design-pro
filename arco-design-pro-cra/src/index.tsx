@@ -1,5 +1,5 @@
 import './style/global.less';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -19,11 +19,8 @@ import './mock';
 const store = createStore(rootReducer);
 
 function Index() {
-  const lang = storage.getItem('arco-lang') || 'zh-CN';
-
-  if (!storage.getItem('arco-lang')) {
-    storage.setItem('arco-lang', lang);
-  }
+  const defaultLang = storage.getItem('arco-lang') || 'en-US';
+  const [lang, setLang] = useState(defaultLang);
 
   function getArcoLocale() {
     switch (lang) {
@@ -53,8 +50,13 @@ function Index() {
     }
   }, []);
 
+  useEffect(() => {
+    storage.setItem('arco-lang', lang);
+  }, [lang]);
+
   const contextValue = {
     lang,
+    setLang,
   };
 
   return (

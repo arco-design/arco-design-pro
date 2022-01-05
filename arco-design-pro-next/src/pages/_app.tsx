@@ -18,19 +18,10 @@ import '../mock';
 
 const store = createStore(rootReducer);
 
-function getLang() {
-  const lang = storage.getItem('arco-lang') || 'en-US';
-
-  if (!storage.getItem('arco-lang')) {
-    storage.setItem('arco-lang', lang);
-  }
-
-  return lang;
-}
-
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const defaultLang = storage.getItem('arco-lang') || 'en-US';
   const router = useRouter();
-  const [lang, setLang] = useState(getLang());
+  const [lang, setLang] = useState(defaultLang);
 
   const locale = useMemo(() => {
     switch (lang) {
@@ -63,6 +54,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       window.location.href = '/login';
     }
   }, []);
+
+  useEffect(() => {
+    storage.setItem('arco-lang', lang);
+  }, [lang]);
 
   useEffect(() => {
     const handleStart = () => {
