@@ -50,6 +50,8 @@ const i18n = {
     'message.tab.title.todo': 'ToDo',
     'message.allRead': 'All Read',
     'message.seeMore': 'SeeMore',
+    'message.empty': 'Empty',
+    'message.empty.tips': 'No Content',
   },
   'zh-CN': {
     'menu.welcome': '欢迎页',
@@ -102,6 +104,8 @@ const i18n = {
     'message.tab.title.todo': '待办',
     'message.allRead': '全部已读',
     'message.seeMore': '查看更多',
+    'message.empty': '清空',
+    'message.empty.tips': '暂无内容',
   },
 };
 

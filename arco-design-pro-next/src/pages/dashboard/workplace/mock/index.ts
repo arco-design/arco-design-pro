@@ -23,7 +23,13 @@ const getList = () => {
     'list|100': [
       {
         'rank|+1': 1,
-        title: '@cparagraph(20)',
+        title: () =>
+          Mock.Random.pick([
+            '经济日报：财政政策要精准提升效能',
+            '“双12”遇冷消费者厌倦了电商平台的促销“套路”',
+            '致敬坚守战“疫”一线的社区工作者',
+            '普高还是职高？家长们陷入选校难题',
+          ]),
         pv: function () {
           return 500000 - 3200 * this.rank;
         },

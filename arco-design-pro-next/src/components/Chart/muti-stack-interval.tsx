@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chart, Tooltip, Interval, Axis } from 'bizcharts';
+import { Chart, Tooltip, Interval, Axis, Legend } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import CustomTooltip from './customer-tooltip';
@@ -36,6 +36,7 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
             },
           }}
         />
+        <Legend name="name" marker={{ symbol: 'circle' }} />
       </Chart>
     </Spin>
   );

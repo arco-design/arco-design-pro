@@ -52,14 +52,7 @@ function Announcement() {
               <Tag color={getTagColor(d.type)} size="small">
                 {t[`workplace.${d.type}`]}
               </Tag>
-              <a
-                className={styles.link}
-                href="https://arco.design"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {d.content}
-              </a>
+              <span className={styles.link}>{d.content}</span>
             </div>
           ))}
         </div>

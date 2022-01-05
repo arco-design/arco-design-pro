@@ -5,13 +5,13 @@ import CustomTooltip from './customer-tooltip';
 import styles from './style/index.module.less';
 
 const areaColorMap = [
-  'l (180) 0:rgba(100, 162, 255, 0.12) 1:rgba(52, 105, 255, 0.001)',
-  'l (180) 0:rgba(100, 255, 236, 0.12) 1:rgba(52, 255, 243, 0.001)',
-  'l (180) 0:rgba(255, 211, 100, 0.12) 1:rgba(255, 235, 52, 0.001)',
-  'l (180) 0:rgba(131, 100, 255, 0.12) 1:rgba(80, 52, 255, 0.001)',
+  'l (90) 0:rgba(131, 100, 255, 0.5) 1:rgba(80, 52, 255, 0.001)',
+  'l (90) 0:rgba(255, 211, 100, 0.5) 1:rgba(255, 235, 52, 0.001)',
+  'l (90) 0:rgba(100, 255, 236, 0.5) 1:rgba(52, 255, 243, 0.001)',
+  'l (90) 0:rgba(100, 162, 255, 0.5) 1:rgba(52, 105, 255, 0.001)',
 ];
 
-const lineColorMap = ['#165DFF', '#33D1C9', '#F77234', '#722ED1'];
+const lineColorMap = ['#722ED1', '#33D1C9', '#F77234', '#165DFF'];
 
 function MutiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
@@ -45,8 +45,8 @@ function MutiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
             return (
               <CustomTooltip
                 title={title}
-                data={items}
-                formatter={(value) => `${Number(value) / 1000}k`}
+                data={items.sort((a, b) => b.value - a.value)}
+                formatter={(value) => Number(value).toLocaleString()}
               />
             );
           }}

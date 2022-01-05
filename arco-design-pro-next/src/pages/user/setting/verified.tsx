@@ -56,11 +56,10 @@ function Verified() {
         {t['userSetting.verified.enterprise']}
       </Typography.Title>
       <Descriptions
-        layout="horizontal"
         className={styles['verified-enterprise']}
         labelStyle={{ textAlign: 'right' }}
+        layout="inline-horizontal"
         colon="："
-        tableLayout="fixed"
         column={3}
         data={Object.entries(data).map(([key, value]) => ({
           label: t[`userSetting.verified.label.${key}`],

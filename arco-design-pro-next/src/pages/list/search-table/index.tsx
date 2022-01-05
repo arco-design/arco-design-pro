@@ -76,7 +76,10 @@ function SearchTable() {
 
   return (
     <div>
-      <Card>
+      <Card
+        title={t['menu.list.searchTable']}
+        headerStyle={{ border: 'none', height: 'auto', paddingTop: '20px' }}
+      >
         <SearchForm onSearch={handleSearch} />
         <div className={styles['button-group']}>
           <Space>

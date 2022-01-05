@@ -1,4 +1,4 @@
-@import "@arco-design/web-react/es/style/theme/default.less";
+@import '@arco-design/web-react/es/style/theme/default.less';
 
 .message-box {
   width: 400px;
@@ -16,6 +16,19 @@
   :global(.arco-list-item-meta) {
     align-items: flex-start;
   }
+
+  :global(.arco-list-item-meta-content) {
+    width: 100%;
+  }
+
+  :global(.arco-tabs-content) {
+    padding-top: 0;
+  }
+}
+
+.message-title {
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer {

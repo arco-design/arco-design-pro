@@ -68,6 +68,9 @@ function Index() {
           List: {
             bordered: false,
           },
+          Table: {
+            border: false,
+          },
         }}
       >
         <Provider store={store}>

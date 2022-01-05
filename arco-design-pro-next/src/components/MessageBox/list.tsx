@@ -5,6 +5,8 @@ import {
   Typography,
   Button,
   Space,
+  Result,
+  Tag,
 } from '@arco-design/web-react';
 import useLocale from '../../utils/useLocale';
 import styles from './style/index.module.less';
@@ -12,11 +14,15 @@ import styles from './style/index.module.less';
 export interface MessageItemData {
   id: string;
   title: string;
-  subTitle: string;
-  avatar: string;
+  subTitle?: string;
+  avatar?: string;
   content: string;
-  time: string;
+  time?: string;
   status: number;
+  tag?: {
+    text?: string;
+    color?: string;
+  };
 }
 
 export type MessageListType = MessageItemData[];
@@ -24,7 +30,6 @@ export type MessageListType = MessageItemData[];
 interface MessageListProps {
   data: MessageItemData[];
   unReadData: MessageItemData[];
-  avatar?: string | ReactNode;
   onItemClick?: (item: MessageItemData, index: number) => void;
   onAllBtnClick?: (
     unReadData: MessageItemData[],
@@ -34,7 +39,7 @@ interface MessageListProps {
 
 function MessageList(props: MessageListProps) {
   const t = useLocale();
-  const { data, unReadData, avatar: defaultAvatar } = props;
+  const { data, unReadData } = props;
 
   function onItemClick(item: MessageItemData, index: number) {
     if (item.status) return;
@@ -47,21 +52,20 @@ function MessageList(props: MessageListProps) {
 
   return (
     <List
+      noDataElement={<Result status="404" subTitle={t['message.empty.tips']} />}
       footer={
-        unReadData.length ? (
-          <div className={styles.footer}>
-            <div className={styles['footer-item']}>
-              <Button type="text" size="small" onClick={onAllBtnClick}>
-                {t['message.allRead']}
-              </Button>
-            </div>
-            <div className={styles['footer-item']}>
-              <Button type="text" size="small">
-                {t['message.seeMore']}
-              </Button>
-            </div>
+        <div className={styles.footer}>
+          <div className={styles['footer-item']}>
+            <Button type="text" size="small" onClick={onAllBtnClick}>
+              {t['message.allRead']}
+            </Button>
           </div>
-        ) : null
+          <div className={styles['footer-item']}>
+            <Button type="text" size="small">
+              {t['message.seeMore']}
+            </Button>
+          </div>
+        </div>
       }
     >
       {data.map((item, index) => (
@@ -82,25 +86,30 @@ function MessageList(props: MessageListProps) {
           >
             <List.Item.Meta
               avatar={
-                item.avatar ? (
+                item.avatar && (
                   <Avatar shape="circle" size={36}>
                     <img src={item.avatar} />
                   </Avatar>
-                ) : (
-                  defaultAvatar
                 )
               }
               title={
-                <Space size={4}>
-                  <span>{item.title}</span>
-                  <Typography.Text type="secondary">
-                    {item.subTitle}
-                  </Typography.Text>
-                </Space>
+                <div className={styles['message-title']}>
+                  <Space size={4}>
+                    <span>{item.title}</span>
+                    <Typography.Text type="secondary">
+                      {item.subTitle}
+                    </Typography.Text>
+                  </Space>
+                  {item.tag && item.tag.text ? (
+                    <Tag color={item.tag.color}>{item.tag.text}</Tag>
+                  ) : null}
+                </div>
               }
               description={
                 <div>
-                  <div>{item.content}</div>
+                  <Typography.Paragraph style={{ marginBottom: 0 }} ellipsis>
+                    {item.content}
+                  </Typography.Paragraph>
                   <Typography.Text type="secondary" style={{ fontSize: 12 }}>
                     {item.time}
                   </Typography.Text>

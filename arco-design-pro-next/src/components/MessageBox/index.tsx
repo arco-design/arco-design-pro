@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import groupBy from 'lodash/groupBy';
-import { Trigger, Badge, Tabs, Avatar, Spin } from '@arco-design/web-react';
+import {
+  Trigger,
+  Badge,
+  Tabs,
+  Avatar,
+  Spin,
+  Button,
+} from '@arco-design/web-react';
 import {
   IconMessage,
   IconCustomerService,
@@ -81,9 +88,19 @@ function DropContent() {
   return (
     <div className={styles['message-box']}>
       <Spin loading={loading} style={{ display: 'block' }}>
-        <Tabs type="rounded" defaultActiveTab="message" destroyOnHide>
+        <Tabs
+          overflow="dropdown"
+          type="rounded"
+          defaultActiveTab="message"
+          destroyOnHide
+          extra={
+            <Button type="text" onClick={() => setSourceData([])}>
+              {t['message.empty']}
+            </Button>
+          }
+        >
           {tabList.map((item) => {
-            const { key, title, titleIcon, avatar } = item;
+            const { key, title, avatar } = item;
             const data = groupData[key] || [];
             const unReadData = data.filter((item) => !item.status);
             return (
@@ -91,7 +108,6 @@ function DropContent() {
                 key={key}
                 title={
                   <span>
-                    {titleIcon}
                     {title}
                     {unReadData.length ? `(${unReadData.length})` : ''}
                   </span>
@@ -100,7 +116,6 @@ function DropContent() {
                 <MessageList
                   data={data}
                   unReadData={unReadData}
-                  avatar={avatar}
                   onItemClick={(item) => {
                     readMessage([item]);
                   }}

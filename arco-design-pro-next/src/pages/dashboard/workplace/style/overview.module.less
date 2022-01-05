@@ -1,11 +1,19 @@
 .container {
   padding: 20px;
+
+  :global(.arco-divider-horizontal) {
+    border-bottom: 1px solid var(--color-border-1);
+  }
+
+  :global(.arco-divider-vertical) {
+    border-left: 1px solid var(--color-border-1);
+  }
 }
 
 .item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 20px;
   color: var(--color-text-1);
 }
 

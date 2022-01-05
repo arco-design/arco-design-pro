@@ -6,6 +6,7 @@ import {
   Descriptions,
   Tag,
   Skeleton,
+  Link,
 } from '@arco-design/web-react';
 import { IconCamera, IconPlus } from '@arco-design/web-react/icon';
 import useLocale from '@/utils/useLocale';
@@ -59,6 +60,7 @@ export default function Info({
         className={styles['info-content']}
         column={2}
         colon="："
+        labelStyle={{ textAlign: 'right' }}
         data={[
           {
             label: t['userSetting.label.name'],
@@ -71,11 +73,17 @@ export default function Info({
             ) : (
               <span>
                 {userInfo.verified ? (
-                  <Tag color="green">{t['userSetting.value.verified']}</Tag>
+                  <Tag color="green" className={styles['verified-tag']}>
+                    {t['userSetting.value.verified']}
+                  </Tag>
                 ) : (
-                  <Tag color="red">{t['userSetting.value.notVerified']}</Tag>
+                  <Tag color="red" className={styles['verified-tag']}>
+                    {t['userSetting.value.notVerified']}
+                  </Tag>
                 )}
-                <Button type="text">{t['userSetting.btn.edit']}</Button>
+                <Link role="button" className={styles['edit-btn']}>
+                  {t['userSetting.btn.edit']}
+                </Link>
               </span>
             ),
           },
@@ -90,7 +98,9 @@ export default function Info({
             ) : (
               <span>
                 {userInfo.phoneNumber}
-                <Button type="text">{t['userSetting.btn.edit']}</Button>
+                <Link role="button" className={styles['edit-btn']}>
+                  {t['userSetting.btn.edit']}
+                </Link>
               </span>
             ),
           },

@@ -92,7 +92,7 @@ function InfoForm({ loading }: { loading?: boolean }) {
           loadingNode()
         ) : (
           <Select
-            options={[]}
+            options={['中国']}
             placeholder={t['userSetting.info.area.placeholder']}
           />
         )}

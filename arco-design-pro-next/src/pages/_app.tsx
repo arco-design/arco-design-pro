@@ -100,6 +100,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         List: {
           bordered: false,
         },
+        Table: {
+          border: false,
+        },
       }}
     >
       <Provider store={store}>

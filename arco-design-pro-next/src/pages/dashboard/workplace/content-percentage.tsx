@@ -72,6 +72,10 @@ function PopularContent() {
                 fontSize: '16px',
                 color: 'rgb(--var(color-text-1))',
               },
+              formatter: (_, data) => {
+                const sum = data.reduce((a, b) => a + b.count, 0);
+                return Number(sum).toLocaleString();
+              },
             },
           }}
         />

@@ -63,7 +63,15 @@ Mock.mock(new RegExp('/api/data-analysis/author-list'), () => {
     'list|8': [
       {
         'id|+1': 1,
-        author: () => Mock.Random.cword(3, 10),
+        author: () =>
+          Mock.Random.pick([
+            '用魔法打败魔法',
+            '王多鱼',
+            'Christopher',
+            '叫我小李好了',
+            '陈皮话梅糖',
+            '碳烤小肥羊',
+          ]),
         time: function () {
           return new Array(12).fill(0).map((_, index) => {
             const time = index * 2;

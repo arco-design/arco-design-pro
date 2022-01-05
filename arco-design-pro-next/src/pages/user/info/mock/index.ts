@@ -80,8 +80,9 @@ Mock.mock(new RegExp('/api/users/teamList'), () => {
 Mock.mock(new RegExp('/api/user/latestNews'), () => {
   return new Array(8).fill(null).map((_item, index) => ({
     id: index,
-    title: Mock.Random.ctitle(10, 40),
-    description: Mock.Random.cparagraph(20),
+    title: '王多鱼审核了图文内容： 2021年，你过得怎么样？',
+    description:
+      '新华网年终特别策划：《这一年，你过得怎么样？》回访那些你最熟悉的“陌生人”带你重温这难忘的2021年回顾我们共同记忆中的生动故事！',
     avatar:
       '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
   }));

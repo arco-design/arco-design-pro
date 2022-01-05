@@ -51,6 +51,9 @@ export function getColumns(
       title: t['searchTable.columns.contentNum'],
       dataIndex: 'count',
       sorter: (a, b) => a.count - b.count,
+      render(x) {
+        return Number(x).toLocaleString();
+      },
     },
     {
       title: t['searchTable.columns.createdTime'],

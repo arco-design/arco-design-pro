@@ -54,11 +54,17 @@ function DataAnalysis() {
         title: t['dataAnalysis.authorTable.content'],
         dataIndex: 'contentCount',
         sorter: (a, b) => a.contentCount - b.contentCount,
+        render(x) {
+          return Number(x).toLocaleString();
+        },
       },
       {
         title: t['dataAnalysis.authorTable.click'],
         dataIndex: 'clickCount',
         sorter: (a, b) => a.clickCount - b.clickCount,
+        render(x) {
+          return Number(x).toLocaleString();
+        },
       },
     ];
   }, [t]);

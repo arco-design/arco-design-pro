@@ -60,7 +60,10 @@ export default function ListCard() {
 
   return (
     <div className={styles.container}>
-      <Card>
+      <Card
+        title={t['menu.list.card']}
+        headerStyle={{ border: 'none', height: 'auto', paddingTop: '20px' }}
+      >
         <Tabs
           activeTab={activeKey}
           type="rounded"
