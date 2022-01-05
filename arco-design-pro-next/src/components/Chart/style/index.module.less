@@ -1,11 +1,10 @@
 .chart-wrapper {
   :global(.bizcharts-tooltip) {
-    background:
-      linear-gradient(
-        304.17deg,
-        rgb(253 254 255 / 60%) -6.04%,
-        rgb(244 247 252 / 60%) 85.2%
-      ) !important;
+    background: linear-gradient(
+      304.17deg,
+      rgb(253 254 255 / 60%) -6.04%,
+      rgb(244 247 252 / 60%) 85.2%
+    ) !important;
     border-radius: 6px;
     backdrop-filter: blur(10px);
     padding: 8px !important;
@@ -27,6 +26,7 @@
     background: rgb(255 255 255 / 90%);
     box-shadow: 6px 0 20px rgb(34 87 188 / 10%);
     border-radius: 4px;
+    color: var(--color-text-2);
 
     :global(.arco-badge-status-dot) {
       width: 10px;
@@ -37,5 +37,27 @@
 
   &-item:not(:last-child) {
     margin-bottom: 8px;
+  }
+}
+
+body[arco-theme='dark'] {
+  .chart-wrapper {
+    :global(.bizcharts-tooltip) {
+      background: linear-gradient(
+        304.17deg,
+        rgba(90, 92, 95, 0.6) -6.04%,
+        rgba(87, 87, 87, 0.6) 85.2%
+      ) !important;
+      backdrop-filter: blur(10px);
+      border-radius: 6px;
+      box-shadow: none;
+    }
+  }
+
+  .customer-tooltip {
+    &-item {
+      background: #2a2a2b;
+      box-shadow: 6px 0px 20px rgba(34, 87, 188, 0.1);
+    }
   }
 }

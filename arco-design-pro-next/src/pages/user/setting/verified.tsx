@@ -52,7 +52,7 @@ function Verified() {
 
   return (
     <div className={styles.verified}>
-      <Typography.Title heading={6}>
+      <Typography.Title heading={6} style={{ marginTop: '0' }}>
         {t['userSetting.verified.enterprise']}
       </Typography.Title>
       <Descriptions
