@@ -8,6 +8,7 @@ import {
 } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
+import { defaultRoute } from '@/routes';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './style/index.module.less';
@@ -28,7 +29,7 @@ export default function LoginForm() {
     // 记录登录状态
     localStorage.setItem('userStatus', 'login');
     // 跳转首页
-    window.location.href = '/';
+    window.location.href = defaultRoute;
   }
 
   function login(params) {

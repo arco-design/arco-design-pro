@@ -1,6 +1,7 @@
 import '../style/global.less';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -86,31 +87,40 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <ConfigProvider
-      locale={locale}
-      componentConfig={{
-        Card: {
-          bordered: false,
-        },
-        List: {
-          bordered: false,
-        },
-        Table: {
-          border: false,
-        },
-      }}
-    >
-      <Provider store={store}>
-        <GlobalContext.Provider value={contextValue}>
-          {Component.displayName === 'LoginPage' ? (
-            <Component {...pageProps} />
-          ) : (
-            <Layout>
+    <>
+      <Head>
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="https://unpkg.byted-static.com/latest/byted/arco-config/assets/favicon.ico"
+        />
+      </Head>
+      <ConfigProvider
+        locale={locale}
+        componentConfig={{
+          Card: {
+            bordered: false,
+          },
+          List: {
+            bordered: false,
+          },
+          Table: {
+            border: false,
+          },
+        }}
+      >
+        <Provider store={store}>
+          <GlobalContext.Provider value={contextValue}>
+            {Component.displayName === 'LoginPage' ? (
               <Component {...pageProps} />
-            </Layout>
-          )}
-        </GlobalContext.Provider>
-      </Provider>
-    </ConfigProvider>
+            ) : (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            )}
+          </GlobalContext.Provider>
+        </Provider>
+      </ConfigProvider>
+    </>
   );
 }

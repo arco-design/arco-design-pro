@@ -118,6 +118,7 @@ function Navbar() {
             onChange={(value) => {
               storage.setItem('arco-lang', value);
               setLang(value);
+              Message.info(`${t['message.lang.tips']}${value}`);
             }}
           />
         </li>
