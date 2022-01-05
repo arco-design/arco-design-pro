@@ -6,6 +6,7 @@ import {
   Skeleton,
   Link,
 } from '@arco-design/web-react';
+import { useSelector } from 'react-redux';
 import { IconCaretUp } from '@arco-design/web-react/icon';
 import OverviewAreaLine from '@/components/Chart/overview-area-line';
 import axios from 'axios';
@@ -58,6 +59,8 @@ function Overview() {
   const [loading, setLoading] = useState(true);
   const t = useLocale();
 
+  const userInfo = useSelector((state: any) => state.userInfo || {});
+
   const fetchData = () => {
     setLoading(true);
     axios
@@ -77,7 +80,8 @@ function Overview() {
   return (
     <div className={styles.container}>
       <Typography.Title heading={5} style={{ marginTop: 0 }}>
-        {t['workplace.welcomeBack']}Ryan Septimus
+        {t['workplace.welcomeBack']}
+        {userInfo.name}
       </Typography.Title>
       <Divider />
       <Row>

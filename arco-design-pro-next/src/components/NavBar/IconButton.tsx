@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button } from '@arco-design/web-react';
+import styles from './style/icon-button.module.less';
 
 function IconButton(props, ref) {
   const { icon, ...rest } = props;
@@ -7,11 +8,7 @@ function IconButton(props, ref) {
   return (
     <Button
       ref={ref}
-      style={{
-        fontSize: 16,
-        border: '1px solid var(--color-border-2)',
-        verticalAlign: '-1px',
-      }}
+      className={styles['icon-button']}
       icon={icon}
       shape="circle"
       type="secondary"

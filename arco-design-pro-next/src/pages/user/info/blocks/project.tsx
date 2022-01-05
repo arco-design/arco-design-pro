@@ -28,7 +28,9 @@ function ProjectCard(props: ProjectProps) {
       {loading ? (
         <Skeleton text={{ rows: 1 }} animation style={{ marginTop: '4px' }} />
       ) : (
-        <Text type="secondary">{props.enTitle} </Text>
+        <Text type="secondary" ellipsis style={{ margin: '0' }}>
+          {props.enTitle}
+        </Text>
       )}
 
       <div className={styles.avatar}>

@@ -15,7 +15,7 @@ const { Row, Col } = Grid;
 const defaultList = new Array(10).fill({});
 export default function ListCard() {
   const t = useLocale(locale);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     quality: defaultList,
     service: defaultList,
@@ -25,7 +25,6 @@ export default function ListCard() {
   const [activeKey, setActiveKey] = useState('all');
 
   const getData = () => {
-    setLoading(true);
     axios
       .get('/api/cardList')
       .then((res) => {

@@ -101,9 +101,6 @@ function ProfileItem(props: ProfileItemProps) {
 
   return (
     <Card>
-      <Typography.Title heading={6} style={{ marginTop: 0, marginBottom: 16 }}>
-        {title}
-      </Typography.Title>
       <div>
         {blockDataList.map(({ title: blockTitle, data: blockData }, index) => (
           <Descriptions
