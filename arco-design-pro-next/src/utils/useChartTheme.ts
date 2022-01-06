@@ -1,4 +1,4 @@
-import { G2, getTheme } from 'bizcharts';
+import { G2 } from 'bizcharts';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -12,13 +12,14 @@ G2.registerTheme('darkTheme', {
 function useBizTheme() {
   const theme = useSelector((state: any) => state.theme);
   const themeName = theme === 'dark' ? 'darkTheme' : 'light';
-  const [themeObj, setThemeObj] = useState(getTheme(themeName));
+  const [themeObj, setThemeObj] = useState(G2.getTheme(themeName));
 
   useEffect(() => {
     const themeName = theme === 'dark' ? 'darkTheme' : 'light';
-    const newTheme = getTheme(themeName);
+    const newTheme = G2.getTheme(themeName);
     setThemeObj(newTheme);
   }, [theme]);
+
   return themeObj;
 }
 
