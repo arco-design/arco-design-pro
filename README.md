@@ -41,7 +41,7 @@ Therefore, the Arco Pro v2 version has designed a set of multi-architecture solu
 ## 🌈 Usage
 
 ```bash
-$ npm i @arco-design/arco-cli@latest -g
+$ npm i @arco-design/arco-cli@latest yarn -g
 
 $ arco init my-project
 ```
