@@ -76,8 +76,9 @@ function PageLayout() {
   const history = useHistory();
   const pathname = history.location.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
-  const currentSubKey = qs.parseUrl(pathname).url.split('/')[1];
   const defaultSelectedKeys = [currentComponent || defaultRoute];
+  const paths = (currentComponent || defaultRoute).split('/');
+  const defaultOpenKeys = paths.slice(0, paths.length - 1);
 
   const locale = useLocale();
   const settings = useSelector((state: GlobalState) => state.settings);
@@ -202,7 +203,7 @@ function PageLayout() {
                 collapse={collapsed}
                 onClickMenuItem={onClickMenuItem}
                 selectedKeys={selectedKeys}
-                defaultOpenKeys={[currentSubKey]}
+                defaultOpenKeys={defaultOpenKeys}
               >
                 {renderRoutes(locale)}
               </Menu>

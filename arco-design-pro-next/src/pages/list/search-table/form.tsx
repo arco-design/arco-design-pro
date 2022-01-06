@@ -122,10 +122,10 @@ function SearchForm(props: {
       </Form>
       <div className={styles['right-button']}>
         <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
-          查询
+          {t['searchTable.form.search']}
         </Button>
         <Button icon={<IconRefresh />} onClick={handleReset}>
-          重置
+          {t['searchTable.form.reset']}
         </Button>
       </div>
     </div>

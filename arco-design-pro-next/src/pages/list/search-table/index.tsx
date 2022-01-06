@@ -83,11 +83,15 @@ function SearchTable() {
         <SearchForm onSearch={handleSearch} />
         <div className={styles['button-group']}>
           <Space>
-            <Button icon={<IconPlus />}>新建内容集合</Button>
-            <Button>批量导入</Button>
+            <Button type="primary" icon={<IconPlus />}>
+              {t['searchTable.operations.add']}
+            </Button>
+            <Button>{t['searchTable.operations.upload']}</Button>
           </Space>
           <Space>
-            <Button icon={<IconDownload />}>下载</Button>
+            <Button icon={<IconDownload />}>
+              {t['searchTable.operation.download']}
+            </Button>
           </Space>
         </div>
         <Table
