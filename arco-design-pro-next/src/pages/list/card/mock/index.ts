@@ -1,5 +1,6 @@
 import Mock from 'mockjs';
 import dayjs from 'dayjs';
+import setupMock from '@/utils/setupMock';
 
 const qualityCategory = ['视频类', '图文类', '纯文本'];
 const qualityName = ['历史导入', '内容版权', '敏感内容', '商业品牌'];
@@ -92,10 +93,14 @@ const getRulesCard = () => {
   return list;
 };
 
-Mock.mock(new RegExp('/api/cardList'), () => {
-  return {
-    quality: getQualityCard(),
-    service: getServiceCard(),
-    rules: getRulesCard(),
-  };
+setupMock({
+  setup: () => {
+    Mock.mock(new RegExp('/api/cardList'), () => {
+      return {
+        quality: getQualityCard(),
+        service: getServiceCard(),
+        rules: getRulesCard(),
+      };
+    });
+  },
 });

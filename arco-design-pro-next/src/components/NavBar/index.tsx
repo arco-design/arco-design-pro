@@ -31,6 +31,8 @@ import IconButton from './IconButton';
 import Settings from '../Settings';
 import storage from '@/utils/storage';
 import styles from './style/index.module.less';
+import defaultLocale from '@/locale';
+import { defaultRoute } from '@/routes';
 
 function Navbar() {
   const t = useLocale();
@@ -118,7 +120,8 @@ function Navbar() {
             onChange={(value) => {
               storage.setItem('arco-lang', value);
               setLang(value);
-              Message.info(`${t['message.lang.tips']}${value}`);
+              const nextLang = defaultLocale[value];
+              Message.info(`${nextLang['message.lang.tips']}${value}`);
             }}
           />
         </li>

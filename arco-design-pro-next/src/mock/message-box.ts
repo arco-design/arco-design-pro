@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+import setupMock from '@/utils/setupMock';
 
 const haveReadIds = [];
 const getMessageList = () => {
@@ -83,12 +84,16 @@ const getMessageList = () => {
   }));
 };
 
-Mock.mock(new RegExp('/api/message/list'), () => {
-  return getMessageList();
-});
+setupMock({
+  setup: () => {
+    Mock.mock(new RegExp('/api/message/list'), () => {
+      return getMessageList();
+    });
 
-Mock.mock(new RegExp('/api/message/read'), (params) => {
-  const { ids } = JSON.parse(params.body);
-  haveReadIds.push(...(ids || []));
-  return true;
+    Mock.mock(new RegExp('/api/message/read'), (params) => {
+      const { ids } = JSON.parse(params.body);
+      haveReadIds.push(...(ids || []));
+      return true;
+    });
+  },
 });
