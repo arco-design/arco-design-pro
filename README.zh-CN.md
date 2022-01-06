@@ -27,7 +27,7 @@ Admin 中后台管理页面，创新的多架构方案。
 - **Templates** - 16+ 页面模版，覆盖表格、列表、表单、工作台、可视化等场景。
 - **Themes** - 基于「[风格配置平台](https://arco.design/themes)」丰富的主题市场，让你的项目千变万化。
 - **Dark Theme**  -  一键丝滑切换暗黑风格
-- **Mock**  -  内置 api 模拟方案
+- **Mock**  -  内置 API 模拟方案
 - **Flexible** - 灵活的多架构方案，支持 [next.js](https://github.com/vercel/next.js) / [vite](https://github.com/vitejs/vite) / [cra](https://github.com/facebook/create-react-app) 等开发框架
 - **I18n** - 内置国际化多语言解决方案
 - **Config** - 灵活配置页面配色、布局等
@@ -50,4 +50,4 @@ $ arco init my-project
 
 ## LICENSE
 
-[MIT](./README.md) © [ArcoDesign](https://arco.design)
+[MIT](./LICENSE) © [ArcoDesign](https://arco.design)
