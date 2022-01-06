@@ -23,7 +23,7 @@ function OverviewAreaLine({
         autoFit
         height={300}
         data={data}
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Axis
           name="count"

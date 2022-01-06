@@ -111,7 +111,11 @@ const getContentSource = (name) => {
       name,
     });
   });
-  return result;
+  const total = result.reduce((a, b) => a + b.value, 0);
+  return result.map((item) => ({
+    ...item,
+    value: Number((item.value / total).toFixed(2)),
+  }));
 };
 
 Mock.mock(new RegExp('/api/muti-dimension/content-source'), () => {

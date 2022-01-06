@@ -45,7 +45,7 @@ function AreaPolar(props: AreaPolarProps) {
           },
         }}
         interactions={['legend-highlight']}
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Coordinate type="polar" radius={0.8} />
         <Tooltip shared>

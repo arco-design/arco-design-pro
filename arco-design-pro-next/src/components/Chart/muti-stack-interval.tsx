@@ -12,7 +12,7 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
         padding="auto"
         data={data}
         autoFit
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Interval
           adjust="stack"

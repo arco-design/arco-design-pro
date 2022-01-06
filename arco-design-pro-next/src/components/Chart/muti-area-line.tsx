@@ -22,7 +22,7 @@ function MutiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
         padding={[10, 0, 30, 30]}
         autoFit
         scale={{ time: 'time' }}
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Line
           shape="smooth"

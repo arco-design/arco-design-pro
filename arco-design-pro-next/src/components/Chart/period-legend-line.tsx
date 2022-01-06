@@ -3,18 +3,21 @@ import { Chart, Line, Axis, Tooltip, Legend, Slider } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import CustomTooltip from './customer-tooltip';
+import useBizTheme from '@/utils/useChartTheme';
 
 const lineColor = ['#21CCFF', '#313CA9', '#249EFF'];
 function PeriodLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
+        theme={useBizTheme()}
+        forceUpdate
         height={370}
         padding={[10, 20, 120, 60]}
         data={data}
         autoFit
         scale={{ time: 'time' }}
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Line shape="smooth" position="time*rate" color={['name', lineColor]} />
         <Tooltip crosshairs={{ type: 'x' }} showCrosshairs shared>

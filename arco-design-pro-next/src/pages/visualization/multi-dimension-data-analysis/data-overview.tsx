@@ -10,9 +10,9 @@ import {
 import axios from 'axios';
 import {
   IconUser,
-  IconMosaic,
-  IconCamera,
-  IconDesktop,
+  IconEdit,
+  IconHeart,
+  IconThumbUp,
 } from '@arco-design/web-react/icon';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
@@ -45,14 +45,14 @@ export default () => {
     return [
       {
         title: t['multiDAnalysis.dataOverview.contentProduction'],
-        icon: <IconMosaic />,
+        icon: <IconEdit />,
         value: overview[0],
         background: 'rgb(var(--orange-2))',
         color: 'rgb(var(--orange-6))',
       },
       {
         title: t['multiDAnalysis.dataOverview.contentClicks'],
-        icon: <IconDesktop />,
+        icon: <IconThumbUp />,
         value: overview[1],
         background: 'rgb(var(--cyan-2))',
         color: 'rgb(var(--cyan-6))',
@@ -60,7 +60,7 @@ export default () => {
       {
         title: t['multiDAnalysis.dataOverview.contextExposure'],
         value: overview[2],
-        icon: <IconCamera />,
+        icon: <IconHeart />,
         background: 'rgb(var(--arcoblue-1))',
         color: 'rgb(var(--arcoblue-6))',
       },

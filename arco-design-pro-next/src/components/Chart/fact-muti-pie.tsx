@@ -1,5 +1,6 @@
 import React from 'react';
 import { Chart, Legend, Facet } from 'bizcharts';
+import useBizTheme from '@/utils/useChartTheme';
 
 interface FactMutiPieProps {
   data: any[];
@@ -9,6 +10,8 @@ interface FactMutiPieProps {
 function FactMutiPie(props: FactMutiPieProps) {
   return (
     <Chart
+      theme={useBizTheme()}
+      forceUpdate
       autoFit
       data={props.data}
       height={props.height || 400}
@@ -38,17 +41,22 @@ function FactMutiPie(props: FactMutiPieProps) {
               '#21CCFF',
               ' #86DF6C',
               '#0E42D2',
-            ]);
-          view.annotation().text({
-            position: ['50%', '46%'],
-            content: data[0].category,
-            style: {
-              fontSize: 14,
-              fontWeight: 500,
-              textAlign: 'center',
-            },
-            offsetY: 10,
-          });
+            ])
+            .label('value', {
+              content: (content) => {
+                return `${(content.value * 100).toFixed(2)} %`;
+              },
+            }),
+            view.annotation().text({
+              position: ['50%', '46%'],
+              content: data[0].category,
+              style: {
+                fontSize: 14,
+                fontWeight: 500,
+                textAlign: 'center',
+              },
+              offsetY: 10,
+            });
           view.interaction('element-single-selected');
         }}
       />

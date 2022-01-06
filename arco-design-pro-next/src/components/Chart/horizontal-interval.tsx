@@ -47,7 +47,7 @@ function HorizontalInterval({
         padding="auto"
         data={data}
         autoFit
-        className={styles['chart-wrapper']}
+        className={'chart-wrapper'}
       >
         <Coordinate transpose />
         <Interval
