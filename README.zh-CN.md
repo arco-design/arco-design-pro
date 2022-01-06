@@ -14,7 +14,7 @@ Admin 中后台管理页面，创新的多架构方案。
 
 <div align="center">
 
-English | [简体中文](./README.zh-CN.md)
+[English](./README.md) | 简体中文
 
 </div>
 
