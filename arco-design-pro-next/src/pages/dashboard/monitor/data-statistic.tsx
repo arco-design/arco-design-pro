@@ -14,8 +14,8 @@ export default function DataStatistic() {
           title={t['monitor.tab.title.liveMethod']}
         />
         <Tabs.TabPane
-          key="virtualPopulation"
-          title={t['monitor.tab.title.virtualPopulation']}
+          key="onlineUsers"
+          title={t['monitor.tab.title.onlineUsers']}
         />
       </Tabs>
       <div className={styles['data-statistic-content']}>
