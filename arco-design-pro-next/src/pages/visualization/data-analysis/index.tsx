@@ -5,7 +5,7 @@ import axios from 'axios';
 import locale from './locale';
 import PublicOpinion from './public-opinion';
 import styles from './style/index.module.less';
-import MultiInterval from '@/components/Chart/muti-stack-interval';
+import MultiInterval from '@/components/Chart/multi-stack-interval';
 import PeriodLine from '@/components/Chart/period-legend-line';
 import './mock';
 
