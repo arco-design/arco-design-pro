@@ -17,7 +17,7 @@ import {
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/data-overview.module.less';
-import MutiAreaLine from '@/components/Chart/muti-area-line';
+import MultiAreaLine from '@/components/Chart/multi-area-line';
 
 const { Title } = Typography;
 export default () => {
@@ -29,7 +29,7 @@ export default () => {
   const getData = async () => {
     setLoading(true);
     const { data } = await axios
-      .get('/api/muti-dimension/overview')
+      .get('/api/multi-dimension/overview')
       .finally(() => setLoading(false));
 
     const { overviewData, chartData } = data;
@@ -101,7 +101,7 @@ export default () => {
         </Grid.Col>
       ))}
       <Grid.Col span={24}>
-        <MutiAreaLine data={lineData} loading={loading} />
+        <MultiAreaLine data={lineData} loading={loading} />
       </Grid.Col>
     </Grid.Row>
   );

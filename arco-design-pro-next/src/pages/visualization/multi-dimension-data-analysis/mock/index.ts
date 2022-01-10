@@ -57,7 +57,7 @@ const getContentSource = (name) => {
 
 setupMock({
   setup: () => {
-    Mock.mock(new RegExp('/api/muti-dimension/overview'), () => {
+    Mock.mock(new RegExp('/api/multi-dimension/overview'), () => {
       const { array: overviewData } = Mock.mock({
         'array|4': [
           function () {
@@ -75,7 +75,7 @@ setupMock({
       };
     });
 
-    Mock.mock(new RegExp('/api/muti-dimension/activity'), () => {
+    Mock.mock(new RegExp('/api/multi-dimension/activity'), () => {
       const { list } = Mock.mock({
         'list|3': [
           {
@@ -87,7 +87,7 @@ setupMock({
       return list;
     });
 
-    Mock.mock(new RegExp('/api/muti-dimension/polar'), () => {
+    Mock.mock(new RegExp('/api/multi-dimension/polar'), () => {
       const items = ['国际', '娱乐', '体育', '财经', '科技', '其他'];
 
       const getCategoryCount = () => {
@@ -108,7 +108,7 @@ setupMock({
       };
     });
 
-    Mock.mock(new RegExp('/api/muti-dimension/card'), (params) => {
+    Mock.mock(new RegExp('/api/multi-dimension/card'), (params) => {
       const { type } = qs.parseUrl(params.url).query;
       return Mock.mock({
         count: () => Mock.Random.natural(1000, 10000),
@@ -121,7 +121,7 @@ setupMock({
       });
     });
 
-    Mock.mock(new RegExp('/api/muti-dimension/content-source'), () => {
+    Mock.mock(new RegExp('/api/multi-dimension/content-source'), () => {
       const allList = category.map((name) => {
         return getContentSource(name).map((item) => ({
           ...item,
