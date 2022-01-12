@@ -23,6 +23,7 @@ if (!isSSR) {
       phoneNumber: /177[*]{6}[0-9]{2}/,
       accountId: /[a-z]{4}[-][0-9]{8}/,
       registrationTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
+      roles: ['ROLE_ADMIN'],
     });
   });
 
