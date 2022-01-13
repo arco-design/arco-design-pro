@@ -43,7 +43,7 @@ function InfoForm({ loading }: { loading?: boolean }) {
 
   return (
     <Form
-      style={{ width: '500px', margin: '0 auto' }}
+      style={{ width: '500px' }}
       form={form}
       labelCol={{ span: lang === 'en-US' ? 7 : 6 }}
       wrapperCol={{ span: lang === 'en-US' ? 17 : 18 }}

@@ -1,5 +1,5 @@
 import './style/global.less';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -13,14 +13,15 @@ import PageLayout from './layout';
 import { GlobalContext } from './context';
 import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
-import storage from './utils/storage';
+import changeTheme from './utils/changeTheme';
+import useStorage from './utils/useStorage';
 import './mock';
 
 const store = createStore(rootReducer);
 
 function Index() {
-  const defaultLang = storage.getItem('arco-lang') || 'en-US';
-  const [lang, setLang] = useState(defaultLang);
+  const [lang, setLang] = useStorage('arco-lang', 'en-US');
+  const [theme, setTheme] = useStorage('arco-theme', 'light');
 
   function getArcoLocale() {
     switch (lang) {
@@ -51,12 +52,14 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    storage.setItem('arco-lang', lang);
-  }, [lang]);
+    changeTheme(theme);
+  }, [theme]);
 
   const contextValue = {
     lang,
     setLang,
+    theme,
+    setTheme,
   };
 
   return (
