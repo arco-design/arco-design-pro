@@ -31,7 +31,7 @@ import IconButton from './IconButton';
 import Settings from '../Settings';
 import styles from './style/index.module.less';
 import defaultLocale from '@/locale';
-import useStorage from '@/hooks/storage';
+import useStorage from '@/utils/useStorage';
 
 function Navbar() {
   const t = useLocale();

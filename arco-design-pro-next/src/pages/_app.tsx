@@ -12,10 +12,10 @@ import enUS from '@arco-design/web-react/es/locale/en-US';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import rootReducer from '../store';
-import useStorage from '@/hooks/storage';
 import { GlobalContext } from '../context';
 import checkLogin from '@/utils/checkLogin';
 import changeTheme from '@/utils/changeTheme';
+import useStorage from '@/utils/useStorage';
 import Layout from './layout';
 import '../mock';
 
@@ -145,7 +145,6 @@ export default function MyApp({
 MyApp.getInitialProps = async (appContext) => {
   const { ctx } = appContext;
   const serverCookies = cookies(ctx);
-  console.log(serverCookies);
   return {
     renderConfig: {
       arcoLang: serverCookies['arco-lang'],

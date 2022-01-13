@@ -12,7 +12,7 @@ import { defaultRoute } from '@/routes';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './style/index.module.less';
-import useStorage from '@/hooks/storage';
+import useStorage from '@/utils/useStorage';
 
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
