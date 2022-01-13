@@ -1,6 +1,7 @@
 import '../style/global.less';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import cookies from 'next-cookies';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { createStore } from 'redux';
@@ -11,18 +12,29 @@ import enUS from '@arco-design/web-react/es/locale/en-US';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import rootReducer from '../store';
-import storage from '@/utils/storage';
+import useStorage from '@/hooks/storage';
 import { GlobalContext } from '../context';
 import checkLogin from '@/utils/checkLogin';
+import changeTheme from '@/utils/changeTheme';
 import Layout from './layout';
 import '../mock';
 
 const store = createStore(rootReducer);
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  const defaultLang = storage.getItem('arco-lang') || 'en-US';
+interface RenderConfig {
+  arcoLang?: string;
+  arcoTheme?: string;
+}
+
+export default function MyApp({
+  pageProps,
+  Component,
+  renderConfig,
+}: AppProps & { renderConfig: RenderConfig }) {
+  const { arcoLang, arcoTheme } = renderConfig;
+  const [lang, setLang] = useStorage('arco-lang', arcoLang || 'en-US');
+  const [theme, setTheme] = useStorage('arco-theme', arcoTheme || 'light');
   const router = useRouter();
-  const [lang, setLang] = useState(defaultLang);
 
   const locale = useMemo(() => {
     switch (lang) {
@@ -57,10 +69,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    storage.setItem('arco-lang', lang);
-  }, [lang]);
-
-  useEffect(() => {
     const handleStart = () => {
       NProgress.set(0.4);
       NProgress.start();
@@ -81,9 +89,17 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router]);
 
+  useEffect(() => {
+    document.cookie = `arco-lang=${lang}; path=/`;
+    document.cookie = `arco-theme=${theme}; path=/`;
+    changeTheme(theme);
+  }, [lang, theme]);
+
   const contextValue = {
     lang,
     setLang,
+    theme,
+    setTheme,
   };
 
   return (
@@ -112,10 +128,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <GlobalContext.Provider value={contextValue}>
             {Component.displayName === 'LoginPage' ? (
-              <Component {...pageProps} />
+              <Component {...pageProps} suppressHydrationWarning />
             ) : (
               <Layout>
-                <Component {...pageProps} />
+                <Component {...pageProps} suppressHydrationWarning />
               </Layout>
             )}
           </GlobalContext.Provider>
@@ -124,3 +140,16 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+// fix: next build ssr can't attach the localstorage
+MyApp.getInitialProps = async (appContext) => {
+  const { ctx } = appContext;
+  const serverCookies = cookies(ctx);
+  console.log(serverCookies);
+  return {
+    renderConfig: {
+      arcoLang: serverCookies['arco-lang'],
+      arcoTheme: serverCookies['arco-theme'],
+    },
+  };
+};
