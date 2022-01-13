@@ -56,11 +56,12 @@ function getIconFromKey(key) {
 }
 
 function getFlattenRoutes() {
+  const mod = import.meta.glob('./pages/**/[a-z[]*.tsx');
   const res = [];
   function travel(_routes) {
     _routes.forEach((route) => {
       if (route.key && !route.children) {
-        route.component = lazyload(() => import(`./pages/${route.key}`));
+        route.component = lazyload(mod[`./pages/${route.key}/index.tsx`]);
         res.push(route);
       } else if (isArray(route.children) && route.children.length) {
         travel(route.children);
