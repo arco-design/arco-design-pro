@@ -12,19 +12,23 @@ import { defaultRoute } from '@/routes';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './style/index.module.less';
+import useStorage from '@/utils/useStorage';
 
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [rememberPassword, setRememberPassword] = useState(false);
+  const [loginParams, setLoginParams, removeLoginParams] =
+    useStorage('loginParams');
+
+  const [rememberPassword, setRememberPassword] = useState(!!loginParams);
 
   function afterLoginSuccess(params) {
     // 记住密码
     if (rememberPassword) {
-      localStorage.setItem('loginParams', JSON.stringify(params));
+      setLoginParams(JSON.stringify(params));
     } else {
-      localStorage.removeItem('loginParams');
+      removeLoginParams();
     }
     // 记录登录状态
     localStorage.setItem('userStatus', 'login');
@@ -58,14 +62,13 @@ export default function LoginForm() {
 
   // 读取 localStorage，设置初始值
   useEffect(() => {
-    const params = localStorage.getItem('loginParams');
-    const rememberPassword = !!params;
+    const rememberPassword = !!loginParams;
     setRememberPassword(rememberPassword);
     if (formRef.current && rememberPassword) {
-      const parseParams = JSON.parse(params);
+      const parseParams = JSON.parse(loginParams);
       formRef.current.setFieldsValue(parseParams);
     }
-  }, []);
+  }, [loginParams]);
 
   return (
     <div className={styles['login-form-wrapper']}>

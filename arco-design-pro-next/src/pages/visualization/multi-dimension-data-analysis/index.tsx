@@ -4,7 +4,7 @@ import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import HorizontalInterval from '@/components/Chart/horizontal-interval';
 import AreaPolar from '@/components/Chart/area-polar';
-import FactMutiPie from '@/components/Chart/fact-muti-pie';
+import FactMultiPie from '@/components/Chart/fact-multi-pie';
 import locale from './locale';
 import DataOverview from './data-overview';
 import CardList from './card-list';
@@ -21,13 +21,13 @@ function DataAnalysis() {
   const [interval, setInterval] = useState([]);
   const [polarLoading, setPolarLoading] = useState(false);
   const [polar, setPolar] = useState({ list: [], fields: [] });
-  const [mutiPieLoading, setMutiPieLoading] = useState(false);
-  const [mutiPie, setMutiPie] = useState([]);
+  const [multiPieLoading, setMultiPieLoading] = useState(false);
+  const [multiPie, setMultiPie] = useState([]);
 
   const getInterval = async () => {
     setLoading(true);
     const { data } = await axios
-      .get('/api/muti-dimension/activity')
+      .get('/api/multi-dimension/activity')
       .finally(() => {
         setLoading(false);
       });
@@ -37,27 +37,27 @@ function DataAnalysis() {
   const getPolar = async () => {
     setPolarLoading(true);
     const { data } = await axios
-      .get('/api/muti-dimension/polar')
+      .get('/api/multi-dimension/polar')
       .finally(() => setPolarLoading(false));
 
     setPolar(data);
   };
 
-  const getMutiPie = async () => {
-    setMutiPieLoading(true);
+  const getMultiPie = async () => {
+    setMultiPieLoading(true);
     const { data } = await axios
-      .get('/api/muti-dimension/content-source')
+      .get('/api/multi-dimension/content-source')
       .finally(() => {
-        setMutiPieLoading(false);
+        setMultiPieLoading(false);
       });
 
-    setMutiPie(data);
+    setMultiPie(data);
   };
 
   useEffect(() => {
     getInterval();
     getPolar();
-    getMutiPie();
+    getMultiPie();
   }, []);
 
   return (
@@ -106,7 +106,7 @@ function DataAnalysis() {
             <Title heading={6} style={{ marginTop: '0px' }}>
               {t['multiDAnalysis.card.title.contentSource']}
             </Title>
-            <FactMutiPie loading={mutiPieLoading} data={mutiPie} height={240} />
+            <FactMultiPie loading={multiPieLoading} data={multiPie} height={240} />
           </Card>
         </Col>
       </Row>

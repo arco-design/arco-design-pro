@@ -21,7 +21,7 @@ import {
   IconDashboard,
   IconInteraction,
 } from '@arco-design/web-react/icon';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { GlobalState } from '@/store';
 import { GlobalContext } from '@/context';
 import useLocale from '@/utils/useLocale';
@@ -29,19 +29,20 @@ import Logo from '@/assets/logo.svg';
 import MessageBox from '@/components/MessageBox';
 import IconButton from './IconButton';
 import Settings from '../Settings';
-import storage from '@/utils/storage';
 import styles from './style/index.module.less';
+import defaultLocale from '@/locale';
+import useStorage from '@/utils/useStorage';
 
 function Navbar() {
   const t = useLocale();
-  const theme = useSelector((state: GlobalState) => state.theme);
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
-  const dispatch = useDispatch();
 
-  const { setLang } = useContext(GlobalContext);
+  const [_, setUserStatus] = useStorage('userStatus');
+
+  const { setLang, lang, theme, setTheme } = useContext(GlobalContext);
 
   function logout() {
-    storage.setItem('userStatus', 'logout');
+    setUserStatus('logout');
     window.location.href = '/login';
   }
 
@@ -99,7 +100,10 @@ function Navbar() {
       </div>
       <ul className={styles.right}>
         <li>
-          <Input.Search className={styles.round} placeholder="Please search" />
+          <Input.Search
+            className={styles.round}
+            placeholder={t['navbar.search.placeholder']}
+          />
         </li>
         <li>
           <Select
@@ -108,7 +112,7 @@ function Navbar() {
               { label: '中文', value: 'zh-CN' },
               { label: 'English', value: 'en-US' },
             ]}
-            value={storage.getItem('arco-lang')}
+            value={lang}
             triggerProps={{
               autoAlignPopupWidth: false,
               autoAlignPopupMinWidth: true,
@@ -116,9 +120,9 @@ function Navbar() {
             }}
             trigger="hover"
             onChange={(value) => {
-              storage.setItem('arco-lang', value);
               setLang(value);
-              Message.info(`${t['message.lang.tips']}${value}`);
+              const nextLang = defaultLocale[value];
+              Message.info(`${nextLang['message.lang.tips']}${value}`);
             }}
           />
         </li>
@@ -136,13 +140,8 @@ function Navbar() {
             }
           >
             <IconButton
-              icon={theme === 'light' ? <IconMoonFill /> : <IconSunFill />}
-              onClick={() =>
-                dispatch({
-                  type: 'toggle-theme',
-                  payload: { theme: theme === 'light' ? 'dark' : 'light' },
-                })
-              }
+              icon={theme !== 'dark' ? <IconMoonFill /> : <IconSunFill />}
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             />
           </Tooltip>
         </li>

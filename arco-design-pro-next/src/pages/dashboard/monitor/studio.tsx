@@ -31,7 +31,7 @@ export default function Studio(props: StudioProps) {
       </Grid.Row>
       <div className={styles['studio-wrapper']}>
         <img
-          src="http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/f9e130633f85f194bbb291ff1db02557.png~tplv-uwbnlip3yd-png.png"
+          src="http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/c788fc704d32cf3b1136c7d45afc2669.png~tplv-uwbnlip3yd-webp.webp"
           className={styles['studio-preview']}
         />
         <div className={styles['studio-bar']}>

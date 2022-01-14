@@ -43,7 +43,7 @@ export default function QuickOperation() {
   const data = [
     {
       cover:
-        'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/f9e130633f85f194bbb291ff1db02557.png~tplv-uwbnlip3yd-png.png',
+        'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/c788fc704d32cf3b1136c7d45afc2669.png~tplv-uwbnlip3yd-webp.webp',
       name: '视频直播',
       duration: '00:05:19',
       id: '54e23ade',
