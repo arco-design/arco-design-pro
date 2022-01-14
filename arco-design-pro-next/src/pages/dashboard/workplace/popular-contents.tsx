@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, Card, Radio, Table, Typography } from '@arco-design/web-react';
 import { IconCaretDown, IconCaretUp } from '@arco-design/web-react/icon';
 import axios from 'axios';
-import useLocale from './locale/useLocale';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/popular-contents.module.less';
 
 function PopularContent() {
-  const t = useLocale();
+  const t = useLocale(locale);
   const [type, setType] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

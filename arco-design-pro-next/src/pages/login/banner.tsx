@@ -1,24 +1,27 @@
 import React from 'react';
 import { Carousel } from '@arco-design/web-react';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/index.module.less';
 
-export default function LoginBannber() {
+export default function LoginBanner() {
+  const t = useLocale(locale);
   const data = [
     {
-      slogan: '开箱即用的高质量模板',
-      subSlogan: '丰富的的页面模板，覆盖大多数典型业务场景',
+      slogan: t['login.banner.slogan1'],
+      subSlogan: t['login.banner.subSlogan1'],
       image:
         'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
     },
     {
-      slogan: '内置了常见问题的解决方案',
-      subSlogan: '国际化，路由配置，状态管理应有尽有',
+      slogan: t['login.banner.slogan2'],
+      subSlogan: t['login.banner.subSlogan2'],
       image:
         'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
     },
     {
-      slogan: '接入可视化增强工具AUX',
-      subSlogan: '实现灵活的区块式开发',
+      slogan: t['login.banner.slogan3'],
+      subSlogan: t['login.banner.subSlogan3'],
       image:
         'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
     },

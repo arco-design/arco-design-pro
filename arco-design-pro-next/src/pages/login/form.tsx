@@ -11,8 +11,10 @@ import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import { defaultRoute } from '@/routes';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styles from './style/index.module.less';
 import useStorage from '@/utils/useStorage';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
+import styles from './style/index.module.less';
 
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
@@ -20,6 +22,8 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [loginParams, setLoginParams, removeLoginParams] =
     useStorage('loginParams');
+
+  const t = useLocale(locale);
 
   const [rememberPassword, setRememberPassword] = useState(!!loginParams);
 
@@ -46,7 +50,7 @@ export default function LoginForm() {
         if (status === 'ok') {
           afterLoginSuccess(params);
         } else {
-          setErrorMessage(msg || '登录出错，请刷新重试');
+          setErrorMessage(msg || t['login.form.login.errMsg']);
         }
       })
       .finally(() => {
@@ -72,8 +76,10 @@ export default function LoginForm() {
 
   return (
     <div className={styles['login-form-wrapper']}>
-      <div className={styles['login-form-title']}>登录 Arco Design Pro</div>
-      <div className={styles['login-form-sub-title']}>登录 Arco Design Pro</div>
+      <div className={styles['login-form-title']}>{t['login.form.title']}</div>
+      <div className={styles['login-form-sub-title']}>
+        {t['login.form.title']}
+      </div>
       <div className={styles['login-form-error-msg']}>{errorMessage}</div>
       <Form
         className={styles['login-form']}
@@ -83,40 +89,40 @@ export default function LoginForm() {
       >
         <Form.Item
           field="userName"
-          rules={[{ required: true, message: '用户名不能为空' }]}
+          rules={[{ required: true, message: t['login.form.userName.errMsg'] }]}
         >
           <Input
             prefix={<IconUser />}
-            placeholder="用户名：admin"
+            placeholder={t['login.form.userName.placeholder']}
             onPressEnter={onSubmitClick}
           />
         </Form.Item>
         <Form.Item
           field="password"
-          rules={[{ required: true, message: '密码不能为空' }]}
+          rules={[{ required: true, message: t['login.form.password.errMsg'] }]}
         >
           <Input.Password
             prefix={<IconLock />}
-            placeholder="密码：admin"
+            placeholder={t['login.form.password.placeholder']}
             onPressEnter={onSubmitClick}
           />
         </Form.Item>
         <Space size={16} direction="vertical">
           <div className={styles['login-form-password-actions']}>
             <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
-              记住密码
+              {t['login.form.rememberPassword']}
             </Checkbox>
-            <Link>忘记密码？</Link>
+            <Link>{t['login.form.forgetPassword']}</Link>
           </div>
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>
-            登录
+            {t['login.form.login']}
           </Button>
           <Button
             type="text"
             long
             className={styles['login-form-register-btn']}
           >
-            注册账号
+            {t['login.form.register']}
           </Button>
         </Space>
       </Form>
