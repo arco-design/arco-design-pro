@@ -22,6 +22,7 @@ import { routes, defaultRoute } from '@/routes';
 import { isArray } from '@/utils/is';
 import useLocale from '@/utils/useLocale';
 import { GlobalState } from '@/store';
+import isAccessAllowed from '@/utils/access';
 import getUrlParams from '@/utils/getUrlParams';
 import styles from '@/style/layout.module.less';
 
@@ -65,6 +66,7 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   const locale = useLocale();
   const settings = useSelector((state: GlobalState) => state.settings);
+  const userInfo = useSelector((state: GlobalState) => state.userInfo);
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [selectedKeys, setSelectedKeys] =
@@ -109,12 +111,23 @@ function PageLayout({ children }: { children: ReactNode }) {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          routeMap.current.set(
-            `/${route.key}`,
-            breadcrumb ? [...parentNode, route.name] : []
-          );
-          if (level > 1) {
-            return (
+          // access
+          if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
+            routeMap.current.set(
+              `/${route.key}`,
+              breadcrumb ? [...parentNode, route.name] : []
+            );
+            if (level > 1) {
+              return (
+                <MenuItem key={route.key}>
+                  <Link href={`/${route.key}`}>
+                    <a>{titleDom}</a>
+                  </Link>
+                </MenuItem>
+              );
+            }
+
+            nodes.push(
               <MenuItem key={route.key}>
                 <Link href={`/${route.key}`}>
                   <a>{titleDom}</a>
@@ -122,14 +135,6 @@ function PageLayout({ children }: { children: ReactNode }) {
               </MenuItem>
             );
           }
-
-          nodes.push(
-            <MenuItem key={route.key}>
-              <Link href={`/${route.key}`}>
-                <a>{titleDom}</a>
-              </Link>
-            </MenuItem>
-          );
         }
         if (isArray(route.children) && route.children.length) {
           const parentNode = [];
@@ -152,7 +157,8 @@ function PageLayout({ children }: { children: ReactNode }) {
       });
     }
     travel(routes, 1);
-    return nodes;
+    // remove empty submenu
+    return nodes.filter((menu) => !menu.props.children.every((_item) => _item === undefined));
   }
 
   useEffect(() => {

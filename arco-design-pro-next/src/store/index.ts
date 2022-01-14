@@ -8,6 +8,7 @@ export interface GlobalState {
     organization?: string;
     location?: string;
     email?: string;
+    roles?: string[];
   };
 }
 
