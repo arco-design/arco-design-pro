@@ -22,6 +22,7 @@ import { routes, defaultRoute } from '@/routes';
 import { isArray } from '@/utils/is';
 import useLocale from '@/utils/useLocale';
 import { GlobalState } from '@/store';
+import isAccessAllowed from '@/utils/access';
 import getUrlParams from '@/utils/getUrlParams';
 import styles from '@/style/layout.module.less';
 
@@ -94,16 +95,6 @@ function PageLayout({ children }: { children: ReactNode }) {
   const paddingTop = showNavbar ? { paddingTop: navbarHeight } : {};
   const paddingStyle = { ...paddingLeft, ...paddingTop };
 
-  function isAccessAllowed(access) {
-    return (
-      isArray(access) &&
-      userInfo?.roles &&
-      access.filter((item) =>
-        userInfo.roles ? item(userInfo.roles || []) : item(JSON.parse(localStorage.getItem('roles')) || [])
-      ).length
-    );
-  }
-
   function renderRoutes(locale) {
     const nodes = [];
     function travel(_routes, level, parentNode = []) {
@@ -121,7 +112,7 @@ function PageLayout({ children }: { children: ReactNode }) {
             (isArray(route.children) && !route.children.length))
         ) {
           // access
-          if (!route.access || isAccessAllowed(route.access)) {
+          if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
             routeMap.current.set(
               `/${route.key}`,
               breadcrumb ? [...parentNode, route.name] : []

@@ -1,3 +1,5 @@
+import { isAdmin, isNormalUser } from '@/utils/access';
+
 export const defaultRoute = 'dashboard/workplace';
 
 export const routes = [
@@ -22,10 +24,12 @@ export const routes = [
       {
         name: 'menu.visualization.dataAnalysis',
         key: 'visualization/data-analysis',
+        access: [isAdmin],
       },
       {
         name: 'menu.visualization.multiDimensionDataAnalysis',
         key: 'visualization/multi-dimension-data-analysis',
+        access: [isNormalUser],
       },
     ],
   },
