@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, Card, Skeleton, Tag } from '@arco-design/web-react';
-import useLocale from './locale/useLocale';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/announcement.module.less';
 
 function Announcement() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const t = useLocale();
+  const t = useLocale(locale);
 
   const fetchData = () => {
     setLoading(true);

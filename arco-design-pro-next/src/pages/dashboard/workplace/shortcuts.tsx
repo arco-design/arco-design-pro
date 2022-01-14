@@ -7,11 +7,12 @@ import {
   IconMobile,
   IconFire,
 } from '@arco-design/web-react/icon';
-import useLocale from './locale/useLocale';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/shortcuts.module.less';
 
 function Shortcuts() {
-  const t = useLocale();
+  const t = useLocale(locale);
 
   const shortcuts = [
     {

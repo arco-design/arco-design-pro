@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Card } from '@arco-design/web-react';
-import useLocale from './locale/useLocale';
+import useLocale from '@/utils/useLocale';
+import locale from './locale';
 import styles from './style/docs.module.less';
 
 const links = {
@@ -10,7 +11,7 @@ const links = {
   materialMarket: 'https://arco.design/material/',
 };
 function QuickOperation() {
-  const t = useLocale();
+  const t = useLocale(locale);
 
   return (
     <Card
