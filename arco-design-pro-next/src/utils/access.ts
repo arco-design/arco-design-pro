@@ -1,4 +1,4 @@
-import { isArray } from '@/utils/is';
+import { isArray } from './is';
 
 export const isAdmin = (roles: string[]) => {
   return roles.includes('ROLE_ADMIN');

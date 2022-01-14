@@ -19,6 +19,7 @@ import NProgress from 'nprogress';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 import { routes, defaultRoute } from './routes';
+import isAccessAllowed from './utils/access';
 import { isArray } from './utils/is';
 import useLocale from './utils/useLocale';
 import getUrlParams from './utils/getUrlParams';
@@ -82,6 +83,7 @@ function PageLayout() {
 
   const locale = useLocale();
   const settings = useSelector((state: GlobalState) => state.settings);
+  const userInfo = useSelector((state: GlobalState) => state.userInfo);
 
   const [breadcrumb, setBreadCrumb] = useState([]);
   const [collapsed, setCollapsed] = useState<boolean>(false);
@@ -134,19 +136,21 @@ function PageLayout() {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          routeMap.current.set(
-            `/${route.key}`,
-            breadcrumb ? [...parentNode, route.name] : []
-          );
+          if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
+            routeMap.current.set(
+              `/${route.key}`,
+              breadcrumb ? [...parentNode, route.name] : []
+            );
 
-          if (level > 1) {
-            return <MenuItem key={route.key}>{titleDom}</MenuItem>;
+            if (level > 1) {
+              return <MenuItem key={route.key}>{titleDom}</MenuItem>;
+            }
+            nodes.push(
+              <MenuItem key={route.key}>
+                <Link to={`/${route.key}`}>{titleDom}</Link>
+              </MenuItem>
+            );
           }
-          nodes.push(
-            <MenuItem key={route.key}>
-              <Link to={`/${route.key}`}>{titleDom}</Link>
-            </MenuItem>
-          );
         }
         if (isArray(route.children) && route.children.length) {
           const parentNode = [];
@@ -170,7 +174,8 @@ function PageLayout() {
       });
     }
     travel(routes, 1);
-    return nodes;
+    // remove empty submenu
+    return nodes.filter((menu) => !menu.props.children.every((_item) => _item === undefined));
   }
 
   useEffect(() => {
@@ -228,13 +233,15 @@ function PageLayout() {
             <Content>
               <Switch>
                 {flattenRoutes.map((route, index) => {
-                  return (
-                    <Route
-                      key={index}
-                      path={`/${route.key}`}
-                      component={route.component}
-                    />
-                  );
+                  if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
+                    return (
+                      <Route
+                        key={index}
+                        path={`/${route.key}`}
+                        component={route.component}
+                      />
+                    );
+                  }
                 })}
                 <Redirect push to={`/${defaultRoute}`} />
               </Switch>
