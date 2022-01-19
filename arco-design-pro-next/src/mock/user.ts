@@ -1,6 +1,7 @@
 import Mock from 'mockjs';
 import { isSSR } from '@/utils/is';
 import setupMock from '@/utils/setupMock';
+import { generatePermission } from '@/routes';
 
 if (!isSSR) {
   Mock.XHR.prototype.withCredentials = true;
@@ -8,6 +9,7 @@ if (!isSSR) {
   setupMock({
     setup: () => {
       // 用户信息
+      const userRole = window.localStorage.getItem('userRole') || 'admin';
       Mock.mock(new RegExp('/api/user/userInfo'), () => {
         return Mock.mock({
           name: '王立群',
@@ -26,7 +28,7 @@ if (!isSSR) {
           phoneNumber: /177[*]{6}[0-9]{2}/,
           accountId: /[a-z]{4}[-][0-9]{8}/,
           registrationTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
-          roles: ['ROLE_ADMIN'],
+          permissions: generatePermission(userRole),
         });
       });
 

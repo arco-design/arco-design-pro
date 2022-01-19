@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Tooltip,
   Input,
@@ -20,8 +20,9 @@ import {
   IconExperiment,
   IconDashboard,
   IconInteraction,
+  IconTag,
 } from '@arco-design/web-react/icon';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '@/store';
 import { GlobalContext } from '@/context';
 import useLocale from '@/utils/useLocale';
@@ -32,12 +33,15 @@ import Settings from '../Settings';
 import styles from './style/index.module.less';
 import defaultLocale from '@/locale';
 import useStorage from '@/utils/useStorage';
+import { generatePermission } from '@/routes';
 
 function Navbar() {
   const t = useLocale();
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
+  const dispatch = useDispatch();
 
   const [_, setUserStatus] = useStorage('userStatus');
+  const [role, setRole] = useStorage('userRole', 'admin');
 
   const { setLang, lang, theme, setTheme } = useContext(GlobalContext);
 
@@ -54,12 +58,43 @@ function Navbar() {
     }
   }
 
+  useEffect(() => {
+    dispatch({
+      type: 'update-userInfo',
+      payload: {
+        userInfo: {
+          ...userInfo,
+          permissions: generatePermission(role),
+        },
+      },
+    });
+  }, [role]);
+
+  const handleChangeRole = () => {
+    const newRole = role === 'admin' ? 'user' : 'admin';
+    setRole(newRole);
+  };
+
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
-      <Menu.Item key="user info">
-        <IconUser className={styles['dropdown-icon']} />
-        {t['menu.user.info']}
-      </Menu.Item>
+      <Menu.SubMenu
+        key="role"
+        title={
+          <>
+            <IconUser className={styles['dropdown-icon']} />
+            <span className={styles['user-role']}>
+              {role === 'admin'
+                ? t['menu.user.role.admin']
+                : t['menu.user.role.user']}
+            </span>
+          </>
+        }
+      >
+        <Menu.Item onClick={handleChangeRole} key="switch role">
+          <IconTag className={styles['dropdown-icon']} />
+          {t['menu.user.switchRoles']}
+        </Menu.Item>
+      </Menu.SubMenu>
       <Menu.Item key="setting">
         <IconSettings className={styles['dropdown-icon']} />
         {t['menu.user.setting']}
@@ -82,6 +117,7 @@ function Navbar() {
           {t['menu.list.cardList']}
         </Menu.Item>
       </Menu.SubMenu>
+
       <Divider style={{ margin: '4px 0' }} />
       <Menu.Item key="logout">
         <IconPoweroff className={styles['dropdown-icon']} />

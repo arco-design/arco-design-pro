@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { QualityInspection, BasicCard } from './interface';
+import cs from 'classnames';
 import {
   Button,
   Switch,
@@ -11,8 +11,6 @@ import {
   Menu,
   Skeleton,
 } from '@arco-design/web-react';
-import styles from './style/index.module.less';
-import cs from 'classnames';
 import {
   IconStarFill,
   IconThumbUpFill,
@@ -23,6 +21,9 @@ import {
   IconCloseCircleFill,
   IconMore,
 } from '@arco-design/web-react/icon';
+import PermissionWrapper from '@/components/PermissionWrapper';
+import { QualityInspection, BasicCard } from './interface';
+import styles from './style/index.module.less';
 
 interface CardBlockType {
   type: 'quality' | 'service' | 'rules';
@@ -81,14 +82,27 @@ function CardBlock(props: CardBlockType) {
     if (type === 'quality') {
       return (
         <>
-          <Button
-            type="primary"
-            style={{ marginLeft: '12px' }}
-            loading={loading}
+          <PermissionWrapper
+            requiredPermissions={[
+              { resource: /^menu.list.*/, actions: ['read'] },
+            ]}
           >
-            质检
-          </Button>
-          <Button loading={loading}>删除</Button>
+            <Button
+              type="primary"
+              style={{ marginLeft: '12px' }}
+              loading={loading}
+            >
+              质检
+            </Button>
+          </PermissionWrapper>
+
+          <PermissionWrapper
+            requiredPermissions={[
+              { resource: /^menu.list.*/, actions: ['write'] },
+            ]}
+          >
+            <Button loading={loading}>删除</Button>
+          </PermissionWrapper>
         </>
       );
     }

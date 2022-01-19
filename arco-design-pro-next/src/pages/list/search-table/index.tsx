@@ -6,6 +6,7 @@ import {
   Button,
   Space,
 } from '@arco-design/web-react';
+import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
@@ -81,19 +82,25 @@ function SearchTable() {
         headerStyle={{ border: 'none', height: 'auto', paddingTop: '20px' }}
       >
         <SearchForm onSearch={handleSearch} />
-        <div className={styles['button-group']}>
-          <Space>
-            <Button type="primary" icon={<IconPlus />}>
-              {t['searchTable.operations.add']}
-            </Button>
-            <Button>{t['searchTable.operations.upload']}</Button>
-          </Space>
-          <Space>
-            <Button icon={<IconDownload />}>
-              {t['searchTable.operation.download']}
-            </Button>
-          </Space>
-        </div>
+        <PermissionWrapper
+          requiredPermissions={[
+            { resource: 'menu.list.searchTable', actions: ['write'] },
+          ]}
+        >
+          <div className={styles['button-group']}>
+            <Space>
+              <Button type="primary" icon={<IconPlus />}>
+                {t['searchTable.operations.add']}
+              </Button>
+              <Button>{t['searchTable.operations.upload']}</Button>
+            </Space>
+            <Space>
+              <Button icon={<IconDownload />}>
+                {t['searchTable.operation.download']}
+              </Button>
+            </Space>
+          </div>
+        </PermissionWrapper>
         <Table
           rowKey="id"
           loading={loading}

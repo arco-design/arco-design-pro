@@ -63,8 +63,8 @@ export default function MyApp({
   useEffect(() => {
     if (checkLogin()) {
       fetchUserInfo();
-    } else if (window.location.pathname !== '/login') {
-      window.location.href = '/login';
+    } else if (window.location.pathname.replace(/\//g, '') !== 'login') {
+      window.location.pathname = '/login';
     }
   }, []);
 

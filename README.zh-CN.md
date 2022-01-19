@@ -22,12 +22,12 @@ Admin 中后台管理页面，创新的多架构方案。
 
 ## ✨ Features
 
-- **TypeScript**  -  代码完全使用 TypeScript 书写
-- **Arco Design**  -  由 [ArcoDesign React](https://github.com/arco-design/arco-design) 组件库强力驱动
+- **TypeScript** - 代码完全使用 TypeScript 书写
+- **Arco Design** - 由 [ArcoDesign React](https://github.com/arco-design/arco-design) 组件库强力驱动
 - **Templates** - 16+ 页面模版，覆盖表格、列表、表单、工作台、可视化等场景。
 - **Themes** - 基于「[风格配置平台](https://arco.design/themes)」丰富的主题市场，让你的项目千变万化。
-- **Dark Theme**  -  一键丝滑切换暗黑风格
-- **Mock**  -  内置 API 模拟方案
+- **Dark Theme** - 一键丝滑切换暗黑风格
+- **Mock** - 内置 API 模拟方案
 - **Flexible** - 灵活的多架构方案，支持 [next.js](https://github.com/vercel/next.js) / [vite](https://github.com/vitejs/vite) / [cra](https://github.com/facebook/create-react-app) 等开发框架
 - **I18n** - 内置国际化多语言解决方案
 - **Config** - 灵活配置页面配色、布局等
@@ -47,6 +47,12 @@ $ npm i @arco-design/arco-cli@latest yarn -g
 
 $ arco init my-project
 ```
+
+## 💎 Changelog
+
+- [中文版](https://github.com/arco-design/arco-design-pro/blob/main/docs/changelog.zh-CN.md)
+
+- [英文版](https://github.com/arco-design/arco-design-pro/blob/main/docs/changelog.md)
 
 ## LICENSE
 
