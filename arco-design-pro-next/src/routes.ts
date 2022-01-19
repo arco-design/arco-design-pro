@@ -1,6 +1,14 @@
-export const defaultRoute = 'dashboard/workplace';
+import auth, { AuthParams } from '@/utils/authentication';
+import { useEffect, useMemo, useState } from 'react';
 
-export const routes = [
+export type Route = AuthParams & {
+  name: string;
+  key: string;
+  breadcrumb?: boolean;
+  children?: Route[];
+};
+
+export const routes: Route[] = [
   {
     name: 'menu.dashboard',
     key: 'dashboard',
@@ -12,6 +20,9 @@ export const routes = [
       {
         name: 'menu.dashboard.monitor',
         key: 'dashboard/monitor',
+        requiredPermissions: [
+          { resource: 'menu.dashboard.monitor', actions: ['write'] },
+        ],
       },
     ],
   },
@@ -22,10 +33,24 @@ export const routes = [
       {
         name: 'menu.visualization.dataAnalysis',
         key: 'visualization/data-analysis',
+        requiredPermissions: [
+          { resource: 'menu.visualization.dataAnalysis', actions: ['read'] },
+        ],
       },
       {
         name: 'menu.visualization.multiDimensionDataAnalysis',
         key: 'visualization/multi-dimension-data-analysis',
+        requiredPermissions: [
+          {
+            resource: 'menu.visualization.dataAnalysis',
+            actions: ['read', 'write'],
+          },
+          {
+            resource: 'menu.visualization.multiDimensionDataAnalysis',
+            actions: ['write'],
+          },
+        ],
+        oneOfPerm: true,
       },
     ],
   },
@@ -50,10 +75,16 @@ export const routes = [
       {
         name: 'menu.form.group',
         key: 'form/group',
+        requiredPermissions: [
+          { resource: 'menu.form.group', actions: ['read', 'write'] },
+        ],
       },
       {
         name: 'menu.form.step',
         key: 'form/step',
+        requiredPermissions: [
+          { resource: 'menu.form.step', actions: ['read'] },
+        ],
       },
     ],
   },
@@ -128,3 +159,66 @@ export const getName = (path: string, routes) => {
     }
   });
 };
+
+export const generatePermission = (role: 'admin' | 'normal') => {
+  const actions = role === 'admin' ? ['*'] : ['read'];
+  const result = {};
+  routes.forEach((item) => {
+    if (item.children) {
+      item.children.forEach((child) => {
+        result[child.name] = actions;
+      });
+    }
+  });
+  return result;
+};
+
+const useRoute = (userPermission): [Route[], string] => {
+  const filterRoute = (routes: Route[], arr = []): Route[] => {
+    if (!routes.length) {
+      return [];
+    }
+    for (const route of routes) {
+      const { requiredPermissions, oneOfPerm } = route;
+      let visible = true;
+      if (requiredPermissions) {
+        visible = auth({ requiredPermissions, oneOfPerm }, userPermission);
+      }
+
+      if (!visible) {
+        continue;
+      }
+      const newRoute = { ...route, children: [] };
+      if (route.children && route.children.length) {
+        filterRoute(route.children, newRoute.children);
+        if (newRoute.children.length) {
+          arr.push(newRoute);
+        }
+      } else {
+        arr.push(newRoute);
+      }
+    }
+
+    return arr;
+  };
+
+  const [permissionRoute, setPermissionRoute] = useState(routes);
+
+  useEffect(() => {
+    const newRoutes = filterRoute(routes);
+    setPermissionRoute(newRoutes);
+  }, [userPermission]);
+
+  const defaultRoute = useMemo(() => {
+    const first = permissionRoute[0];
+    if (first) {
+      const firstRoute = first?.children?.[0]?.key || first.key;
+      return firstRoute;
+    }
+    return '';
+  }, [permissionRoute]);
+
+  return [permissionRoute, defaultRoute];
+};
+
+export default useRoute;

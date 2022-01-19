@@ -8,12 +8,15 @@ export interface GlobalState {
     organization?: string;
     location?: string;
     email?: string;
-    roles?: string[];
+    permissions: Record<string, string[]>;
   };
 }
 
 const initialState: GlobalState = {
   settings: defaultSettings,
+  userInfo: {
+    permissions: {},
+  },
 };
 
 export default function store(state = initialState, action) {
@@ -26,7 +29,7 @@ export default function store(state = initialState, action) {
       };
     }
     case 'update-userInfo': {
-      const { userInfo = {}, userLoading } = action.payload;
+      const { userInfo = initialState.userInfo, userLoading } = action.payload;
       return {
         ...state,
         userLoading,

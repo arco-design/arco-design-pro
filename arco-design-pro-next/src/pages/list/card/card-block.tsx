@@ -12,6 +12,7 @@ import {
   Skeleton,
 } from '@arco-design/web-react';
 import styles from './style/index.module.less';
+import PermissionWrapper from '@/components/PermissionWrapper';
 import cs from 'classnames';
 import {
   IconStarFill,
@@ -81,14 +82,27 @@ function CardBlock(props: CardBlockType) {
     if (type === 'quality') {
       return (
         <>
-          <Button
-            type="primary"
-            style={{ marginLeft: '12px' }}
-            loading={loading}
+          <PermissionWrapper
+            requiredPermissions={[
+              { resource: /^menu.list.*/, actions: ['read'] },
+            ]}
           >
-            质检
-          </Button>
-          <Button loading={loading}>删除</Button>
+            <Button
+              type="primary"
+              style={{ marginLeft: '12px' }}
+              loading={loading}
+            >
+              质检
+            </Button>
+          </PermissionWrapper>
+
+          <PermissionWrapper
+            requiredPermissions={[
+              { resource: /^menu.list.*/, actions: ['write'] },
+            ]}
+          >
+            <Button loading={loading}>删除</Button>
+          </PermissionWrapper>
         </>
       );
     }

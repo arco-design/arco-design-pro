@@ -18,13 +18,14 @@ import Link from 'next/link';
 import qs from 'query-string';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
-import { routes, defaultRoute } from '@/routes';
+import useRoute, { Route } from '@/routes';
 import { isArray } from '@/utils/is';
 import useLocale from '@/utils/useLocale';
 import { GlobalState } from '@/store';
-import isAccessAllowed from '@/utils/access';
 import getUrlParams from '@/utils/getUrlParams';
 import styles from '@/style/layout.module.less';
+import authentication from '@/utils/authentication';
+import NoAccess from '@/pages/exception/403';
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -60,15 +61,18 @@ function PageLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = router.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
-  const defaultSelectedKeys = [currentComponent || defaultRoute];
-  const paths = (currentComponent || defaultRoute).split('/');
-  const defaultOpenKeys = paths.slice(0, paths.length - 1);
-
   const locale = useLocale();
   const settings = useSelector((state: GlobalState) => state.settings);
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
+
+  const [routes, defaultRoute] = useRoute(userInfo?.permissions);
+
+  const defaultSelectedKeys = [currentComponent || defaultRoute];
+  const paths = (currentComponent || defaultRoute).split('/');
+  const defaultOpenKeys = paths.slice(0, paths.length - 1);
+
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
 
@@ -97,7 +101,7 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   function renderRoutes(locale) {
     const nodes = [];
-    function travel(_routes, level, parentNode = []) {
+    function travel(_routes: Route[], level, parentNode = []) {
       return _routes.map((route) => {
         const { breadcrumb = true } = route;
         const iconDom = getIconFromKey(route.key);
@@ -111,8 +115,15 @@ function PageLayout({ children }: { children: ReactNode }) {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          // access
-          if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
+          let visible = true;
+          if (route.requiredPermissions) {
+            const { requiredPermissions, oneOfPerm } = route;
+            visible = authentication(
+              { requiredPermissions, oneOfPerm },
+              userInfo?.permissions || {}
+            );
+          }
+          if (visible) {
             routeMap.current.set(
               `/${route.key}`,
               breadcrumb ? [...parentNode, route.name] : []
@@ -157,14 +168,13 @@ function PageLayout({ children }: { children: ReactNode }) {
       });
     }
     travel(routes, 1);
-    // remove empty submenu
-    return nodes.filter((menu) => !menu.props.children.every((_item) => _item === undefined));
+    return nodes;
   }
 
   useEffect(() => {
     const routeConfig = routeMap.current.get(pathname);
     setBreadCrumb(routeConfig || []);
-  }, [pathname]);
+  }, [defaultRoute]);
 
   return (
     <Layout className={styles.layout}>
@@ -213,7 +223,9 @@ function PageLayout({ children }: { children: ReactNode }) {
                 </Breadcrumb>
               </div>
             )}
-            <Content>{children}</Content>
+            <Content>
+              {routeMap.current.has(pathname) ? children : <NoAccess />}
+            </Content>
           </div>
           {showFooter && <Footer />}
         </Layout>
