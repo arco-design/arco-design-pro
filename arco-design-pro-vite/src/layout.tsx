@@ -18,8 +18,7 @@ import qs from 'query-string';
 import NProgress from 'nprogress';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
-import { routes, defaultRoute } from './routes';
-import isAccessAllowed from './utils/access';
+import useRoute from '@/routes';
 import { isArray } from './utils/is';
 import useLocale from './utils/useLocale';
 import getUrlParams from './utils/getUrlParams';
@@ -56,7 +55,7 @@ function getIconFromKey(key) {
   }
 }
 
-function getFlattenRoutes() {
+function getFlattenRoutes(routes) {
   const mod = import.meta.glob('./pages/**/[a-z[]*.tsx');
   const res = [];
   function travel(_routes) {
@@ -78,18 +77,20 @@ function PageLayout() {
   const history = useHistory();
   const pathname = history.location.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
-  const defaultSelectedKeys = [currentComponent || defaultRoute];
-  const paths = (currentComponent || defaultRoute).split('/');
-  const defaultOpenKeys = paths.slice(0, paths.length - 1);
-
   const locale = useLocale();
   const settings = useSelector((state: GlobalState) => state.settings);
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
+
+  const [routes, defaultRoute] = useRoute(userInfo?.permissions);
+  const defaultSelectedKeys = [currentComponent || defaultRoute];
+  const paths = (currentComponent || defaultRoute).split('/');
+  const defaultOpenKeys = paths.slice(0, paths.length - 1);
 
   const [breadcrumb, setBreadCrumb] = useState([]);
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
+  const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
 
   const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
   const navbarHeight = 60;
@@ -99,7 +100,7 @@ function PageLayout() {
   const showMenu = settings.menu && urlParams.menu !== false;
   const showFooter = settings.footer && urlParams.footer !== false;
 
-  const flattenRoutes = useMemo(() => getFlattenRoutes() || [], []);
+  const flattenRoutes = useMemo(() => getFlattenRoutes(routes) || [], []);
 
   function onClickMenuItem(key) {
     const currentRoute = flattenRoutes.find((r) => r.key === key);
@@ -137,21 +138,19 @@ function PageLayout() {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
-            routeMap.current.set(
-              `/${route.key}`,
-              breadcrumb ? [...parentNode, route.name] : []
-            );
+          routeMap.current.set(
+            `/${route.key}`,
+            breadcrumb ? [...parentNode, route.name] : []
+          );
 
-            if (level > 1) {
-              return <MenuItem key={route.key}>{titleDom}</MenuItem>;
-            }
-            nodes.push(
-              <MenuItem key={route.key}>
-                <Link to={`/${route.key}`}>{titleDom}</Link>
-              </MenuItem>
-            );
+          if (level > 1) {
+            return <MenuItem key={route.key}>{titleDom}</MenuItem>;
           }
+          nodes.push(
+            <MenuItem key={route.key}>
+              <Link to={`/${route.key}`}>{titleDom}</Link>
+            </MenuItem>
+          );
         }
         if (isArray(route.children) && route.children.length) {
           const parentNode = [];
@@ -175,8 +174,7 @@ function PageLayout() {
       });
     }
     travel(routes, 1);
-    // remove empty submenu
-    return nodes.filter((menu) => !menu.props.children.every((_item) => _item === undefined));
+    return nodes;
   }
 
   useEffect(() => {
@@ -208,7 +206,10 @@ function PageLayout() {
                 collapse={collapsed}
                 onClickMenuItem={onClickMenuItem}
                 selectedKeys={selectedKeys}
-                defaultOpenKeys={defaultOpenKeys}
+                openKeys={openKeys}
+                onClickSubMenu={(_, openKeys) => {
+                  setOpenKeys(openKeys);
+                }}
               >
                 {renderRoutes(locale)}
               </Menu>
@@ -234,15 +235,13 @@ function PageLayout() {
             <Content>
               <Switch>
                 {flattenRoutes.map((route, index) => {
-                  if (!route.access || isAccessAllowed(route.access, userInfo?.roles)) {
-                    return (
-                      <Route
-                        key={index}
-                        path={`/${route.key}`}
-                        component={route.component}
-                      />
-                    );
-                  }
+                  return (
+                    <Route
+                      key={index}
+                      path={`/${route.key}`}
+                      component={route.component}
+                    />
+                  );
                 })}
                 <Redirect push to={`/${defaultRoute}`} />
               </Switch>

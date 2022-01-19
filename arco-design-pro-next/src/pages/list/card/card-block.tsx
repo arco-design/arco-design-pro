@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { QualityInspection, BasicCard } from './interface';
+import cs from 'classnames';
 import {
   Button,
   Switch,
@@ -11,9 +11,6 @@ import {
   Menu,
   Skeleton,
 } from '@arco-design/web-react';
-import styles from './style/index.module.less';
-import PermissionWrapper from '@/components/PermissionWrapper';
-import cs from 'classnames';
 import {
   IconStarFill,
   IconThumbUpFill,
@@ -24,6 +21,9 @@ import {
   IconCloseCircleFill,
   IconMore,
 } from '@arco-design/web-react/icon';
+import PermissionWrapper from '@/components/PermissionWrapper';
+import { QualityInspection, BasicCard } from './interface';
+import styles from './style/index.module.less';
 
 interface CardBlockType {
   type: 'quality' | 'service' | 'rules';

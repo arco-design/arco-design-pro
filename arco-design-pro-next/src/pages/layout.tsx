@@ -18,13 +18,12 @@ import Link from 'next/link';
 import qs from 'query-string';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
-import useRoute, { Route } from '@/routes';
+import useRoute from '@/routes';
 import { isArray } from '@/utils/is';
 import useLocale from '@/utils/useLocale';
 import { GlobalState } from '@/store';
 import getUrlParams from '@/utils/getUrlParams';
 import styles from '@/style/layout.module.less';
-import authentication from '@/utils/authentication';
 import NoAccess from '@/pages/exception/403';
 
 const MenuItem = Menu.Item;
@@ -75,6 +74,7 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   const [selectedKeys, setSelectedKeys] =
     useState<string[]>(defaultSelectedKeys);
+  const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
 
   const navbarHeight = 60;
   const menuWidth = collapsed ? 48 : settings?.menuWidth;
@@ -101,7 +101,7 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   function renderRoutes(locale) {
     const nodes = [];
-    function travel(_routes: Route[], level, parentNode = []) {
+    function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
         const { breadcrumb = true } = route;
         const iconDom = getIconFromKey(route.key);
@@ -115,30 +115,12 @@ function PageLayout({ children }: { children: ReactNode }) {
           (!isArray(route.children) ||
             (isArray(route.children) && !route.children.length))
         ) {
-          let visible = true;
-          if (route.requiredPermissions) {
-            const { requiredPermissions, oneOfPerm } = route;
-            visible = authentication(
-              { requiredPermissions, oneOfPerm },
-              userInfo?.permissions || {}
-            );
-          }
-          if (visible) {
-            routeMap.current.set(
-              `/${route.key}`,
-              breadcrumb ? [...parentNode, route.name] : []
-            );
-            if (level > 1) {
-              return (
-                <MenuItem key={route.key}>
-                  <Link href={`/${route.key}`}>
-                    <a>{titleDom}</a>
-                  </Link>
-                </MenuItem>
-              );
-            }
-
-            nodes.push(
+          routeMap.current.set(
+            `/${route.key}`,
+            breadcrumb ? [...parentNode, route.name] : []
+          );
+          if (level > 1) {
+            return (
               <MenuItem key={route.key}>
                 <Link href={`/${route.key}`}>
                   <a>{titleDom}</a>
@@ -146,6 +128,14 @@ function PageLayout({ children }: { children: ReactNode }) {
               </MenuItem>
             );
           }
+
+          nodes.push(
+            <MenuItem key={route.key}>
+              <Link href={`/${route.key}`}>
+                <a>{titleDom}</a>
+              </Link>
+            </MenuItem>
+          );
         }
         if (isArray(route.children) && route.children.length) {
           const parentNode = [];
@@ -200,7 +190,10 @@ function PageLayout({ children }: { children: ReactNode }) {
                 collapse={collapsed}
                 onClickMenuItem={onClickMenuItem}
                 selectedKeys={selectedKeys}
-                defaultOpenKeys={defaultOpenKeys}
+                openKeys={openKeys}
+                onClickSubMenu={(_, openKeys) => {
+                  setOpenKeys(openKeys);
+                }}
               >
                 {renderRoutes(locale)}
               </Menu>

@@ -6,7 +6,7 @@ import {
   Button,
   Space,
 } from '@arco-design/web-react';
-import PermissionWrapper from '@/utils/permissionWrapper';
+import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
