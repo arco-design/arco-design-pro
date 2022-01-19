@@ -100,10 +100,11 @@ function PageLayout() {
   const showMenu = settings.menu && urlParams.menu !== false;
   const showFooter = settings.footer && urlParams.footer !== false;
 
-  const flattenRoutes = useMemo(() => getFlattenRoutes(routes) || [], []);
+  const flattenRoutes = useMemo(() => getFlattenRoutes(routes) || [], [routes]);
 
   function renderRoutes(locale) {
     const nodes = [];
+    routeMap.current.clear();
     function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
         const { breadcrumb = true } = route;
@@ -241,7 +242,11 @@ function PageLayout() {
                     />
                   );
                 })}
-                <Redirect push to={`/${defaultRoute}`} />
+                <Route
+                  path="*"
+                  component={lazyload(() => import('./pages/exception/403'))}
+                />
+                <Redirect from="/" to={`/${defaultRoute}`} />
               </Switch>
             </Content>
           </div>

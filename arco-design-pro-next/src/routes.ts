@@ -188,14 +188,14 @@ const useRoute = (userPermission): [Route[], string] => {
       if (!visible) {
         continue;
       }
-      const newRoute = { ...route, children: [] };
       if (route.children && route.children.length) {
+        const newRoute = { ...route, children: [] };
         filterRoute(route.children, newRoute.children);
         if (newRoute.children.length) {
           arr.push(newRoute);
         }
       } else {
-        arr.push(newRoute);
+        arr.push({ ...route });
       }
     }
 
