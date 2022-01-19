@@ -14,30 +14,32 @@ export interface AuthParams {
   oneOfPerm?: boolean;
 }
 
-const auth = (params: Auth, userPermission: UserPermission) => {
-  const { resource, actions = [] } = params;
-
-  let perm: string[] = [];
-
-  if (resource instanceof RegExp) {
-    const permKeys = Object.keys(userPermission);
-    const matchPermissions = permKeys.filter((item) => item.match(resource));
-    return matchPermissions.every((key) => {
-      const perm = userPermission[key];
-      return actions.every((action) => perm.includes(action));
-    });
-  }
-
-  perm = userPermission[resource];
-
+const judge = (actions: string[], perm: string[]) => {
   if (!perm || !perm.length) {
     return false;
   }
 
-  if (!actions.length || actions.join('') === '*') {
-    return !!perm.length;
+  if (perm.join('') === '*') {
+    return true;
   }
+
   return actions.every((action) => perm.includes(action));
+};
+
+const auth = (params: Auth, userPermission: UserPermission) => {
+  const { resource, actions = [] } = params;
+  if (resource instanceof RegExp) {
+    const permKeys = Object.keys(userPermission);
+    const matchPermissions = permKeys.filter((item) => item.match(resource));
+
+    return matchPermissions.every((key) => {
+      const perm = userPermission[key];
+      return judge(actions, perm);
+    });
+  }
+
+  const perm = userPermission[resource];
+  return judge(actions, perm);
 };
 
 export default (params: AuthParams, userPermission: UserPermission) => {

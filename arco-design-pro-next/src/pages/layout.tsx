@@ -101,6 +101,7 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   function renderRoutes(locale) {
     const nodes = [];
+    routeMap.current.clear();
     function travel(_routes, level, parentNode = []) {
       return _routes.map((route) => {
         const { breadcrumb = true } = route;

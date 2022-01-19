@@ -160,7 +160,7 @@ export const getName = (path: string, routes) => {
   });
 };
 
-export const generatePermission = (role: 'admin' | 'normal') => {
+export const generatePermission = (role: string) => {
   const actions = role === 'admin' ? ['*'] : ['read'];
   const result = {};
   routes.forEach((item) => {
