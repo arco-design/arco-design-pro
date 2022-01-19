@@ -26,7 +26,7 @@ English | [简体中文](./README.zh-CN.md)
 - **Themes** - Based on the rich theme market of [DesignLab](https://arco.design/themes), make your projects ever-changing.
 - **Dark Theme** - Switch to dark theme with one click.
 - **Mock** - Built-in API simulation solution
-- **Flexible** - Flexible multi-architecture solution, support [next.js](https://github.com/vercel/next.js) / [vite](https://github.com/vitejs/vite ) / [cra](https://github.com/facebook/create-react-app) and other development frameworks
+- **Flexible** - Flexible multi-architecture solution, support [next.js](https://github.com/vercel/next.js) / [vite](https://github.com/vitejs/vite) / [cra](https://github.com/facebook/create-react-app) and other development frameworks
 - **I18n** - Built-in internationalized multi-language solution
 - **Config** - Flexible configuration of page color, layout, etc
 
@@ -45,6 +45,12 @@ $ npm i @arco-design/arco-cli@latest yarn -g
 
 $ arco init my-project
 ```
+
+## 💎 Changelog
+
+- [English Version](https://github.com/arco-design/arco-design-pro/blob/main/docs/changelog.md)
+
+- [Chinese Version](https://github.com/arco-design/arco-design-pro/blob/main/docs/changelog.zh-CN.md)
 
 ## LICENSE
 

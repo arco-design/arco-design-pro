@@ -244,11 +244,13 @@ function PageLayout() {
                     />
                   );
                 })}
+                <Route exact path="/">
+                  <Redirect to={`/${defaultRoute}`} />
+                </Route>
                 <Route
                   path="*"
                   component={lazyload(() => import('./pages/exception/403'))}
                 />
-                <Redirect from="/" to={`/${defaultRoute}`} />
               </Switch>
             </Content>
           </div>
