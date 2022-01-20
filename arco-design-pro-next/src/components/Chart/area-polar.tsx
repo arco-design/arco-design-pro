@@ -11,7 +11,6 @@ import {
 import CustomTooltip from './customer-tooltip';
 import { Spin } from '@arco-design/web-react';
 import DataSet from '@antv/data-set';
-import styles from './style/index.module.less';
 
 interface AreaPolarProps {
   data: any[];
