@@ -16,7 +16,7 @@ export default function Studio(props: StudioProps) {
   const t = useLocale(locale);
   const { userInfo } = props;
   return (
-    <Card bordered={false}>
+    <Card>
       <Grid.Row>
         <Grid.Col span={16}>
           <Typography.Title

@@ -2,7 +2,10 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 const withLess = require('next-with-less');
-const withTM = require('next-transpile-modules')(['@arco-design/web-react']);
+const withTM = require('next-transpile-modules')([
+  '@arco-design/web-react',
+  '@arco-themes/react-arco-pro',
+]);
 
 module.exports = withLess(
   withTM({

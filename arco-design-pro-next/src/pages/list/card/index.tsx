@@ -58,28 +58,25 @@ export default function ListCard() {
   };
 
   return (
-    <div className={styles.container}>
-      <Card
-        title={t['menu.list.card']}
-        headerStyle={{ border: 'none', height: 'auto', paddingTop: '20px' }}
+    <Card>
+      <Title heading={6}>{t['menu.list.card']}</Title>
+      <Tabs
+        activeTab={activeKey}
+        type="rounded"
+        onChange={setActiveKey}
+        extra={
+          <Input.Search
+            style={{ width: '240px' }}
+            placeholder={t[`cardList.tab.${activeKey}.placeholder`]}
+          />
+        }
       >
-        <Tabs
-          activeTab={activeKey}
-          type="rounded"
-          onChange={setActiveKey}
-          extra={
-            <Input.Search
-              style={{ width: '240px' }}
-              placeholder={t[`cardList.tab.${activeKey}.placeholder`]}
-            />
-          }
-        >
-          <Tabs.TabPane key="all" title={t['cardList.tab.title.all']} />
-          <Tabs.TabPane key="quality" title={t['cardList.tab.title.quality']} />
-          <Tabs.TabPane key="service" title={t['cardList.tab.title.service']} />
-          <Tabs.TabPane key="rules" title={t['cardList.tab.title.rules']} />
-        </Tabs>
-
+        <Tabs.TabPane key="all" title={t['cardList.tab.title.all']} />
+        <Tabs.TabPane key="quality" title={t['cardList.tab.title.quality']} />
+        <Tabs.TabPane key="service" title={t['cardList.tab.title.service']} />
+        <Tabs.TabPane key="rules" title={t['cardList.tab.title.rules']} />
+      </Tabs>
+      <div className={styles.container}>
         {activeKey === 'all' ? (
           Object.entries(data).map(([key, list]) => (
             <div key={key}>
@@ -92,7 +89,7 @@ export default function ListCard() {
             {getCardList(data[activeKey], activeKey as keyof typeof data)}
           </div>
         )}
-      </Card>
-    </div>
+      </div>
+    </Card>
   );
 }

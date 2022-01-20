@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Card, Grid } from '@arco-design/web-react';
+import { Typography, Card, Grid, Space } from '@arco-design/web-react';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import HorizontalInterval from '@/components/Chart/horizontal-interval';
@@ -8,7 +8,6 @@ import FactMultiPie from '@/components/Chart/fact-multi-pie';
 import locale from './locale';
 import DataOverview from './data-overview';
 import CardList from './card-list';
-import styles from './style/index.module.less';
 
 import './mock';
 
@@ -61,11 +60,11 @@ function DataAnalysis() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <Space size={16} direction="vertical" style={{ width: '100%' }}>
       <Row gutter={20}>
         <Col span={16}>
           <Card>
-            <Title heading={6} style={{ marginTop: '0px' }}>
+            <Title heading={6}>
               {t['multiDAnalysis.card.title.dataOverview']}
             </Title>
             <DataOverview />
@@ -73,7 +72,7 @@ function DataAnalysis() {
         </Col>
         <Col span={8}>
           <Card>
-            <Title heading={6} style={{ marginTop: '0px' }}>
+            <Title heading={6}>
               {t['multiDAnalysis.card.title.todayActivity']}
             </Title>
             <HorizontalInterval
@@ -83,7 +82,7 @@ function DataAnalysis() {
             />
           </Card>
           <Card>
-            <Title heading={6} style={{ marginTop: '0px' }}>
+            <Title heading={6}>
               {t['multiDAnalysis.card.title.contentTheme']}
             </Title>
             <AreaPolar
@@ -102,15 +101,19 @@ function DataAnalysis() {
       </Row>
       <Row>
         <Col span={24}>
-          <Card style={{ marginBottom: 0 }}>
-            <Title heading={6} style={{ marginTop: '0px' }}>
+          <Card>
+            <Title heading={6}>
               {t['multiDAnalysis.card.title.contentSource']}
             </Title>
-            <FactMultiPie loading={multiPieLoading} data={multiPie} height={240} />
+            <FactMultiPie
+              loading={multiPieLoading}
+              data={multiPie}
+              height={240}
+            />
           </Card>
         </Col>
       </Row>
-    </div>
+    </Space>
   );
 }
 export default DataAnalysis;

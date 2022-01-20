@@ -8,6 +8,7 @@ import {
   Menu,
   Divider,
   Message,
+  Button,
 } from '@arco-design/web-react';
 import {
   IconLanguage,
@@ -35,7 +36,7 @@ import defaultLocale from '@/locale';
 import useStorage from '@/utils/useStorage';
 import { generatePermission } from '@/routes';
 
-function Navbar() {
+function Navbar({ show }: { show: boolean }) {
   const t = useLocale();
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
   const dispatch = useDispatch();
@@ -69,6 +70,18 @@ function Navbar() {
       },
     });
   }, [role]);
+
+  if (!show) {
+    return (
+      <div className={styles['fixed-settings']}>
+        <Settings
+          trigger={
+            <Button icon={<IconSettings />} type="primary" size="large" />
+          }
+        />
+      </div>
+    );
+  }
 
   const handleChangeRole = () => {
     const newRole = role === 'admin' ? 'user' : 'admin';

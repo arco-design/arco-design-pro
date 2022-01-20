@@ -18,7 +18,7 @@ export interface ProjectProps {
 function ProjectCard(props: ProjectProps) {
   const { loading, contributors } = props;
   return (
-    <Card className={styles['project-wrapper']} bordered={true}>
+    <Card className={styles['project-wrapper']} bordered={true} size="small">
       {loading ? (
         <Skeleton text={{ rows: 1 }} animation />
       ) : (

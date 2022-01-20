@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Card, Grid, Table } from '@arco-design/web-react';
+import { Card, Grid, Table, Space, Typography } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
 import axios from 'axios';
 import locale from './locale';
 import PublicOpinion from './public-opinion';
-import styles from './style/index.module.less';
 import MultiInterval from '@/components/Chart/multi-stack-interval';
 import PeriodLine from '@/components/Chart/period-legend-line';
 import './mock';
@@ -70,27 +69,27 @@ function DataAnalysis() {
   }, [t]);
 
   return (
-    <div>
-      <Card
-        title={t['dataAnalysis.title.publicOpinion']}
-        className={styles.wrapper}
-      >
+    <Space size={16} direction="vertical" style={{ width: '100%' }}>
+      <Card>
+        <Typography.Title heading={6}>
+          {t['dataAnalysis.title.publicOpinion']}
+        </Typography.Title>
         <PublicOpinion />
       </Card>
       <Row gutter={16}>
         <Col span={14}>
-          <Card
-            title={t['dataAnalysis.title.publishingRate']}
-            className={styles.wrapper}
-          >
+          <Card>
+            <Typography.Title heading={6}>
+              {t['dataAnalysis.title.publishingRate']}
+            </Typography.Title>
             <MultiInterval data={chartData} loading={loading} />
           </Card>
         </Col>
         <Col span={10}>
-          <Card
-            title={t['dataAnalysis.title.authorsList']}
-            className={styles.wrapper}
-          >
+          <Card>
+            <Typography.Title heading={6}>
+              {t['dataAnalysis.title.authorsList']}
+            </Typography.Title>
             <div style={{ height: '370px' }}>
               <Table
                 rowKey="id"
@@ -102,16 +101,18 @@ function DataAnalysis() {
             </div>
           </Card>
         </Col>
+      </Row>
+      <Row>
         <Col span={24}>
-          <Card
-            title={t['dataAnalysis.title.publishingTiming']}
-            className={styles.wrapper}
-          >
+          <Card>
+            <Typography.Title heading={6}>
+              {t['dataAnalysis.title.publishingTiming']}
+            </Typography.Title>
             <PeriodLine data={chartData} loading={loading} />
           </Card>
         </Col>
       </Row>
-    </div>
+    </Space>
   );
 }
 export default DataAnalysis;

@@ -16,7 +16,11 @@ module.exports = {
       test: /\.svg$/,
       loader: '@svgr/webpack',
     }),
-    addWebpackPlugin(new ArcoWebpackPlugin()),
+    addWebpackPlugin(
+      new ArcoWebpackPlugin({
+        theme: '@arco-themes/react-arco-pro',
+      })
+    ),
     addWebpackAlias({
       '@': path.resolve(__dirname, 'src'),
     })

@@ -16,7 +16,7 @@ function MultiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
-        height={320}
+        height={352}
         data={data}
         padding={[10, 0, 30, 30]}
         autoFit

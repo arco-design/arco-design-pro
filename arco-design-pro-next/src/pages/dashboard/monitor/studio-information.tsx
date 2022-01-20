@@ -6,7 +6,7 @@ import locale from './locale';
 export default function StudioInformation() {
   const t = useLocale(locale);
   return (
-    <Card bordered={false}>
+    <Card>
       <Typography.Title style={{ marginTop: 0, marginBottom: 16 }} heading={6}>
         {t['monitor.title.studioInfo']}
       </Typography.Title>

@@ -34,8 +34,8 @@ function MyTeam() {
             key={index}
             style={
               index !== data.length - 1
-                ? { padding: '8px 20px' }
-                : { padding: '8px 20px 0px 20px' }
+                ? { padding: '8px 0px' }
+                : { padding: '8px 0px 0px 0px' }
             }
           >
             {loading ? (

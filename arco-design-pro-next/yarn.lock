@@ -266,14 +266,15 @@
     color "^3.1.3"
 
 "@arco-design/web-react@^2.27.0":
-  version "2.27.0"
-  resolved "https://registry.npmjs.org/@arco-design/web-react/-/web-react-2.27.0.tgz#5caf626c6fc6482dba6db43830f768aedc618bf4"
-  integrity sha512-Xx4a018G/9TQTKoXvHNptdO4c6EhhbNezQdxaShalSmuA/Dp8ycbOK6i3lggnG4+vCxcelMhsaGkENKrQXAEnQ==
+  version "2.28.2"
+  resolved "https://registry.npmjs.org/@arco-design/web-react/-/web-react-2.28.2.tgz#e5848622f906f0637511f7fab01cc6fc5187a036"
+  integrity sha512-GLVzw9c+j8feSOdOv1Qk/XrQSt40bjlZOYtnLcJ0re6lpNyxbqtTxVXeoP1SsZeUcgTiYoSUS4e+7HVXUsJSqA==
   dependencies:
     "@arco-design/color" "^0.4.0"
     "@babel/runtime" "^7.5.5"
     b-tween "^0.3.3"
     b-validate "^1.3.0"
+    compute-scroll-into-view "^1.0.17"
     dayjs "^1.10.5"
     lodash "^4.17.21"
     number-precision "^1.3.1"
@@ -282,6 +283,11 @@
     resize-observer-polyfill "^1.5.1"
     scroll-into-view-if-needed "2.2.20"
     shallowequal "^1.1.0"
+
+"@arco-themes/react-arco-pro@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@arco-themes/react-arco-pro/-/react-arco-pro-0.0.7.tgz#d1665391ebf3bfd702ce0d94680254baada2cc8d"
+  integrity sha512-ymLuKbfwdYha9noATRQXe5qQH4THjqlEkZTWtAysq4GssYeemNObof51NnuJSMyQtdTS8KC7r//+zHjZrk4dcA==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
@@ -3485,6 +3491,11 @@ compute-scroll-into-view@1.0.11:
   resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-1.0.11.tgz#7ff0a57f9aeda6314132d8994cce7aeca794fecf"
   integrity sha512-uUnglJowSe0IPmWOdDtrlHXof5CTIJitfJEyITHBW6zDVOGu9Pjk5puaLM73SLcwak0L4hEjO7Td88/a6P5i7A==
 
+compute-scroll-into-view@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.npmjs.org/compute-scroll-into-view/-/compute-scroll-into-view-1.0.17.tgz#6a88f18acd9d42e9cf4baa6bec7e0522607ab7ab"
+  integrity sha512-j4dx+Fb0URmzbwwMUrhqWM2BEWHdFGx+qZ9qqASHRPqvTYdqvWnHg0H1hIbcyLnvgnoNAVMlwkepyqM3DaIFUg==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -5522,10 +5533,10 @@ next-transpile-modules@^9.0.0:
     enhanced-resolve "^5.7.0"
     escalade "^3.1.1"
 
-next-with-less@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/next-with-less/-/next-with-less-2.0.2.tgz#391f88ff6c16e680e89c709a0c62cd08fe84219f"
-  integrity sha512-ARPjT6jNwSlGc8RRAhEiOMGfr4HuvvJ2k26WXmEVkpsuSXUe0h4KTb/ML67zxZy1EoBaH3r9Eos0f+SnWTZ1pA==
+next-with-less@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/next-with-less/-/next-with-less-2.0.4.tgz#4f67a5758669cc015abf801664e32da518c84dba"
+  integrity sha512-vMAXY6ZkpaGr3VXFJK0NsdzHJ4wmPoaduWjKypaS9843MF00WZ6ZG5JWAugYAOzudXxYb2G1vcS/pc1oZyC9wQ==
   dependencies:
     clone-deep "^4.0.1"
 

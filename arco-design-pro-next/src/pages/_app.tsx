@@ -1,4 +1,3 @@
-import '../style/global.less';
 import React, { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import cookies from 'next-cookies';
@@ -6,6 +5,7 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import '../style/global.less';
 import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
