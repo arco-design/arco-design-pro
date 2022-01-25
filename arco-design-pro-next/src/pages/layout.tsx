@@ -1,5 +1,6 @@
 import React, { useState, ReactNode, useRef, useEffect } from 'react';
 import { Layout, Menu, Breadcrumb } from '@arco-design/web-react';
+import cs from 'classnames';
 import {
   IconDashboard,
   IconList,
@@ -169,11 +170,13 @@ function PageLayout({ children }: { children: ReactNode }) {
 
   return (
     <Layout className={styles.layout}>
-      {showNavbar && (
-        <div className={styles['layout-navbar']}>
-          <Navbar />
-        </div>
-      )}
+      <div
+        className={cs(styles['layout-navbar'], {
+          [styles['layout-navbar-hidden']]: !showNavbar,
+        })}
+      >
+        <Navbar show={showNavbar} />
+      </div>
       <Layout>
         {showMenu && (
           <Sider

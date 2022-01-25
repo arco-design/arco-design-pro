@@ -19,13 +19,13 @@ export default function Monitor() {
           <ChatPanel />
         </div>
         <div className={styles['layout-content']}>
-          <Space size={12} direction="vertical" style={{ width: '100%' }}>
+          <Space size={16} direction="vertical" style={{ width: '100%' }}>
             <Studio userInfo={userInfo} />
             <DataStatistic />
           </Space>
         </div>
         <div className={styles['layout-right-side']}>
-          <Space size={12} direction="vertical" style={{ width: '100%' }}>
+          <Space size={16} direction="vertical" style={{ width: '100%' }}>
             <StudioStatus />
             <QuickOperation />
             <StudioInformation />

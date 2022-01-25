@@ -79,11 +79,13 @@ function PopularContent() {
   ];
 
   return (
-    <Card
-      title={t['workplace.popularContents']}
-      extra={<Link>{t['workplace.seeMore']}</Link>}
-      headerStyle={{ borderBottom: 0 }}
-    >
+    <Card>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography.Title heading={6}>
+          {t['workplace.popularContents']}
+        </Typography.Title>
+        <Link>{t['workplace.seeMore']}</Link>
+      </div>
       <Radio.Group
         type="button"
         value={type}

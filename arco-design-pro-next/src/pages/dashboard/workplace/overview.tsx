@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import {
   Grid,
+  Card,
   Typography,
   Divider,
   Skeleton,
@@ -79,8 +80,8 @@ function Overview() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Typography.Title heading={5} style={{ marginTop: 0 }}>
+    <Card>
+      <Typography.Title heading={5}>
         {t['workplace.welcomeBack']}
         {userInfo.name}
       </Typography.Title>
@@ -148,7 +149,7 @@ function Overview() {
         </div>
         <OverviewAreaLine data={data.chartData} loading={loading} />
       </div>
-    </div>
+    </Card>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from '@arco-design/web-react';
+import cs from 'classnames';
 import {
   IconDashboard,
   IconList,
@@ -185,11 +186,13 @@ function PageLayout() {
 
   return (
     <Layout className={styles.layout}>
-      {showNavbar && (
-        <div className={styles['layout-navbar']}>
-          <Navbar />
-        </div>
-      )}
+      <div
+        className={cs(styles['layout-navbar'], {
+          [styles['layout-navbar-hidden']]: !showNavbar,
+        })}
+      >
+        <Navbar show={showNavbar} />
+      </div>
       <Layout>
         {showMenu && (
           <Sider

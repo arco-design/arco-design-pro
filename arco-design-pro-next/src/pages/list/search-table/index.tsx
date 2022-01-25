@@ -5,6 +5,7 @@ import {
   PaginationProps,
   Button,
   Space,
+  Typography,
 } from '@arco-design/web-react';
 import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus } from '@arco-design/web-react/icon';
@@ -16,6 +17,7 @@ import styles from './style/index.module.less';
 import './mock';
 import { getColumns } from './constants';
 
+const { Title } = Typography;
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
 export const FilterType = ['规则筛选', '人工'];
 export const Status = ['已上线', '未上线'];
@@ -76,41 +78,37 @@ function SearchTable() {
   }
 
   return (
-    <div>
-      <Card
-        title={t['menu.list.searchTable']}
-        headerStyle={{ border: 'none', height: 'auto', paddingTop: '20px' }}
+    <Card>
+      <Title heading={6}>{t['menu.list.searchTable']}</Title>
+      <SearchForm onSearch={handleSearch} />
+      <PermissionWrapper
+        requiredPermissions={[
+          { resource: 'menu.list.searchTable', actions: ['write'] },
+        ]}
       >
-        <SearchForm onSearch={handleSearch} />
-        <PermissionWrapper
-          requiredPermissions={[
-            { resource: 'menu.list.searchTable', actions: ['write'] },
-          ]}
-        >
-          <div className={styles['button-group']}>
-            <Space>
-              <Button type="primary" icon={<IconPlus />}>
-                {t['searchTable.operations.add']}
-              </Button>
-              <Button>{t['searchTable.operations.upload']}</Button>
-            </Space>
-            <Space>
-              <Button icon={<IconDownload />}>
-                {t['searchTable.operation.download']}
-              </Button>
-            </Space>
-          </div>
-        </PermissionWrapper>
-        <Table
-          rowKey="id"
-          loading={loading}
-          onChange={onChangeTable}
-          pagination={pagination}
-          columns={columns}
-          data={data}
-        />
-      </Card>
-    </div>
+        <div className={styles['button-group']}>
+          <Space>
+            <Button type="primary" icon={<IconPlus />}>
+              {t['searchTable.operations.add']}
+            </Button>
+            <Button>{t['searchTable.operations.upload']}</Button>
+          </Space>
+          <Space>
+            <Button icon={<IconDownload />}>
+              {t['searchTable.operation.download']}
+            </Button>
+          </Space>
+        </div>
+      </PermissionWrapper>
+      <Table
+        rowKey="id"
+        loading={loading}
+        onChange={onChangeTable}
+        pagination={pagination}
+        columns={columns}
+        data={data}
+      />
+    </Card>
   );
 }
 

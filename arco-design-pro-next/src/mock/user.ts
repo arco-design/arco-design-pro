@@ -24,7 +24,7 @@ if (!isSSR) {
           locationName: '北京',
           introduction: '王力群并非是一个真实存在的人。',
           personalWebsite: 'https://www.arco.design',
-          verified: Mock.Random.boolean(),
+          verified: true,
           phoneNumber: /177[*]{6}[0-9]{2}/,
           accountId: /[a-z]{4}[-][0-9]{8}/,
           registrationTime: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),

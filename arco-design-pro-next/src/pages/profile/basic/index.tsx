@@ -69,13 +69,9 @@ function BasicProfile() {
   return (
     <div className={styles.container}>
       <Card>
-        <Grid.Row
-          justify="space-between"
-          align="center"
-          style={{ marginBottom: 24 }}
-        >
+        <Grid.Row justify="space-between" align="center">
           <Grid.Col span={16}>
-            <Typography.Title heading={6} style={{ margin: 0 }}>
+            <Typography.Title heading={6}>
               {t['basicProfile.title.form']}
             </Typography.Title>
           </Grid.Col>
@@ -107,10 +103,7 @@ function BasicProfile() {
         loading={preLoading}
       />
       <Card>
-        <Typography.Title
-          heading={6}
-          style={{ marginTop: 0, marginBottom: '16px' }}
-        >
+        <Typography.Title heading={6}>
           {t['basicProfile.adjustment.record']}
         </Typography.Title>
         <Table
