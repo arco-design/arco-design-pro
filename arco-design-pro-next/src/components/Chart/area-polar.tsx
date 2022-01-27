@@ -11,6 +11,7 @@ import {
 import CustomTooltip from './customer-tooltip';
 import { Spin } from '@arco-design/web-react';
 import DataSet from '@antv/data-set';
+import useBizTheme from '@/utils/useChartTheme';
 
 interface AreaPolarProps {
   data: any[];
@@ -33,6 +34,7 @@ function AreaPolar(props: AreaPolarProps) {
   return (
     <Spin loading={loading} style={{ width: '100%' }}>
       <Chart
+        theme={useBizTheme()}
         height={height || 400}
         padding={0}
         data={dv.rows}
@@ -69,7 +71,8 @@ function AreaPolar(props: AreaPolarProps) {
             ],
           ]}
         />
-        <Axis name="score" label={false} />
+        <Axis name="score" grid={{ line: { type: 'line' } }} label={false} />
+        <Axis name="item" line={false} />
         <Legend
           position="right"
           marker={(_, index) => {

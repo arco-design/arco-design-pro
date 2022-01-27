@@ -41,13 +41,9 @@ function DropContent() {
 
   function readMessage(data: MessageListType) {
     const ids = data.map((item) => item.id);
-    axios
-      .post('/api/message/read', {
-        ids,
-      })
-      .then(() => {
-        fetchSourceData();
-      });
+    axios.post('/api/message/read', {
+      ids,
+    });
   }
 
   useEffect(() => {
@@ -94,13 +90,18 @@ function DropContent() {
           defaultActiveTab="message"
           destroyOnHide
           extra={
-            <Button type="text" onClick={() => setSourceData([])}>
+            <Button
+              type="text"
+              onClick={() => {
+                setSourceData([]);
+              }}
+            >
               {t['message.empty']}
             </Button>
           }
         >
           {tabList.map((item) => {
-            const { key, title, avatar } = item;
+            const { key, title } = item;
             const data = groupData[key] || [];
             const unReadData = data.filter((item) => !item.status);
             return (

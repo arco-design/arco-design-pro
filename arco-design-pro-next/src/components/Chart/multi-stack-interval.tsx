@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart, Tooltip, Interval, Axis, Legend } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
 import CustomTooltip from './customer-tooltip';
+import useBizTheme from '@/utils/useChartTheme';
 
 function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
   return (
@@ -12,6 +13,7 @@ function MultiInterval({ data, loading }: { data: any[]; loading: boolean }) {
         data={data}
         autoFit
         className={'chart-wrapper'}
+        theme={useBizTheme()}
       >
         <Interval
           adjust="stack"

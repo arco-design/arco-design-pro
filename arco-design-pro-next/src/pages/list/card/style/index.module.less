@@ -15,7 +15,14 @@
 
   .card-content {
     min-height: 180px;
-    width: 100%;
+    width: calc(100% + 24px);
+    margin-left: -24px;
+    margin-right: 0px;
+
+    > div {
+      padding-left: 24px;
+      padding-right: 0px;
+    }
   }
 
   .single-content {
@@ -129,7 +136,7 @@
   }
 
   :global(.arco-card-body) {
-    padding-top: 52px;
+    padding-top: 60px;
     padding-bottom: 64px;
   }
 }

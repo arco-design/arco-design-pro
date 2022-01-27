@@ -107,7 +107,10 @@ function MessageList(props: MessageListProps) {
               }
               description={
                 <div>
-                  <Typography.Paragraph style={{ marginBottom: 0 }} ellipsis>
+                  <Typography.Paragraph
+                    style={{ marginBottom: 0, flex: 1 }}
+                    ellipsis={true}
+                  >
                     {item.content}
                   </Typography.Paragraph>
                   <Typography.Text type="secondary" style={{ fontSize: 12 }}>

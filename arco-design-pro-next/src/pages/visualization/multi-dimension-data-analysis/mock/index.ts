@@ -93,7 +93,7 @@ setupMock({
       const getCategoryCount = () => {
         const result = {};
         category.forEach((name) => {
-          result[name] = Mock.Random.natural(0, 100);
+          result[name] = Mock.Random.natural(40, 80);
         });
 
         return result;

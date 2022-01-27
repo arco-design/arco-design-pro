@@ -14,14 +14,9 @@ import {
 
 import { IconArrowRise, IconArrowFall } from '@arco-design/web-react/icon';
 import styles from '../style/public-opinion.module.less';
+import useBizTheme from '@/utils/useChartTheme';
 
 const { Title, Text } = Typography;
-const basicChartProps = {
-  pure: true,
-  autoFit: true,
-  height: 80,
-  padding: [10, 10, 0, 10],
-};
 
 export interface PublicOpinionCardProps {
   key: string;
@@ -35,10 +30,18 @@ export interface PublicOpinionCardProps {
   loading?: boolean;
 }
 
+const basicChartProps = {
+  pure: true,
+  autoFit: true,
+  height: 80,
+  padding: [10, 10, 0, 10],
+};
+
 function SimpleLine(props: { chartData: any[] }) {
   const { chartData } = props;
+
   return (
-    <Chart data={chartData} {...basicChartProps}>
+    <Chart data={chartData} {...basicChartProps} theme={useBizTheme()}>
       <Line
         position="x*y"
         size={3}
@@ -80,7 +83,7 @@ function SimpleInterval(props: { chartData: any[] }) {
           width: path[2][1] - path[1][1],
           height: path[0][2] - path[1][2],
           fill: cfg.color,
-          radius: (path[2][1] - path[1][1]) / 2,
+          radius: Math.abs(path[2][1] - path[1][1]) / 2,
         },
       });
       return group;
@@ -88,7 +91,7 @@ function SimpleInterval(props: { chartData: any[] }) {
   });
 
   return (
-    <Chart data={chartData} {...basicChartProps}>
+    <Chart data={chartData} {...basicChartProps} theme={useBizTheme()}>
       <Interval
         position="x*y"
         color={[
@@ -110,7 +113,12 @@ function SimplePie(props: { chartData: any[] }) {
   const { chartData } = props;
 
   return (
-    <Chart data={chartData} {...basicChartProps} padding={[0, 20, 0, 0]}>
+    <Chart
+      data={chartData}
+      {...basicChartProps}
+      padding={[0, 20, 0, 0]}
+      theme={useBizTheme()}
+    >
       <Coordinate type="theta" radius={0.8} innerRadius={0.7} />
       <Interval
         adjust="stack"

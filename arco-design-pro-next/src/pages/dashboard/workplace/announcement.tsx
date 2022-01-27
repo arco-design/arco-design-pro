@@ -52,7 +52,11 @@ function Announcement() {
         <div>
           {data.map((d) => (
             <div key={d.key} className={styles.item}>
-              <Tag color={getTagColor(d.type)} size="small">
+              <Tag
+                color={getTagColor(d.type)}
+                size="small"
+                defaultChecked={false}
+              >
                 {t[`workplace.${d.type}`]}
               </Tag>
               <span className={styles.link}>{d.content}</span>

@@ -42,7 +42,7 @@ export default function ListCard() {
     type: keyof typeof data
   ) => {
     return (
-      <Row gutter={24} className={styles['card-content']}>
+      <Row className={styles['card-content']}>
         {type === 'quality' && (
           <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6}>
             <AddCard description={t['cardList.add.quality']} />

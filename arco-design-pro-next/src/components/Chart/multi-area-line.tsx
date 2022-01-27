@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart, Line, Axis, Legend, Area, Tooltip } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
 import CustomTooltip from './customer-tooltip';
+import useBizTheme from '@/utils/useChartTheme';
 
 const areaColorMap = [
   'l (90) 0:rgba(131, 100, 255, 0.5) 1:rgba(80, 52, 255, 0.001)',
@@ -22,6 +23,7 @@ function MultiAreaLine({ data, loading }: { data: any[]; loading: boolean }) {
         autoFit
         scale={{ time: 'time' }}
         className={'chart-wrapper'}
+        theme={useBizTheme()}
       >
         <Line
           shape="smooth"

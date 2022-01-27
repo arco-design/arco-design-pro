@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart, Line, Axis, Area, Tooltip } from 'bizcharts';
 import { Spin } from '@arco-design/web-react';
 import CustomTooltip from './customer-tooltip';
+import useBizTheme from '@/utils/useChartTheme';
 
 function OverviewAreaLine({
   data,
@@ -23,6 +24,7 @@ function OverviewAreaLine({
         height={300}
         data={data}
         className={'chart-wrapper'}
+        theme={useBizTheme()}
       >
         <Axis
           name="count"

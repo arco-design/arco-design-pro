@@ -39,7 +39,7 @@ const i18n = {
   'zh-CN': {
     'workplace.welcomeBack': '欢迎回来，',
     'workplace.totalOnlyData': '线上总数据',
-    'workplace.contentInMarket': '投放中的内容',
+    'workplace.contentInMarket': '投放中内容',
     'workplace.comments': '日新增评论',
     'workplace.growth': '较昨日新增',
     'workplace.contentData': '内容数据',
