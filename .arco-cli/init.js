@@ -5,13 +5,13 @@ const FRAMEWORK_LIST = ['cra', 'next', 'vite'];
 const isWindows = process.platform === 'win32';
 const cmd = isWindows ? 'npm.cmd' : 'npm';
 
-module.exports = function ({ framework, projectPath }) {
+module.exports = function ({ framework, projectPath, simple}) {
   if (FRAMEWORK_LIST.indexOf(framework) > -1) {
     const { stderr, error } = spawnSync(cmd, [
       'run',
       `gen:${framework}`,
-      '--',
-      projectPath,
+      `--projectPath=${projectPath}`,
+      simple ? '--simple' : undefined
     ]);
 
     if (error) {

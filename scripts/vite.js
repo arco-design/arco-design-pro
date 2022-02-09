@@ -1,8 +1,15 @@
 const path = require('path');
 const fs = require('fs-extra');
+const minimist = require('minimist');
 
-const templatePath =  path.resolve(__dirname, "../arco-design-pro-vite");
-const projectPath = process.argv[2] || path.resolve(__dirname, "../examples/arco-design-pro-vite");
+const params = minimist(process.argv.slice(2));
+
+const isSimple = params.simple;
+const nextTemplatePath = path.resolve(__dirname,`..${isSimple ? '/simple-pro-template' : ''}/arco-design-pro-next`);
+const simplePath = path.resolve(__dirname, "../simple-pro-template/arco-design-pro-vite");
+const templatePath = path.resolve(__dirname, "../arco-design-pro-vite");
+const projectPath = params.projectPath || path.resolve(__dirname, "../examples/arco-design-pro-vite" + `${isSimple ? '-simple' : ''}`);
+
 
 const maps = {
   'src/components': 'src/components',
@@ -12,9 +19,9 @@ const maps = {
     dest: 'src/pages',
     filter: (src) => {
       const ignores = [
-        path.resolve(__dirname, '../arco-design-pro-next/src/pages/index.tsx'),
-        path.resolve(__dirname, '../arco-design-pro-next/src/pages/_app.tsx'),
-        path.resolve(__dirname, '../arco-design-pro-next/src/pages/layout.tsx'),
+        path.resolve(nextTemplatePath, "src/pages/index.tsx"),
+        path.resolve(nextTemplatePath, "src/pages/_app.tsx"),
+        path.resolve(nextTemplatePath, "src/pages/layout.tsx"),
       ];
       return ignores.indexOf(src) === -1;
     },
@@ -42,6 +49,11 @@ fs.copySync(
   }
 );
 
+if (isSimple) {
+  fs.emptyDirSync(path.resolve(projectPath, "src"));
+  fs.copySync(path.resolve(simplePath, "src"), path.resolve(projectPath, "src"));
+}
+
 const gitignorePath = path.resolve(
   __dirname,
   '../arco-design-pro-next/gitignore'
@@ -52,15 +64,17 @@ const gitignorePath2 = path.resolve(
 );
 
 Object.keys(maps).forEach((src) => {
+  let templatePath = path.resolve(nextTemplatePath, src);
+  if (!fs.existsSync(templatePath)) {
+    templatePath = path.resolve(__dirname, "../arco-design-pro-next", src);
+  }
+
   if (typeof maps[src] === 'string') {
-    fs.copySync(
-      path.resolve(__dirname, '../arco-design-pro-next', src),
-      path.resolve(projectPath, maps[src])
-    );
+    fs.copySync(templatePath, path.resolve(projectPath, maps[src]));
   }
   if (typeof maps[src] === 'object') {
     fs.copySync(
-      path.resolve(__dirname, '../arco-design-pro-next', src),
+      templatePath,
       path.resolve(
         projectPath,
         maps[src].dest
