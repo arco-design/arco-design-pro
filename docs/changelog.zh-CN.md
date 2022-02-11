@@ -25,3 +25,11 @@
 
 - 删除全局样式覆盖代码，引入 [Arco Pro 主题包](https://arco.design/themes/design/2207)
 - 使用 [arco-vite-plugin](https://github.com/arco-design/arco-plugins/blob/main/packages/plugin-vite-react/README.md) 实现 `vite` 架构下按需加在及主题包引入功能。
+
+## v2.3.0
+
+2022-02-11
+
+### 🆕 新增功能
+
+- 支持创建最小 `simple` 模版。(**需要将 `@arco-design/arco-cli` 升级至 `1.25.0`**)

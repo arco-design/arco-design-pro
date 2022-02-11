@@ -1,6 +1,6 @@
 {
   "name": "arco-design-pro",
-  "version": "2.2.0",
+  "version": "2.2.2-beta",
   "description": "Arco Design Pro",
   "keywords": [],
   "author": "ArcoDesign Team",
@@ -20,6 +20,7 @@
     "arco-design-pro-cra",
     "arco-design-pro-next",
     "arco-design-pro-vite",
+    "simple-pro-template",
     ".arco-cli",
     "!/**/node_modules",
     "!/**/.next",
