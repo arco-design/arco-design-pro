@@ -25,3 +25,11 @@
 
 - Reduce global style override code with [Arco Pro theme](https://arco.design/themes/design/2207)
 - Use [arco-vite-plugin](https://github.com/arco-design/arco-plugins/blob/main/packages/plugin-vite-react/README.md) to implement styles under vite architecture and add them as needed
+
+## v2.3.0
+
+2022-02-11
+
+### 🆕 What's New
+
+- Support for creating minimal `simple` templates. (**`@arco-design/arco-cli` needs to be upgraded to version `1.25.0`**)
