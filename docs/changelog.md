@@ -33,3 +33,12 @@
 ### 🆕 What's New
 
 - Support for creating minimal `simple` templates. (**`@arco-design/arco-cli` needs to be upgraded to version `1.25.0`**)
+
+## v2.3.1
+
+2022-02-24
+
+### 🐛 bugfix
+
+- Fix the bug that `settings.themeColor` does not take effect.
+- Fix the `bug` that the styles cannot be loaded on demand under the `cra` and `vite` architectures (the reason is that the full style package is manually imported)
