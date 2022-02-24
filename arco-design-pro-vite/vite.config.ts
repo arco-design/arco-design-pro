@@ -16,15 +16,15 @@ export default defineConfig({
     }),
     vitePluginForArco({
       theme: '@arco-themes/react-arco-pro',
+      modifyVars: {
+        'arcoblue-6': setting.themeColor,
+      },
     }),
   ],
   css: {
     preprocessorOptions: {
       less: {
         javascriptEnabled: true,
-        modifyVars: {
-          'arcoblue-6': setting.themeColor,
-        },
       },
     },
   },

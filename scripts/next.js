@@ -31,3 +31,19 @@ if (isSimple) {
     path.resolve(projectPath, 'src')
   );
 }
+
+// next cannot be loaded on demand and needs to be imported in full
+function addGlobalStyle() {
+  const themeStyleCode = "@import '@arco-themes/react-arco-pro/index.less';\n";
+  const globalStylePath = path.resolve(projectPath, 'src/style/global.less');
+
+  if (fs.existsSync(globalStylePath)) {
+    fs.readFile(globalStylePath, 'utf-8', (err, data) => {
+      if (!err) {
+        fs.writeFileSync(globalStylePath, themeStyleCode + data);
+      }
+    });
+  }
+}
+
+addGlobalStyle();

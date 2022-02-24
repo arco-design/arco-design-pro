@@ -14,11 +14,7 @@ module.exports = {
   webpack: override(
     addLessLoader({
       lessLoaderOptions: {
-        lessOptions: {
-          modifyVars: {
-            'arcoblue-6': setting.themeColor,
-          },
-        },
+        lessOptions: {},
       },
     }),
     addWebpackModuleRule({
@@ -28,6 +24,9 @@ module.exports = {
     addWebpackPlugin(
       new ArcoWebpackPlugin({
         theme: '@arco-themes/react-arco-pro',
+        modifyVars: {
+          'arcoblue-6': setting.themeColor,
+        },
       })
     ),
     addWebpackAlias({
