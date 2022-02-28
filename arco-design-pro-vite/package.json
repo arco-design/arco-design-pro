@@ -8,7 +8,9 @@
     "preview": "vite preview",
     "eslint": "eslint src/ --ext .ts,.tsx --fix --cache",
     "stylelint": "stylelint 'src/**/*.less' 'src/**/*.css' --fix --cache",
-    "lint": "npm run eslint && npm run stylelint"
+    "lint": "npm run eslint && npm run stylelint",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install && husky add .husky/pre-commit 'npm run lint-staged'"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -43,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-react": "^1.1.0",
+    "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^4.0.0",
@@ -72,19 +75,12 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run eslint",
-      "git add"
+      "eslint --fix --cache"
     ],
     "*.{css, less}": [
-      "npm run stylelint",
-      "git add"
+      "stylelint --fix"
     ]
   }
 }
