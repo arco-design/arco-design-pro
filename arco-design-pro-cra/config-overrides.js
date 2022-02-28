@@ -6,12 +6,17 @@ const {
   addWebpackPlugin,
   addWebpackAlias,
 } = require('customize-cra');
-const ArcoWebpackPlugin = require('@arco-design/webpack-plugin');
+const ArcoWebpackPlugin = require('@arco-plugins/webpack-react');
 const addLessLoader = require('customize-cra-less-loader');
+const setting = require('./src/settings.json');
 
 module.exports = {
   webpack: override(
-    addLessLoader(),
+    addLessLoader({
+      lessLoaderOptions: {
+        lessOptions: {},
+      },
+    }),
     addWebpackModuleRule({
       test: /\.svg$/,
       loader: '@svgr/webpack',
@@ -19,6 +24,9 @@ module.exports = {
     addWebpackPlugin(
       new ArcoWebpackPlugin({
         theme: '@arco-themes/react-arco-pro',
+        modifyVars: {
+          'arcoblue-6': setting.themeColor,
+        },
       })
     ),
     addWebpackAlias({

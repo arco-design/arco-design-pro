@@ -7,11 +7,15 @@ const withTM = require('next-transpile-modules')([
   '@arco-themes/react-arco-pro',
 ]);
 
+const setting = require("./src/settings.json");
+
 module.exports = withLess(
   withTM({
     lessLoaderOptions: {
       lessOptions: {
-        modifyVars: {},
+        modifyVars: {
+          'arcoblue-6': setting.themeColor,
+        },
       },
     },
     webpack: (config) => {
