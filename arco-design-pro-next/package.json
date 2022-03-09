@@ -6,9 +6,10 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "eslint": "eslint src/ --ext .ts,.tsx --fix --cache",
+    "eslint": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix --cache",
     "stylelint": "stylelint 'src/**/*.less' 'src/**/*.css' --fix --cache",
-    "lint": "npm run eslint && npm run stylelint"
+    "pre-commit": "pretty-quick --staged && npm run eslint && npm run stylelint",
+    "prepare": "husky install && husky add .husky/pre-commit 'npm run pre-commit'"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -46,6 +47,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "pretty-quick": "^3.1.2",
+    "husky": "^7.0.2",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "next-transpile-modules": "^9.0.0",
@@ -53,7 +56,7 @@
     "postcss-less": "^5.0.0",
     "prettier": "^2.4.1",
     "stylelint": "^14.1.0",
-    "stylelint-config-css-modules": "^2.3.0",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
     "typescript": "4.4.4"
   }
