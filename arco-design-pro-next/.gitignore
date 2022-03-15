@@ -35,3 +35,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+
+# eslint
+.eslintcache
+
+# stylelint
+.stylelintcache

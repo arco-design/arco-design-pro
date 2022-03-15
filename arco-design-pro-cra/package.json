@@ -7,11 +7,10 @@
     "dev": "react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",
-    "eslint": "eslint src/ --ext .ts,.tsx --fix --cache",
+    "eslint": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix --cache",
     "stylelint": "stylelint 'src/**/*.less' 'src/**/*.css' --fix --cache",
-    "lint": "npm run eslint && npm run stylelint",
-    "lint-staged": "lint-staged",
-    "prepare": "husky install && husky add .husky/pre-commit 'npm run lint-staged'"
+    "pre-commit": "pretty-quick --staged && npm run eslint && npm run stylelint",
+    "prepare": "husky install && husky add .husky/pre-commit 'npm run pre-commit'"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -54,13 +53,13 @@
     "husky": "^7.0.2",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
-    "lint-staged": "^11.1.2",
+    "pretty-quick": "^3.1.2",
     "postcss-less": "^5.0.0",
     "prettier": "^2.4.1",
     "react-app-rewired": "^2.1.8",
     "react-scripts": "^5.0.0",
     "stylelint": "^14.1.0",
-    "stylelint-config-css-modules": "^2.3.0",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
     "typescript": "^4.5.2"
   },
@@ -74,14 +73,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --cache"
-    ],
-    "*.{css, less}": [
-      "stylelint --fix"
     ]
   }
 }
