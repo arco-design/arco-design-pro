@@ -42,3 +42,12 @@
 
 - Fix the bug that `settings.themeColor` does not take effect.
 - Fix the `bug` that the styles cannot be loaded on demand under the `cra` and `vite` architectures (the reason is that the full style package is manually imported)
+
+## v2.4.0
+
+2022-03-17
+
+### 🐛 bugfix
+
+- Fixed a `bug` where the `dashboard` page had an incorrect layout after the menu was collapsed
+- Fixed `bug` where `stylelint` and `eslint` did not work before commit

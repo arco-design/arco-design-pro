@@ -42,3 +42,12 @@
 
 - 修复 `settings.themeColor` 在项目中无法生效的 `bug`。
 - 修复 `cra` 和 `vite` 架构下，样式无法按需加载的 `bug` (原因是手动引入全量的样式包)
+
+## v2.4.0
+
+2022-03-17
+
+### 🐛 bugfix
+
+- 修复 `dashboard` 页面在菜单收起后布局出错的 `bug`
+- 修复 `stylelint` 和 `eslint` 在提交前不生效的 `bug`
