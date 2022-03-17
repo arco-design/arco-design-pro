@@ -16,8 +16,8 @@ const gutter = 16;
 
 function Workplace() {
   return (
-    <Space size={16} align="start">
-      <Space size={16} direction="vertical">
+    <div className={styles.wrapper}>
+      <Space size={16} direction="vertical" className={styles.left}>
         <Overview />
         <Row gutter={gutter}>
           <Col span={12}>
@@ -34,7 +34,7 @@ function Workplace() {
         <Announcement />
         <Docs />
       </Space>
-    </Space>
+    </div>
   );
 }
 
