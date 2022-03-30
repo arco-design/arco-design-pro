@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Arco Design Pro",
   "scripts": {
-    "start": "vite",
+    "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
     "eslint": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix --cache",
