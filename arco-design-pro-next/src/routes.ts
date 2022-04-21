@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 export type Route = AuthParams & {
   name: string;
   key: string;
+  hideInMenu?: boolean;
   breadcrumb?: boolean;
   children?: Route[];
 };
@@ -179,23 +180,25 @@ const useRoute = (userPermission): [Route[], string] => {
       return [];
     }
     for (const route of routes) {
-      const { requiredPermissions, oneOfPerm } = route;
-      let visible = true;
-      if (requiredPermissions) {
-        visible = auth({ requiredPermissions, oneOfPerm }, userPermission);
-      }
-
-      if (!visible) {
-        continue;
-      }
-      if (route.children && route.children.length) {
-        const newRoute = { ...route, children: [] };
-        filterRoute(route.children, newRoute.children);
-        if (newRoute.children.length) {
-          arr.push(newRoute);
+      const { requiredPermissions, oneOfPerm, hideInMenu } = route;
+      if (!hideInMenu) {
+        let visible = true;
+        if (requiredPermissions) {
+          visible = auth({ requiredPermissions, oneOfPerm }, userPermission);
         }
-      } else {
-        arr.push({ ...route });
+
+        if (!visible) {
+          continue;
+        }
+        if (route.children && route.children.length) {
+          const newRoute = { ...route, children: [] };
+          filterRoute(route.children, newRoute.children);
+          if (newRoute.children.length) {
+            arr.push(newRoute);
+          }
+        } else {
+          arr.push({ ...route });
+        }
       }
     }
 
