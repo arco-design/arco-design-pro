@@ -265,15 +265,15 @@
   dependencies:
     color "^3.1.3"
 
-"@arco-design/web-react@^2.27.0":
-  version "2.28.2"
-  resolved "https://registry.npmjs.org/@arco-design/web-react/-/web-react-2.28.2.tgz#e5848622f906f0637511f7fab01cc6fc5187a036"
-  integrity sha512-GLVzw9c+j8feSOdOv1Qk/XrQSt40bjlZOYtnLcJ0re6lpNyxbqtTxVXeoP1SsZeUcgTiYoSUS4e+7HVXUsJSqA==
+"@arco-design/web-react@^2.32.2":
+  version "2.32.2"
+  resolved "https://registry.npmjs.org/@arco-design/web-react/-/web-react-2.32.2.tgz#20530f0f66e23cac5077e4237733b7ee6d278290"
+  integrity sha512-AvhXySI6lWLp8x5ce/b4RaQRY9k4hqEl8H7VipEaKFmC1EVY8B5weIYcrIH/GbLmtWNRsqpWuCvq4AlZ9DfWEA==
   dependencies:
     "@arco-design/color" "^0.4.0"
     "@babel/runtime" "^7.5.5"
     b-tween "^0.3.3"
-    b-validate "^1.3.0"
+    b-validate "^1.4.0"
     compute-scroll-into-view "^1.0.17"
     dayjs "^1.10.5"
     lodash "^4.17.21"
@@ -3053,12 +3053,10 @@ b-tween@^0.3.3:
   resolved "https://registry.yarnpkg.com/b-tween/-/b-tween-0.3.3.tgz#7a93ed199c98cd41a33ba4c711a0fa7e86db3fa2"
   integrity sha512-oEHegcRpA7fAuc9KC4nktucuZn2aS8htymCPcP3qkEGPqiBH+GfqtqoG2l7LxHngg6O0HFM7hOeOYExl1Oz4ZA==
 
-b-validate@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/b-validate/-/b-validate-1.3.0.tgz#236041ccd61f217e68107cca9cc7e8aa69cabb46"
-  integrity sha512-1nNlVSyIAHbHN6pZhStbGwCfxAasYUDIgMW+BuUcML2T5lT1IoKVeax1jV0c/lHDiMy3FHkuKOzdBNA7eGKnWQ==
-  dependencies:
-    lodash.isequal "^4.5.0"
+b-validate@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/b-validate/-/b-validate-1.4.0.tgz#3214c8c21a04724fcca328dcdd7f0f32d61a29b5"
+  integrity sha512-oSXHKWXisRFuHnmNr5QXsg9JoyUTRCfBbM4hAcAqDjAO1jeV7aQXTkzS7O2WVDDHlnGeqH7v5Im4Z+eKU1x5Mw==
 
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
@@ -5353,11 +5351,6 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
-
-lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.merge@^4.6.2:
   version "4.6.2"

@@ -69,11 +69,16 @@ function SearchTable() {
       });
   }
 
-  function onChangeTable(pagination) {
-    setPatination(pagination);
+  function onChangeTable({ current, pageSize }) {
+    setPatination({
+      ...pagination,
+      current,
+      pageSize,
+    });
   }
 
   function handleSearch(params) {
+    setPatination({ ...pagination, current: 1 });
     setFormParams(params);
   }
 
