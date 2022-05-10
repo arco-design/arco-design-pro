@@ -51,3 +51,15 @@
 
 - Fixed a `bug` where the `dashboard` page had an incorrect layout after the menu was collapsed
 - Fixed `bug` where `stylelint` and `eslint` did not work before commit
+
+## v2.5.0
+
+2022-05-10
+
+### 🐛 bugfix
+
+- Fixed the page number jump display problem after `search-table` page search.
+
+### 💎 enhancement
+
+- Generate production environment commands under `vite` architecture
