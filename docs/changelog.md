@@ -63,3 +63,15 @@
 ### 💎 enhancement
 
 - Generate production environment commands under `vite` architecture
+
+## v2.6.0
+
+2022-05-24
+
+### 🐛 bugfix
+
+- Fixed `useEffect` being executed twice in certain scenarios
+
+### 💎 Feature upgrade
+
+- `route` adds `ignore` parameter to create routes with hidden menu items
