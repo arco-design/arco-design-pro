@@ -1,14 +1,17 @@
 import auth, { AuthParams } from '@/utils/authentication';
 import { useEffect, useMemo, useState } from 'react';
 
-export type Route = AuthParams & {
+export type IRoute = AuthParams & {
   name: string;
   key: string;
+  // 当前页是否展示面包屑
   breadcrumb?: boolean;
-  children?: Route[];
+  children?: IRoute[];
+  // 当前路由是否渲染菜单项，为 true 的话不会在菜单中显示，但可通过路由地址访问。
+  ignore?: boolean;
 };
 
-export const routes: Route[] = [
+export const routes: IRoute[] = [
   {
     name: 'menu.dashboard',
     key: 'dashboard',
@@ -173,8 +176,8 @@ export const generatePermission = (role: string) => {
   return result;
 };
 
-const useRoute = (userPermission): [Route[], string] => {
-  const filterRoute = (routes: Route[], arr = []): Route[] => {
+const useRoute = (userPermission): [IRoute[], string] => {
+  const filterRoute = (routes: IRoute[], arr = []): IRoute[] => {
     if (!routes.length) {
       return [];
     }
@@ -207,7 +210,7 @@ const useRoute = (userPermission): [Route[], string] => {
   useEffect(() => {
     const newRoutes = filterRoute(routes);
     setPermissionRoute(newRoutes);
-  }, [userPermission]);
+  }, [JSON.stringify(userPermission)]);
 
   const defaultRoute = useMemo(() => {
     const first = permissionRoute[0];

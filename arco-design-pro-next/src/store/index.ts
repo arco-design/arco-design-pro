@@ -10,6 +10,7 @@ export interface GlobalState {
     email?: string;
     permissions: Record<string, string[]>;
   };
+  userLoading?: boolean;
 }
 
 const initialState: GlobalState = {
