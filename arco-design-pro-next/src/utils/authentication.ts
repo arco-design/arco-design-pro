@@ -31,7 +31,9 @@ const auth = (params: Auth, userPermission: UserPermission) => {
   if (resource instanceof RegExp) {
     const permKeys = Object.keys(userPermission);
     const matchPermissions = permKeys.filter((item) => item.match(resource));
-
+    if (!matchPermissions.length) {
+      return false;
+    }
     return matchPermissions.every((key) => {
       const perm = userPermission[key];
       return judge(actions, perm);
