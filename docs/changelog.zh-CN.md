@@ -75,3 +75,13 @@
 ### 💎 功能升级
 
 - `route` 新增 `ignore` 参数，可创建隐藏菜单项的路由
+
+## v2.6.1
+
+2022-07-06
+
+### 🐛 bugfix
+
+- 修复 `cra` 跟 `vite` 架构下样式会重复引入的问题。
+- 修复使用 `PermissionWrapper` 组件进行权限管理时 UI 会闪烁的问题。
+- 修复路由权限里 `requiredPermissions` 中 `resource` 用正则匹配但均不匹配的时候用户仍有权限的问题

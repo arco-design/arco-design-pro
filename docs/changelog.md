@@ -75,3 +75,13 @@
 ### 💎 Feature upgrade
 
 - `route` adds `ignore` parameter to create routes with hidden menu items
+
+## v2.6.1
+
+2022-07-06
+
+### 🐛 bugfix
+
+- Fix the problem that styles will be introduced repeatedly under `cra` and `vite` architectures.
+- Fixed UI flickering when using `PermissionWrapper` component for permission management.
+- Fixed the problem that users still have permissions when `resource` in `requiredPermissions` in routing permissions uses regular matches but none of them match
