@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import svgrPlugin from '@arco-plugins/vite-plugin-svgr';
 import vitePluginForArco from '@arco-plugins/vite-react';
 import setting from './src/settings.json';
+import host from 'vite-plugin-host';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
         'arcoblue-6': setting.themeColor,
       },
     }),
+    host(),
   ],
   css: {
     preprocessorOptions: {
