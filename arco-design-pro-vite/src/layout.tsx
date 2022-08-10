@@ -175,7 +175,7 @@ function PageLayout() {
         }
         return (
           <MenuItem key={route.key}>
-            <Link to={`/${route.key}`}>{titleDom}</Link>
+            {titleDom}
           </MenuItem>
         );
       });
@@ -186,6 +186,13 @@ function PageLayout() {
     const routeConfig = routeMap.current.get(pathname);
     setBreadCrumb(routeConfig || []);
   }, [pathname]);
+
+  useEffect(() => {
+    let key = pathname.replace(/^\//, '')
+    if (selectedKeys[0] !== key) {
+      setSelectedKeys([key])
+    }
+  }, [selectedKeys, pathname])
 
   return (
     <Layout className={styles.layout}>
