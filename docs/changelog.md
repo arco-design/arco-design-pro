@@ -72,7 +72,7 @@
 
 - Fixed `useEffect` being executed twice in certain scenarios
 
-### 💎 Feature upgrade
+### 🆕 What's New
 
 - `route` adds `ignore` parameter to create routes with hidden menu items
 
@@ -85,3 +85,16 @@
 - Fix the problem that styles will be introduced repeatedly under `cra` and `vite` architectures.
 - Fixed UI flickering when using `PermissionWrapper` component for permission management.
 - Fixed the problem that users still have permissions when `resource` in `requiredPermissions` in routing permissions uses regular matches but none of them match
+
+## v2.7.0
+
+2022-08-10
+
+### 🐛 bugfix
+
+- Fixed a bug where clicking the browser back button could not return to the previous page after routing changes
+- Fix the bug that the style under the `simple-next` template is not introduced
+
+### 🆕 What's New
+
+- Simple template code update, function synchronization.
