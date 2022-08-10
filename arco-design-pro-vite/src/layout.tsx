@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb, Spin } from '@arco-design/web-react';
 import cs from 'classnames';
 import {
@@ -105,6 +105,10 @@ function PageLayout() {
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
 
   const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
+  const menuMap = useRef<
+    Map<string, { menuItem?: boolean; subMenu?: boolean }>
+  >(new Map());
+
   const navbarHeight = 60;
   const menuWidth = collapsed ? 48 : settings.menuWidth;
 
@@ -120,7 +124,6 @@ function PageLayout() {
     const preload = component.preload();
     NProgress.start();
     preload.then(() => {
-      setSelectedKeys([key]);
       history.push(currentRoute.path ? currentRoute.path : `/${key}`);
       NProgress.done();
     });
@@ -167,32 +170,44 @@ function PageLayout() {
           return '';
         }
         if (visibleChildren.length) {
+          menuMap.current.set(route.key, { subMenu: true });
           return (
             <SubMenu key={route.key} title={titleDom}>
               {travel(visibleChildren, level + 1, [...parentNode, route.name])}
             </SubMenu>
           );
         }
-        return (
-          <MenuItem key={route.key}>
-            {titleDom}
-          </MenuItem>
-        );
+        menuMap.current.set(route.key, { menuItem: true });
+        return <MenuItem key={route.key}>{titleDom}</MenuItem>;
       });
     };
+  }
+
+  function updateMenuStatus() {
+    const pathKeys = pathname.split('/');
+    const newSelectedKeys: string[] = [];
+    const newOpenKeys: string[] = [...openKeys];
+    while (pathKeys.length > 0) {
+      const currentRouteKey = pathKeys.join('/');
+      const menuKey = currentRouteKey.replace(/^\//, '');
+      const menuType = menuMap.current.get(menuKey);
+      if (menuType && menuType.menuItem) {
+        newSelectedKeys.push(menuKey);
+      }
+      if (menuType && menuType.subMenu && !openKeys.includes(menuKey)) {
+        newOpenKeys.push(menuKey);
+      }
+      pathKeys.pop();
+    }
+    setSelectedKeys(newSelectedKeys);
+    setOpenKeys(newOpenKeys);
   }
 
   useEffect(() => {
     const routeConfig = routeMap.current.get(pathname);
     setBreadCrumb(routeConfig || []);
+    updateMenuStatus();
   }, [pathname]);
-
-  useEffect(() => {
-    let key = pathname.replace(/^\//, '')
-    if (selectedKeys[0] !== key) {
-      setSelectedKeys([key])
-    }
-  }, [selectedKeys, pathname])
 
   return (
     <Layout className={styles.layout}>

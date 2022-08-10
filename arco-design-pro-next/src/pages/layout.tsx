@@ -85,6 +85,9 @@ function PageLayout({ children }: { children: ReactNode }) {
   const showFooter = settings?.footer && urlParams.footer !== false;
 
   const routeMap = useRef<Map<string, ReactNode[]>>(new Map());
+  const menuMap = useRef<
+    Map<string, { menuItem?: boolean; subMenu?: boolean }>
+  >(new Map());
 
   const [breadcrumb, setBreadCrumb] = useState([]);
 
@@ -133,12 +136,14 @@ function PageLayout({ children }: { children: ReactNode }) {
           return '';
         }
         if (visibleChildren.length) {
+          menuMap.current.set(route.key, { subMenu: true });
           return (
             <SubMenu key={route.key} title={titleDom}>
               {travel(visibleChildren, level + 1, [...parentNode, route.name])}
             </SubMenu>
           );
         }
+        menuMap.current.set(route.key, { menuItem: true });
         return (
           <MenuItem key={route.key}>
             <Link href={`/${route.key}`}>
@@ -150,10 +155,31 @@ function PageLayout({ children }: { children: ReactNode }) {
     };
   }
 
+  function updateMenuStatus() {
+    const pathKeys = pathname.split('/');
+    const newSelectedKeys: string[] = [];
+    const newOpenKeys: string[] = [...openKeys];
+    while (pathKeys.length > 0) {
+      const currentRouteKey = pathKeys.join('/');
+      const menuKey = currentRouteKey.replace(/^\//, '');
+      const menuType = menuMap.current.get(menuKey);
+      if (menuType && menuType.menuItem) {
+        newSelectedKeys.push(menuKey);
+      }
+      if (menuType && menuType.subMenu && !openKeys.includes(menuKey)) {
+        newOpenKeys.push(menuKey);
+      }
+      pathKeys.pop();
+    }
+    setSelectedKeys(newSelectedKeys);
+    setOpenKeys(newOpenKeys);
+  }
+
   useEffect(() => {
     const routeConfig = routeMap.current.get(pathname);
     setBreadCrumb(routeConfig || []);
-  }, [defaultRoute, pathname]);
+    updateMenuStatus();
+  }, [pathname]);
 
   return (
     <Layout className={styles.layout}>
