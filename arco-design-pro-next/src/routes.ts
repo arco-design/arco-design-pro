@@ -205,12 +205,7 @@ const useRoute = (userPermission): [IRoute[], string] => {
     return arr;
   };
 
-  const [permissionRoute, setPermissionRoute] = useState(routes);
-
-  useEffect(() => {
-    const newRoutes = filterRoute(routes);
-    setPermissionRoute(newRoutes);
-  }, [JSON.stringify(userPermission)]);
+  const permissionRoute = filterRoute(routes);
 
   const defaultRoute = useMemo(() => {
     const first = permissionRoute[0];
