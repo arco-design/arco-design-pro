@@ -93,8 +93,13 @@
 ### 🐛 bugfix
 
 - Fixed a bug where clicking the browser back button could not return to the previous page after routing changes
-- Fix the bug that the style under the `simple-next` template is not introduced
 
 ### 🆕 What's New
 
 - Simple template code update, function synchronization.
+
+## v2.8.0
+
+2023-01-13
+
+- Fix the bug that the style under the `simple-next` template is not introduced
