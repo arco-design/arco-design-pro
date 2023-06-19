@@ -9,7 +9,7 @@
     "eslint": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix --cache",
     "stylelint": "stylelint 'src/**/*.less' 'src/**/*.css' --fix --cache",
     "pre-commit": "pretty-quick --staged && npm run eslint && npm run stylelint",
-    "prepare": "husky install && husky add .husky/pre-commit 'npm run pre-commit'"
+    "prepare": "husky install && husky set .husky/pre-commit 'npm run pre-commit'"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
