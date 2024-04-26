@@ -1,5 +1,13 @@
 # Arco Design Pro React v2.0
 
+## v2.7.3
+
+`2023-04-26`
+
+### 🐛 Bugfix
+
+- Use 'admin' instead.
+
 ## v2.1.0
 
 2022-01-19

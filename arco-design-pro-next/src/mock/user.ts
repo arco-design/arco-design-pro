@@ -12,7 +12,7 @@ if (!isSSR) {
       const userRole = window.localStorage.getItem('userRole') || 'admin';
       Mock.mock(new RegExp('/api/user/userInfo'), () => {
         return Mock.mock({
-          name: '王立群',
+          name: 'admin',
           avatar:
             'https://lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
           email: 'wangliqun@email.com',

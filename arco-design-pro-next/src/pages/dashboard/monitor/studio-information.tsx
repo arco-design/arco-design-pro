@@ -13,7 +13,7 @@ export default function StudioInformation() {
       <Form layout="vertical">
         <Form.Item label={t['monitor.studioInfo.label.studioTitle']} required>
           <Input
-            placeholder={`王立群${t['monitor.studioInfo.placeholder.studioTitle']}`}
+            placeholder={`admin${t['monitor.studioInfo.placeholder.studioTitle']}`}
           />
         </Form.Item>
         <Form.Item
