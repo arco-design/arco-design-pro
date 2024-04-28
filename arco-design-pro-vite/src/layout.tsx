@@ -133,7 +133,7 @@ function PageLayout() {
     setCollapsed((collapsed) => !collapsed);
   }
 
-  const paddingLeft = showMenu ? { paddingLeft: menuWidth } : {};
+  const paddingLeft = showMenu ? { paddingLeft: 0 } : {};
   const paddingTop = showNavbar ? { paddingTop: navbarHeight } : {};
   const paddingStyle = { ...paddingLeft, ...paddingTop };
 
